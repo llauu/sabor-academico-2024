@@ -1,5 +1,4 @@
-# Sabor Académico 2024
-## 2do Parcial - PPS
+# Sabor Académico 2024 | 2do Parcial - PPS
 
 ## Alumnos
 ### Lautaro Monserrat - Alfa
