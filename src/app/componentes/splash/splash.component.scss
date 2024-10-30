@@ -1,0 +1,73 @@
+.splash-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #ad0d0d, #ffee00); /* Degradado */
+    color: #003366; /* Texto azul profundo */
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .splash-logo {
+    width: 500px;
+    margin-bottom: 20px;
+    animation: slideInLeft 2s forwards, centerLogo 1s forwards 4s; /* Entra y centra después */
+    opacity: 0;
+  }
+  
+  .text-content {
+    z-index: 1;
+    opacity: 0;
+    animation: slideInRight 2s forwards, slideOutUp 1s forwards 4s; /* Entra y sale */
+  }
+  
+  .splash-title {
+    font-size: 2.8rem;
+    margin: 0;
+    font-weight: bold;
+    color: #003366;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.6rem;
+    margin: 0;
+    color: #003366;
+  }
+  
+  /* Animaciones de entrada */
+  @keyframes slideInLeft {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes slideInRight {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+  
+  /* Animaciones de salida hacia arriba */
+  @keyframes slideOutUp {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-100%); }
+  }
+  
+  /* Animación para centrar el logo */
+  @keyframes centerLogo {
+    0% { margin-bottom: 20px; transform: translateY(0); }
+    100% { margin-bottom: 0; transform: translateY(calc(50vh - 250px)); } /* Ajusta la altura según el tamaño del logo */
+  }
+  
+  .permanent-marker-regular {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-size: 2.5rem;
+  }
+  
+  .permanent-marker-regular-sub {
+    font-family: "Permanent Marker", cursive;
+    font-weight: 400;
+    font-size: 4rem;
+  }
+  
