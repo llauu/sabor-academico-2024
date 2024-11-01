@@ -1,6 +1,5 @@
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
@@ -24,4 +23,17 @@
 
 #container a {
   text-decoration: none;
+}
+
+ion-button {
+  --color: var(--colorado);
+  --border-color: var(--colorado);
+}
+
+ion-toolbar {
+  --background: var(--azul);
+}
+
+ion-content {
+  --background: var(--arena)
 }

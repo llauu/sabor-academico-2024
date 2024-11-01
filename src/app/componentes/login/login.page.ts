@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingController , IonButton, IonInput, IonItem, IonLabel, IonContent, IonHeader, IonToolbar, IonTitle, IonGrid, IonRow, IonCol, IonFooter } from '@ionic/angular/standalone';
+import { LoadingController , IonButton, IonInput, IonItem, IonLabel, IonContent, IonHeader, IonToolbar, IonTitle, IonGrid, IonRow, IonCol, IonFooter, IonButtons } from '@ionic/angular/standalone';
 import { FormsModule, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonInput, IonGrid, IonRow, IonCol, IonFooter, CommonModule, ReactiveFormsModule, FormsModule]
+  imports: [IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonInput, IonGrid, IonRow, IonCol, IonFooter, CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class LoginPage implements OnInit {
   loginForm: any;

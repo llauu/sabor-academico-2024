@@ -2,8 +2,8 @@
     font-size: 33px;
     font-weight: 800;
     padding: 20px 0px;
-    background-color: #1f1f1f;
-    color: white;
+    background-color: var(--azul);
+    color: var(--arena);
 }
 
 .login-page {
@@ -11,7 +11,7 @@
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    --background: #303030;
+    --background: var(--azul-claro);
 }
 
 .input-item {
@@ -33,7 +33,7 @@ ion-button {
 }
 
 .msg-err {
-    color: red;
+    color: var(--colorado);
     font-size: 14px;
     margin-top: 10px;
     position: absolute;
@@ -42,12 +42,12 @@ ion-button {
 .custom-subtitle {
     font-size: 25px;
     font-weight: bold;
-    color: white;
+    color: var(--arena);
 }
 
 .footer {
     margin-top: 70%;
     padding: 25px 0px;
-    background-color: #1f1f1f;
+    background-color: var(--azul);
     border-radius: 3px;
 }
