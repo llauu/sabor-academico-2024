@@ -1,22 +1,47 @@
-# Sabor Académico 2024 🍽️ | 2do Parcial - PPS📑
+# Sabor Académico 2024 🍽
 
 ## Grupo 🧠
-- **Alfa**: Monserrat, Lautaro [llauu](https://github.com/llauu)
-- **Beta**: Faccini, Trinidad [trinifaccini](https://github.com/trinifaccini)
-- **Gamma**: Rodriguez, Julian [rodriguezjulian](https://github.com/rodriguezjulian)
+- **[Alfa]** [Monserrat, Lautaro](https://github.com/llauu)
+- **[Beta]** [Faccini, Trinidad](https://github.com/trinifaccini)
+- **[Gamma]** [Rodriguez, Julian](https://github.com/rodriguezjulian)
 
-## Módulos 📑
-### Módulo 1 (Primer entrega)
-- **Diseño del icono, desarrollo splash screen (estático y dinámico)**: realizado por _Gamma_.
-- **Selección de paleta de colores, diseño visual del formulario de ingreso**: realizado por _Beta_.
-- **Configuración de Firestore, desarrollo del formulario de ingreso**: realizado por _Alfa_.
+## Tareas 📑
+### Asignacion de tareas 
+| #  | Tarea                                                   | Responsable | Estado    |
+| -- | ------------------------------------------------------- | ----------- | --------- |
+| 1  | Generacion de proyecto                                  | Beta        | Terminado |
+| 2  | Icono y Splash Screen                                   | Gamma       | Terminado |
+| 3  | Inicio de sesion                                        | Alfa        | Terminado |
+| 4  | Alta cliente                                            | -           | Pendiente |
+| 5  | Habilitacion de cliente                                 | -           | Pendiente |
+| 6  | QR de ingreso al local                                  | Beta        | Pendiente |
+| 7  | QR de la mesa                                           | Beta        | Pendiente |
+| 8  | QR de propina                                           | Beta        | Pendiente |
+| 9  | Encuesta Cliente                                        | -           | Pendiente |
+| 10 | Estado del pedido                                       | -           | Pendiente |
+| 11 | Ingresar al local                                       | -           | Pendiente |
+| 12 | Listado de espera                                       | -           | Pendiente |
+| 13 | Pedir platos y bebidas (Menu)                           | -           | Pendiente |
+| 14 | Consulta al mozo (Chat)                                 | Alfa        | Pendiente |
+| 15 | Confirmar pedido                                        | -           | Pendiente |
+| 16 | Correo Auto. / Aprobacion o no del cliente (al cliente) | Gamma       | Pendiente |
+| 17 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Pendiente |
+| 18 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Pendiente |
+| 19 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Pendiente |
+| 20 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
+| 21 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
+| 22 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Pendiente |
 
 ## Fecha de inicio 📆
 El proyecto fue **iniciado** el día 29 de octubre de 2024.
+
+## Fecha de finalizacion (estimada) 📆
+Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
 
 ## Branches 🌿
 ### Principal
 - **main**<br> Es la versión principal donde estaremos manejando las versiones finales del proyecto.
 
-### Secundaria
+### Secundarias
+Manejaremos distintas ramas secundarias para ir avanzando en las distintas funcionalidades del proyecto.
 - **JR_SplashScreen+Logo**<br> Branch correspondiente al código del splash screen y el logo.
