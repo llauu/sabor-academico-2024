@@ -1,0 +1,44 @@
+/* General styles for the scanner */
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.result-container {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  color: #333;
+}
+
+/* CSS for scanner active class */
+.barcode-scanner-active .scanner-area {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.8); /* Oscurecer fondo */
+}
+
+/* Centered scanner view */
+.barcode-scanner-active .scanner-area::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%; /* Ajusta el tamaño del área de escaneo */
+  height: 40%;
+  background-color: transparent;
+  border: 2px solid white; /* Bordes para el área de escaneo */
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5); /* Oscurece el resto de la pantalla */
+  pointer-events: none;
+}
+
+/* Botones siempre visibles */
+.scanner-container ion-button {
+  z-index: 1000;
+  position: relative;
+}

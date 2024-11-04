@@ -1,0 +1,17 @@
+<ion-content>
+  <!-- Botones de control -->
+  <div class="scanner-container">
+    <ion-button expand="block" color="primary" (click)="startScan()">Iniciar Escaneo</ion-button>
+    <ion-button expand="block" color="danger" (click)="stopScan()">Detener Escaneo</ion-button>
+  </div>
+
+  <!-- Área de escaneo -->
+  <div class="scanner-area barcode-scanner-active">
+    <!-- Aquí se visualizará el escaneo de código -->
+  </div>
+
+  <!-- Mostrar resultado -->
+  <div *ngIf="scannedResult" class="result-container">
+    <p>Resultado Escaneado: {{ scannedResult }}</p>
+  </div>
+</ion-content>

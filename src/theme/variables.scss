@@ -1,0 +1,18 @@
+body.barcode-scanning-modal-active {
+    visibility: hidden;
+    --background: transparent;
+    --ion-background-color: transparent;
+}
+
+.barcode-scanning-modal{
+    visibility: visible;
+}
+
+@media(prefers-color-scheme: dark) {
+    .barcode-scanning-modal-active {
+        visibility: hidden;
+        --background: transparent;
+        --ion-background-color: transparent;
+    }
+    
+}

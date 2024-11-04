@@ -12,10 +12,14 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./componentes/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'home',
-    loadComponent: () => import('./componentes/home/home.page').then( m => m.HomePage)
+    loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
+  },
+  {
+    path: 'pruebaQR',
+    loadComponent: () => import('./componentes/qr-scanner/qr-scanner.component').then( m => m.Scanner)
   },
 ];
