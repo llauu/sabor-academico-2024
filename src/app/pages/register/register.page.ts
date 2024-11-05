@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],  // Valida un DNI con 7 u 8 dígitos
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
     }, );

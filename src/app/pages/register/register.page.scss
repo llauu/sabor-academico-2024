@@ -123,3 +123,7 @@ button:hover span {
 button:active {
   transform: scale(0.9);
 }
+.text-danger {
+  color: red;
+  font-size: 12px;  /* Ajusta el tamaño si es necesario */
+}

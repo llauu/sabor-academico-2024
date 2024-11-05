@@ -33,8 +33,7 @@
               <label class="form-label">DNI</label>
               <div *ngIf="miformulario.get('dni')?.invalid && miformulario.get('dni')?.touched">
                 <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('required')">El DNI es obligatorio.</small>
-                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('minLength')">El DNI debe ser de 8 dígitos.</small>
-                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('maxLength')">El DNI debe ser de 8 dígitos.</small>
+                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('pattern')">El DNI debe ser de 8 dígitos.</small>
               </div>
             </div>
 
@@ -52,7 +51,7 @@
             <div class="form-group">
               <input formControlName="contrasena" type="password" class="form-input" />
               <label class="form-label">Contraseña</label>
-              <div *ngIf="miformulario.get('contraseña')?.invalid && miformulario.get('contrasena')?.touched">
+              <div *ngIf="miformulario.get('contrasena')?.invalid && miformulario.get('contrasena')?.touched">
                 <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('required')">La contraseña es obligatoria.</small>
                 <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</small>
               </div>
