@@ -46,11 +46,9 @@ export class FirestoreService {
 
 
   //---| READ |---//
-  async getDocument(coleccion: string, docId: string) {
-    const docRef = doc(this.firestore, coleccion, docId);
-
-    const data = (await getDoc(docRef)).data();
-    return data;
+  async getDocument<tipo>(path: string) {
+    const refDocument = doc(this.firestore, path);
+    return await getDoc(refDocument) as DocumentSnapshot<tipo> ;    
   }
 
 

@@ -14,11 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 export class HomePage {
   loading!: HTMLIonLoadingElement;
 
-  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController, private fcm: FcmService) {
-    this.fcm.init();
-
-    console.log(this.userService.getUid());
-  }
+  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController, private fcm: FcmService) { }
 
   
   cerrarSesion() {
@@ -26,5 +22,9 @@ export class HomePage {
       .then(() => {
         this.router.navigate(['/login']);
       });
+  }
+
+  notificacionTest() {
+    
   }
 }
