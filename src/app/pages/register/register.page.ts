@@ -53,6 +53,7 @@ export class RegisterPage implements OnInit {
       contrasena: this.miformulario.get('contrasena')?.value,
       tipoCliente: "registrado",
       estadoCliente: "pendiente",
+      rol: "cliente",
       fotoUrl: ''
   };
     try {

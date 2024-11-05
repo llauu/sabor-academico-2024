@@ -12,12 +12,10 @@ export class AuthService {
     this.auth.languageCode = 'es';    
   }
 
-
   async createUser(clienteData: any, email: string, password: string) {
     try {
       const userCredential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      const userId = userCredential.user.uid;
-      const clienteId = await this.firestoreService.createDocument('clientes', { ...clienteData, userId });
+      const clienteId = await this.firestoreService.createDocument(`usuarios`, { ...clienteData },userCredential.user.uid);
       console.log('Cliente agregado a Firestore con ID:', clienteId);
       return userCredential;
     } catch (error) {
