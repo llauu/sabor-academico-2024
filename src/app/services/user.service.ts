@@ -66,7 +66,6 @@ export class UserService {
     });
   }
 
-  
   getUid() {
     return this.user;
   }
@@ -77,6 +76,10 @@ export class UserService {
 
   getRol() {
     return this.userProfile.rol;
+  }
+
+  getToken() {
+    return this.userProfile.token;
   }
 
   logout() {
