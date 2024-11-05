@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirestoreService } from './firestore.service';
-import { Auth, authState, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
+import { Auth, authState, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword, signOut,UserCredential  } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +13,18 @@ export class AuthService {
   }
 
 
-  async createUser(email: string, password: string) {
-    const user = await createUserWithEmailAndPassword(this.auth, email, password);
-
-    // if(user) {
-    //   sendEmailVerification(user.user);
-    //   this.logout(false);
-    // }
-
-    return user;
+  async createUser(clienteData: any, email: string, password: string) {
+    try {
+      const userCredential: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const userId = userCredential.user.uid;
+      const clienteId = await this.firestoreService.createDocument('clientes', { ...clienteData, userId });
+      console.log('Cliente agregado a Firestore con ID:', clienteId);
+      return userCredential;
+    } catch (error) {
+      console.error('Error al crear usuario o agregarlo a Firestore:', error);
+      throw error;
+    }
   }
-
   getCurrentUser() {
     return this.auth.currentUser
   }
@@ -32,28 +33,6 @@ export class AuthService {
   async login(email: string, password: string) {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
-
-  // Login con verificacion de email
-  // async login(email: string, password: string) {
-  //   return new Promise((resolve, reject) => {
-  //     signInWithEmailAndPassword(this.auth, email, password)
-  //       .then((userCredential: any) => {
-  //         // if(userCredential.user.emailVerified) {
-  //         //   resolve(userCredential);
-  //         // }
-  //         // else {
-  //         //   this.logout(false) 
-  //         //     .then(() => {
-  //         //       reject('Debes verificar tu correo electronico ingresar.');
-  //         //     });
-  //         // }
-  //       })
-  //       .catch((error) => {
-  //         reject(error);
-  //       });
-  //   });
-  // }
-
 
   async logout(reload = true) {
     await signOut(this.auth);
