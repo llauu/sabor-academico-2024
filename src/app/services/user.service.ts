@@ -29,7 +29,7 @@ export class UserService {
           this.user = res;
           this.logged = true;
 
-          this.getUserProfile();
+          // this.getUserProfile();
         } else {
           this.user = null;
           this.logged = false;
@@ -40,23 +40,28 @@ export class UserService {
   }
   
   // Obtiene datos del usuario desde Firestore
-  async getUserProfile() {
-    return new Promise( async (resolve) => {
-        if (this.userProfile) {
-          resolve(this.userProfile);
-          return;
-        }
+  // async getUserProfile() {
+  //   return new Promise( async (resolve) => {
+  //       if (this.userProfile) {
+  //         resolve(this.userProfile);
+  //         return;
+  //       }
 
-        const response = await this.firestoreService.getDocument(`usuarios/${this.user.uid}`)
-        if (response.exists()) {  
-            this.userProfile = response.data();
-            resolve(this.userProfile);
-            if (this.userProfile.email != this.user.email) {
-              const updateData = {email: this.user.email};
-              this.firestoreService.updateDocument(`usuarios/${this.user.uid}`, updateData)
-            }
-        }
-    });
+  //       const response = await this.firestoreService.getDocument(`usuarios`, this.user.uid);
+  //       if (response.exists()) {  
+  //           this.userProfile = response.data();
+  //           resolve(this.userProfile);
+  //           if (this.userProfile.email != this.user.email) {
+  //             const updateData = {email: this.user.email};
+  //             this.firestoreService.updateDocument(`usuarios/${this.user.uid}`, updateData)
+  //           }
+  //       }
+  //   });
+  // }
+
+  
+  getUid() {
+    return this.user;
   }
 
   getLogged() {

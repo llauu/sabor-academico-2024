@@ -18,6 +18,10 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../src/environments/environment';
+import { provideHttpClient } from '@angular/common/http';
+import { getMessaging, provideMessaging } from '@angular/fire/messaging';
+
+
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -36,7 +40,8 @@ bootstrapApplication(AppComponent, {
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideHttpClient(),
     provideStorage(() => getStorage()),
-    { provide: ModalController, useClass: ModalController }, // Agrega explícitamente ModalController
+    provideMessaging(() => getMessaging()), // Agrega explícitamente ModalController
   ],
 });

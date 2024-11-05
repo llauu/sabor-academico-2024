@@ -2,6 +2,11 @@
     "appId": "com.saboracademico.ljt",
     "appName": "sabor-academico",
     "webDir": "www",
-    "bundledWebRuntime": false
+    "bundledWebRuntime": false,
+    "plugins": {
+      "PushNotifications": {
+        "presentationOptions": ["badge", "sound", "alert"]
+      }
+  }
   }
   

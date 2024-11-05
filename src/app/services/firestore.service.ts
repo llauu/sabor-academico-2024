@@ -46,10 +46,13 @@ export class FirestoreService {
 
 
   //---| READ |---//
-  async getDocument<tipo>(path: string) {
-    const refDocument = doc(this.firestore, path);
-    return await getDoc(refDocument) as DocumentSnapshot<tipo> ;    
+  async getDocument(coleccion: string, docId: string) {
+    const docRef = doc(this.firestore, coleccion, docId);
+
+    const data = (await getDoc(docRef)).data();
+    return data;
   }
+
 
   async getDocuments<tipo>(path: string, group: boolean = false) {
     if (!group) {
@@ -60,6 +63,7 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
+  
   
   async getUsuarios() {
     const snapshot = await this.getDocuments<any>('usuarios');

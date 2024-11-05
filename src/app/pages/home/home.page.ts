@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, LoadingController } from '@ionic/angular/standalone';
+import { FcmService } from 'src/app/services/fcm.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,23 +14,17 @@ import { UserService } from 'src/app/services/user.service';
 export class HomePage {
   loading!: HTMLIonLoadingElement;
 
-  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController) {
-    this.loadingCtrl.create()
-      .then(loading => {
-        this.loading = loading;
-      });
+  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController, private fcm: FcmService) {
+    this.fcm.init();
+
+    console.log(this.userService.getUid());
   }
 
   
   cerrarSesion() {
-    this.loading.present();
-
     this.userService.logout()
       .then(() => {
         this.router.navigate(['/login']);
-      })
-      .finally(() => {
-        this.loading.dismiss();
       });
   }
 }

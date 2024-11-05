@@ -37,6 +37,8 @@
         <meta-data android:name="com.google.mlkit.vision.DEPENDENCIES" android:value="barcode_ui"/>
         <!-- To use multiple models: android:value="face,model2,model3" -->
         
+        <!-- Push Notifications Icon (lau) -->
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_name" />
     </application>
 
     <!-- Permissions -->
