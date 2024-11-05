@@ -1,6 +1,6 @@
 <section class="vh-100 gradient-custom">
   <div class="container">
-    <button class="buttonAnonimo" ><strong>ANONIMO</strong></button>
+    <button class="buttonAnonimo" (click)="navigateRegister()"><strong>ANONIMO</strong></button>
     <div class="form-container">
       <div class="card">
         <div class="card-body">
@@ -18,7 +18,7 @@
                 <small class="text-danger" *ngIf="miformulario.get('nombre')?.hasError('required')">El nombre es obligatorio.</small>
               </div>
             </div>
-            
+
             <!-- Campo Apellido -->
             <div class="form-group">
               <input formControlName="apellido" type="text" class="form-input" />

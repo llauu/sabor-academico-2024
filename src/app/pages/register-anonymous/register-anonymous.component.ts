@@ -6,13 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-register-anonymous',
+  templateUrl: './register-anonymous.component.html',
+  styleUrls: ['./register-anonymous.component.scss'],
   standalone: true,
   imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule]
 })
-export class RegisterPage implements OnInit {
+export class RegisterAnonymousComponent implements OnInit {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   
@@ -28,10 +28,6 @@ export class RegisterPage implements OnInit {
   constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(8)]],
     }, );
   }
 
@@ -51,12 +47,8 @@ export class RegisterPage implements OnInit {
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
-      apellido: this.miformulario.get('apellido')?.value,
-      dni: this.miformulario.get('dni')?.value,
-      correo: this.miformulario.get('correo')?.value,
-      contrasena: this.miformulario.get('contrasena')?.value,
-      tipoCliente: "registrado",
-      estadoCliente: "pendiente",
+      tipoCliente: "anonimo",
+      estadoCliente: "no necesita",
       rol: "cliente",
       fotoUrl: ''
   };
