@@ -12,8 +12,9 @@
 | 1  | Generacion de proyecto                                  | Beta        | Terminado |
 | 2  | Icono y Splash Screen                                   | Gamma       | Terminado |
 | 3  | Inicio de sesion                                        | Alfa        | Terminado |
-| 4  | Alta cliente                                            | -           | Pendiente |
-| 5  | Habilitacion de cliente                                 | -           | Pendiente |
+| 4  | Inicio                                                  | Alfa        | Pendiente |
+| 4  | Alta cliente                                            | Gamma       | Pendiente |
+| 5  | Habilitacion de cliente                                 | Alfa        | Pendiente |
 | 6  | QR de ingreso al local                                  | Beta        | Pendiente |
 | 7  | QR de la mesa                                           | Beta        | Pendiente |
 | 8  | QR de propina                                           | Beta        | Pendiente |
@@ -21,7 +22,7 @@
 | 10 | Estado del pedido                                       | -           | Pendiente |
 | 11 | Ingresar al local                                       | -           | Pendiente |
 | 12 | Listado de espera                                       | -           | Pendiente |
-| 13 | Pedir platos y bebidas (Menu)                           | -           | Pendiente |
+| 13 | Pedir platos y bebidas (Menu)                           | Beta        | Pendiente |
 | 14 | Consulta al mozo (Chat)                                 | Alfa        | Pendiente |
 | 15 | Confirmar pedido                                        | -           | Pendiente |
 | 16 | Correo Auto. / Aprobacion o no del cliente (al cliente) | Gamma       | Pendiente |
