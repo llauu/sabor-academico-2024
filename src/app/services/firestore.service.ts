@@ -65,4 +65,36 @@ export class FirestoreService {
     const snapshot = await this.getDocuments<any>('usuarios');
     return snapshot.docs.map(doc => doc.data());
   }
+
+
+  // Método para obtener todos los productos
+  async getProductos() {
+    try {
+      const snapshot = await this.getDocuments<any>('productos');
+      const productos = snapshot.docs.map(doc => doc.data());
+      console.log('Productos obtenidos:', productos);
+      return productos;
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      return [];
+    }
+  }
+  
+
+
+  // Método para obtener todas las imágenes de un producto
+  // getProductImages(productName: string): Observable<string[]> {
+  //   const imagePaths = [
+  //     `productos/${productName}_1.png`,
+  //     `productos/${productName}_2.png`,
+  //     `productos/${productName}_3.png`
+  //   ];
+    
+  //   Convertimos cada ruta de imagen en un Observable de su URL
+  //   const imageObservables = imagePaths.map(path => from(getDownloadURL(ref(this.storage, path))));
+
+  //   Usamos forkJoin para esperar a que todos los Observables completen
+  //   return forkJoin(imageObservables);
+  // }
+
 }

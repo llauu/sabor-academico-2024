@@ -1,0 +1,7 @@
+<!-- product-list.component.html -->
+<ion-content>
+  <app-menu-item *ngFor="let product of products" 
+                    [product]="product"
+                    [quantity]="1">
+  </app-menu-item>
+</ion-content>

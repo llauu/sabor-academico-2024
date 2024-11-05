@@ -1,0 +1,23 @@
+// Estilo para el contenedor de productos
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  // Estilo para cada tarjeta de producto (product-item)
+  app-product-item {
+    width: 100%;
+    max-width: 400px;  // Ajusta el tamaño máximo según tu diseño
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  app-product-item:hover {
+    transform: translateY(-5px);
+  }
+  

@@ -1,0 +1,36 @@
+<!-- product-item.component.html -->
+<ion-card>
+<!-- 
+
+  <ion-slides [options]="slideOpts" pager="true">
+    <ion-slide *ngFor="let image of images">
+      <img [src]="image" />
+    </ion-slide>
+  </ion-slides> -->
+  
+
+  <div class="swiper-container" [swiper]="swiperConfig">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let image of images">
+        <img [src]="image" />
+      </div>
+    </div>
+  </div>
+  
+  
+
+  
+  <!-- Descripción del Producto -->
+  <ion-card-content>
+    <p>{{ product.descripcion }}</p>
+    <p>Tiempo de elaboración: {{ product.tiempo }} min</p>
+  </ion-card-content>
+
+  <!-- Precio y Cantidad -->
+  <ion-item>
+    <ion-button (click)="decreaseQuantity()">-</ion-button>
+    <ion-label>{{ quantity }}</ion-label>
+    <ion-button (click)="increaseQuantity()">+</ion-button>
+    <ion-label slot="end">{{ product.precio | currency }}</ion-label>
+  </ion-item>
+</ion-card>
