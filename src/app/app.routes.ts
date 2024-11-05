@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'pruebaQR',
     loadComponent: () => import('./componentes/qr-scanner/qr-scanner.component').then( m => m.Scanner)
   },
+  {
+    path: 'register',
+    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+  },
 ];

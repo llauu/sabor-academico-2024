@@ -1,0 +1,69 @@
+<section class="vh-100 gradient-custom">
+  <div class="container">
+    <div class="form-container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="title">Registro</h2>
+          <p class="subtitle">Por favor ingrese los datos requeridos</p>
+
+          <!-- Formulario Reactivo -->
+          <form [formGroup]="miformulario" (ngSubmit)="onSubmit()">
+
+            <!-- Campo Nombre -->
+            <div class="form-group">
+              <input formControlName="nombre" type="text" class="form-input" />
+              <label class="form-label">Nombre</label>
+              <div *ngIf="miformulario.get('nombre')?.invalid && miformulario.get('nombre')?.touched">
+                <small class="text-danger" *ngIf="miformulario.get('nombre')?.hasError('required')">El nombre es obligatorio.</small>
+              </div>
+            </div>
+
+            <!-- Campo Apellido -->
+            <div class="form-group">
+              <input formControlName="apellido" type="text" class="form-input" />
+              <label class="form-label">Apellido</label>
+              <div *ngIf="miformulario.get('apellido')?.invalid && miformulario.get('apellido')?.touched">
+                <small class="text-danger" *ngIf="miformulario.get('apellido')?.hasError('required')">El apellido es obligatorio.</small>
+              </div>
+            </div>
+
+            <!-- Campo DNI -->
+            <div class="form-group">
+              <input formControlName="dni" type="text" class="form-input" />
+              <label class="form-label">DNI</label>
+              <div *ngIf="miformulario.get('dni')?.invalid && miformulario.get('dni')?.touched">
+                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('required')">El DNI es obligatorio.</small>
+                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('minLength')">El DNI debe ser de 8 dígitos.</small>
+                <small class="text-danger" *ngIf="miformulario.get('dni')?.hasError('maxLength')">El DNI debe ser de 8 dígitos.</small>
+              </div>
+            </div>
+
+            <!-- Campo Correo -->
+            <div class="form-group">
+              <input formControlName="correo" type="email" class="form-input" />
+              <label class="form-label">Correo</label>
+              <div *ngIf="miformulario.get('correo')?.invalid && miformulario.get('correo')?.touched">
+                <small class="text-danger" *ngIf="miformulario.get('correo')?.hasError('required')">El correo es obligatorio.</small>
+                <small class="text-danger" *ngIf="miformulario.get('correo')?.hasError('email')">Debe ingresar un correo válido.</small>
+              </div>
+            </div>
+
+            <!-- Campo Contraseña -->
+            <div class="form-group">
+              <input formControlName="contrasena" type="password" class="form-input" />
+              <label class="form-label">Contraseña</label>
+              <div *ngIf="miformulario.get('contraseña')?.invalid && miformulario.get('contrasena')?.touched">
+                <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('required')">La contraseña es obligatoria.</small>
+                <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</small>
+              </div>
+            </div>
+            <!-- Botón de Enviar -->
+            <button type="submit" [disabled]="miformulario.invalid">
+              <span>CREAR CLIENTE</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
