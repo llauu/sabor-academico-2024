@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule]
+  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule]
 })
 export class RegisterPage implements OnInit {
   showPassword: boolean = false;
@@ -21,7 +22,26 @@ export class RegisterPage implements OnInit {
   dni: string = '';
   correo: string = '';
   
-  constructor() { }
+  miformulario: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.miformulario = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      dni: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],  // Valida un DNI con 7 u 8 dígitos
+      correo: ['', [Validators.required, Validators.email]],
+      contraseña: ['', [Validators.required, Validators.minLength(8)]],
+    }, );
+  }
+
+  // Método para enviar el formulario
+  onSubmit() {
+    if (this.miformulario.valid) {
+      console.log("Formulario enviado", this.miformulario.value);
+    } else {
+      console.log("Formulario no válido");
+    }
+  }
 
   ngOnInit() {
   }
