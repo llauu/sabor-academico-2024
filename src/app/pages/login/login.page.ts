@@ -39,7 +39,10 @@ export class LoginPage implements OnInit {
       });
   }
 
-
+  navigateRegister(){
+    this.router.navigate(['/register'])
+  }
+  
   onSubmit() {
     this.loading.present();
     if (this.loginForm.valid) {
