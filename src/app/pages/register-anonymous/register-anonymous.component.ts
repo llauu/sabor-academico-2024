@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, Validators, FormBuilder } from '@a
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-register-anonymous',
@@ -25,7 +26,7 @@ export class RegisterAnonymousComponent implements OnInit {
   
   miformulario: FormGroup;
 
-  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router, private firestoreService: FirestoreService) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
     }, );
@@ -42,7 +43,7 @@ export class RegisterAnonymousComponent implements OnInit {
   }
   
   navigateRegister(){
-    this.router.navigate(['/anonymous'])
+    this.router.navigate(['/register'])
   }
   async crearCliente() {
     const cliente = {
@@ -53,7 +54,8 @@ export class RegisterAnonymousComponent implements OnInit {
       fotoUrl: ''
   };
     try {
-      await this.authService.createUser(cliente,this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+       await this.firestoreService.createDocument(`usuarios`, cliente );
+      //await this.authService.createUser(cliente,this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
     } catch (error) {
       console.error('Error durante la creación del cliente:', error);
     }
