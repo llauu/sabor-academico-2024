@@ -45,7 +45,10 @@ export class RegisterPage implements OnInit {
     }
   }
   
-  navigateRegister(){
+  navigateHome(){
+    this.router.navigate(['/login'])
+  }
+  navigateAn(){
     this.router.navigate(['/anonymous'])
   }
   async crearCliente() {
