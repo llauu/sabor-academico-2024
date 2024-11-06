@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
+import { FcmService } from './fcm.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   private userProfile: any; // User profile
   
 
-  constructor(private authService: AuthService, private firestoreService: FirestoreService, private router: Router) {
+  constructor(private authService: AuthService, private firestoreService: FirestoreService, private router: Router, private fcm: FcmService) {
     console.log('UserService init');
     this.getState();
   }
@@ -29,7 +30,12 @@ export class UserService {
           this.user = res;
           this.logged = true;
 
-          this.getUserProfile();
+          // Obtenemos datos del usuario (firestore)
+          this.getUserProfile(this.user.uid)
+            .then(() => {
+              // Inicializamos push n
+              this.fcm.init(this.user.uid);
+            });
         } else {
           this.user = null;
           this.logged = false;
@@ -40,23 +46,30 @@ export class UserService {
   }
   
   // Obtiene datos del usuario desde Firestore
-  async getUserProfile() {
+  async getUserProfile(uid: string) {
     return new Promise( async (resolve) => {
         if (this.userProfile) {
           resolve(this.userProfile);
           return;
         }
 
-        const response = await this.firestoreService.getDocument(`usuarios/${this.user.uid}`)
+        const response = await this.firestoreService.getDocument(`usuarios/${uid}`)
         if (response.exists()) {  
             this.userProfile = response.data();
+
+            console.log('User profile: ', this.userProfile);
             resolve(this.userProfile);
             if (this.userProfile.email != this.user.email) {
+              console.log('sincronizar email');
               const updateData = {email: this.user.email};
-              this.firestoreService.updateDocument(`usuarios/${this.user.uid}`, updateData)
+              this.firestoreService.updateDocument(`usuarios/${uid}`, updateData)
             }
-        }
+        } 
     });
+  }
+
+  getUid() {
+    return this.user;
   }
 
   getLogged() {
@@ -65,6 +78,14 @@ export class UserService {
 
   getRol() {
     return this.userProfile.rol;
+  }
+
+  getToken() {
+    return this.userProfile.token;
+  }
+
+  getName() {
+    return this.userProfile.nombre + ' ' + this.userProfile.apellidos; 
   }
 
   logout() {

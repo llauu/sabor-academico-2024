@@ -46,3 +46,7 @@ Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
 ### Secundarias
 Manejaremos distintas ramas secundarias para ir avanzando en las distintas funcionalidades del proyecto.
 - **JR_SplashScreen+Logo**<br> Branch correspondiente al código del splash screen y el logo.
+- **ConfigAppNotificacionesEmail**<br> Branch correspondiente al código de configuracion de las Push Notifications y Correos Automaticos.
+- **LM_PushN**<br> Branch correspondiente al código para la implementacion de Push Notifications.
+- **JR_RegistroCliente**<br> Branch correspondiente al código para el registro de un nuevo cliente.
+- **menu**<br> Branch correspondiente al código para el menu.

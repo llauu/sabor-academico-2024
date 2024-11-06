@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, LoadingController } from '@ionic/angular/standalone';
+import { FcmService } from 'src/app/services/fcm.service';
+import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,23 +15,28 @@ import { UserService } from 'src/app/services/user.service';
 export class HomePage {
   loading!: HTMLIonLoadingElement;
 
-  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController) {
-    this.loadingCtrl.create()
-      .then(loading => {
-        this.loading = loading;
-      });
-  }
+  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController, private pushn: PushNotificationsService) { }
 
   
   cerrarSesion() {
-    this.loading.present();
-
     this.userService.logout()
       .then(() => {
         this.router.navigate(['/login']);
-      })
-      .finally(() => {
-        this.loading.dismiss();
       });
+  }
+
+  notificacionTest() {
+    const token = this.userService.getToken();
+
+    console.log('Token: ', token);
+
+    if(token) {
+      console.log('Enviando notificación de prueba');
+      this.pushn.sendNotification(token, 'Sabor academico 2024', 'Esto es un body de prueba');
+    }
+  }
+
+  accesoChat() {
+    this.router.navigate(['/chat-mozo']);
   }
 }

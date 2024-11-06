@@ -51,6 +51,7 @@ export class FirestoreService {
     return await getDoc(refDocument) as DocumentSnapshot<tipo> ;    
   }
 
+
   async getDocuments<tipo>(path: string, group: boolean = false) {
     if (!group) {
       const refCollection = collection(this.firestore, path);
@@ -60,6 +61,7 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
+  
   
   async getUsuarios() {
     const snapshot = await this.getDocuments<any>('usuarios');

@@ -64,7 +64,7 @@ export class RegisterPage implements OnInit {
       fotoUrl: ''
   };
     try {
-      await this.authService.createUser(cliente,this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
     } catch (error) {
       console.error('Error durante la creación del cliente:', error);
     }
