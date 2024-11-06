@@ -84,6 +84,10 @@ export class UserService {
     return this.userProfile.token;
   }
 
+  getName() {
+    return this.userProfile.nombre + ' ' + this.userProfile.apellidos; 
+  }
+
   logout() {
     this.logged = false;
     this.user = null;
