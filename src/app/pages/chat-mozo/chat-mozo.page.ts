@@ -44,17 +44,12 @@ export class ChatMozoPage implements OnInit {
     });
   }
 
-
-
   sendMessage() {
     if (this.messageText !== '') {
       let col = collection(this.firestore, 'consultasMozos/chat/mensajes');
       addDoc(col, { 'fecha': new Date(), 'usuario': this.user.email, 'mensaje': this.messageText })
         .then(() => {
           this.pushNotifications.sendNotificationToRole('Has recibido una nueva consulta!', this.messageText, 'mozo');
-          // Enviar la notificación
-          // this.notificationsService.sendNotificationToUsers(this.messageText);
-          // this.notificationsService.sendChatNotificationToOthers(this.messageText);
         })
         .finally(() => {
           this.messageText = '';
