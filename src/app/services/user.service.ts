@@ -56,6 +56,8 @@ export class UserService {
         const response = await this.firestoreService.getDocument(`usuarios/${uid}`)
         if (response.exists()) {  
             this.userProfile = response.data();
+
+            console.log('User profile: ', this.userProfile);
             resolve(this.userProfile);
             if (this.userProfile.email != this.user.email) {
               console.log('sincronizar email');

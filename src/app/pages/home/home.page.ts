@@ -28,7 +28,10 @@ export class HomePage {
   notificacionTest() {
     const token = this.userService.getToken();
 
-    if(!token) {
+    console.log('Token: ', token);
+
+    if(token) {
+      console.log('Enviando notificación de prueba');
       this.pushn.sendNotification(token, 'Sabor academico 2024', 'Esto es un body de prueba');
     }
   }
