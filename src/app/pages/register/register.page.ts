@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInpu
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -41,6 +42,7 @@ export class RegisterPage implements OnInit {
       this.crearCliente();
       console.log("Formulario enviado", this.miformulario.value);
     } else {
+      this.alertaError();
       console.log("Formulario no válido");
     }
   }
@@ -64,12 +66,37 @@ export class RegisterPage implements OnInit {
       fotoUrl: ''
   };
     try {
-      await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      //await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      Swal.fire({
+        title: 'Cliente creado',
+        text: '¡Revise su casilla de correo!',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');
+        }
+      });
+      this.navigateHome();
     } catch (error) {
+      this.alertaError();
       console.error('Error durante la creación del cliente:', error);
     }
   }
-  
+  alertaError(){
+    Swal.fire({
+      title: 'Error al crear cliente',
+      text: '¡Revise datos ingresados!',
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      backdrop: `rgba(0,0,0,0.8)`,
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    });    
+  }
   ngOnInit() {
   }
 }
