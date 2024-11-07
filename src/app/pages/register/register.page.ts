@@ -12,7 +12,7 @@ import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule, SpinnerComponent]
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, IonButton, SpinnerComponent]
 })
 export class RegisterPage implements OnInit {
   showPassword: boolean = false;
