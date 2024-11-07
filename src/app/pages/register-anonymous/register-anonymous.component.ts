@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-register-anonymous',
   templateUrl: './register-anonymous.component.html',
@@ -38,13 +39,27 @@ export class RegisterAnonymousComponent implements OnInit {
       this.crearCliente();
       console.log("Formulario enviado", this.miformulario.value);
     } else {
+      this.alertaError();
       console.log("Formulario no válido");
     }
   }
-  
+  alertaError(){
+    Swal.fire({
+      title: 'Error al crear cliente',
+      text: '¡Revise datos ingresados!',
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      backdrop: `rgba(0,0,0,0.8)`,
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    });    
+  }
   navigateRegister(){
     this.router.navigate(['/register'])
   }
+
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
@@ -55,7 +70,18 @@ export class RegisterAnonymousComponent implements OnInit {
   };
     try {
        await this.firestoreService.createDocument(`usuarios`, cliente );
-      //await this.authService.createUser(cliente,this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+       Swal.fire({
+        title: 'Cliente creado',
+        text: '¡Revise su casilla de correo!',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');
+        }
+      });
+      this.router.navigate(['/home'])
     } catch (error) {
       console.error('Error durante la creación del cliente:', error);
     }
