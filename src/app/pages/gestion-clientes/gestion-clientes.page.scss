@@ -1,18 +1,46 @@
-.clientes-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+.vh-100 {
+    height: 100vh;
   }
   
-  h2 {
+  .gradient-custom {
+    background: linear-gradient(to bottom, #ad0d0d, #ffee00);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    max-width: 600px;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: #343a40;
+    border-radius: 1rem;
+    padding: 2rem;
+    color: white;
     text-align: center;
-    color: #333;
+  }
+  
+  .card-body {
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
   }
   
   .clientes-lista {
     list-style-type: none;
     padding: 0;
+    margin-top: 20px;
   }
   
   .cliente-item {
@@ -60,5 +88,17 @@
   
   .accion-boton:hover {
     transform: scale(1.2);
+  }
+  
+  .limpiar-button {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    background-color: #a8adb3;
+    color: black;
+  }
+  
+  .img {
+    margin-right: 15px;
   }
   
