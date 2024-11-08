@@ -2,9 +2,10 @@
   <div class="container">
     <ion-button (click)="navigateHome()" expand="block" color="red" class="limpiar-button">
       <img class="img" src="../../../assets/atras.png" alt="atras" width="25px">
-       ATRAS
+      ATRAS
     </ion-button>
     <button class="buttonAnonimo" (click)="navigateAn()"><strong>ANONIMO</strong></button>
+
     <div class="form-container">
       <div class="card">
         <div class="card-body">
@@ -63,7 +64,7 @@
                 <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</small>
               </div>
             </div>
-            <!-- Botón de Enviar -->
+
             <button>
               <span>CREAR CLIENTE</span>
             </button>
@@ -71,5 +72,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Componente Scanner -->
+    <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
+
   </div>
 </section>

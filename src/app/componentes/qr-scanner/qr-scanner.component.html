@@ -1,17 +1,15 @@
-<ion-content>
-  <!-- Botones de control -->
-  <div class="scanner-container">
-    <ion-button expand="block" color="primary" (click)="startScan()">Iniciar Escaneo</ion-button>
-    <ion-button expand="block" color="danger" (click)="stopScan()">Detener Escaneo</ion-button>
-  </div>
+<div class="scanner-container">
+  <!-- Botón para iniciar el escaneo -->
+  <ion-button (click)="startScan()" color="primary" expand="block">
+    <mat-icon>qr_code</mat-icon>
+    ESCANEAR DNI
+  </ion-button>
 
-  <!-- Área de escaneo -->
-  <div class="scanner-area barcode-scanner-active">
-    <!-- Aquí se visualizará el escaneo de código -->
-  </div>
+  <!-- Botón para detener el escaneo -->
+  <!-- <ion-button expand="block" color="danger" (click)="stopScan()">Detener Escaneo</ion-button> -->
 
-  <!-- Mostrar resultado -->
-  <div *ngIf="scannedResult" class="result-container">
+  <!-- Muestra el resultado escaneado -->
+  <!-- <div *ngIf="scannedResult">
     <p>Resultado Escaneado: {{ scannedResult }}</p>
-  </div>
-</ion-content>
+  </div> -->
+</div>
