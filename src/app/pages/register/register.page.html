@@ -63,6 +63,9 @@
                 <small class="text-danger" *ngIf="miformulario.get('contrasena')?.hasError('minlength')">La contraseña debe tener al menos 8 caracteres.</small>
               </div>
             </div>
+
+            <!-- Componente Scanner -->
+            <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
             <!-- Botón de Enviar -->
             <button>
               <span>CREAR CLIENTE</span>
