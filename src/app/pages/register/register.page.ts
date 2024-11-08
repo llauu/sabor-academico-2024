@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInpu
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 @Component({
@@ -24,6 +25,7 @@ export class RegisterPage implements OnInit {
   contrasena: string = '';
   dni: string = '';
   correo: string = '';
+  bandera : boolean = false;
   
   miformulario: FormGroup;
 
@@ -35,6 +37,10 @@ export class RegisterPage implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
     }, );
+  }
+
+  ngOnInit() {
+    this.bandera = true;
   }
 
   // Método para enviar el formulario
@@ -67,7 +73,7 @@ export class RegisterPage implements OnInit {
       fotoUrl: ''
   };
     try {
-      await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
       Swal.fire({
         title: 'Cliente creado',
         text: '¡Revise su casilla de correo!',
@@ -98,6 +104,5 @@ export class RegisterPage implements OnInit {
       }
     });    
   }
-  ngOnInit() {
-  }
+
 }
