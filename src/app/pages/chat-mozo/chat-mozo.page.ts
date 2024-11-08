@@ -8,13 +8,13 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
-
+import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 @Component({
   selector: 'app-chat-mozo',
   templateUrl: './chat-mozo.page.html',
   styleUrls: ['./chat-mozo.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [SpinnerComponent,IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class ChatMozoPage implements OnInit {
   messageText: string = '';
@@ -33,13 +33,11 @@ export class ChatMozoPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.loadingCtrl.create().then(loading => {
-      this.loading = loading;
-      this.loading.present();
+    
       this.userService.getState()
         .then(user => {
           this.user = user;
-        });
+    
       this.getMessages();
     });
   }
