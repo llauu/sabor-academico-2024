@@ -92,10 +92,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-=======
-  // Crea un nuevo cliente con los datos del formulario
->>>>>>> parent of 3453421 (Merge branch 'main' of https://github.com/llauu/sabor-academico-2024)
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
@@ -117,6 +113,10 @@ export class RegisterPage implements OnInit {
         icon: 'success',
         confirmButtonText: 'Aceptar',
         backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');
+        }
       });
       this.navigateHome();
     } catch (error) {
@@ -133,7 +133,11 @@ export class RegisterPage implements OnInit {
       icon: 'error',
       confirmButtonText: 'Aceptar',
       backdrop: `rgba(0,0,0,0.8)`,
-    });
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    });   
   }
 }
 
