@@ -25,9 +25,17 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
-  },  {
+  },
+  {
     path: 'chat-mozo',
     loadComponent: () => import('./pages/chat-mozo/chat-mozo.page').then( m => m.ChatMozoPage)
   },
-
+  {
+    path: 'pruebaQR',
+    loadComponent: () => import('./componentes/qr-scanner/qr-scanner.component').then( m => m.Scanner)
+  },
+  {
+    path: 'anonymous',
+    loadComponent: () => import('./pages/register-anonymous/register-anonymous.component').then( m => m.RegisterAnonymousComponent)
+  },
 ];
