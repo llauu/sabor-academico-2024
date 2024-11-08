@@ -29,7 +29,7 @@ export class PushNotificationsService {
   }
 
   sendMailreject(nombreUsuario: string, mail: string) {
-    const payload = {nombreUsuario, mail };
+    const payload = {aceptacion : true, nombreUsuario, mail };
     this.sendHttpPostRequest('/reject-mail', payload);
   }
   

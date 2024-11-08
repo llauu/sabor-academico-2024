@@ -5,7 +5,7 @@ import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ActionPerformed } from '@capacitor/push-notifications';
-
+import {PushNotificationsService} from '../../services/push-notifications.service'
 @Component({
   selector: 'app-gestion-clientes',
   standalone: true,
@@ -14,9 +14,9 @@ import { ActionPerformed } from '@capacitor/push-notifications';
   styleUrls: ['./gestion-clientes.page.scss']
 })
 export class GestionClientesPage implements OnInit {
-  clientes: {nombre: string; id: string }[] = []; // lista de clientes pendiente
+  clientes: {nombre: string; id: string; correo: string }[] = []; // lista de clientes pendiente
 
-  constructor(private router : Router, private firestoreService: FirestoreService) {}
+  constructor(private pushNotificationsService : PushNotificationsService ,private router : Router, private firestoreService: FirestoreService) {}
 
   ngOnInit() {
     this.obtenerClientes();
@@ -29,7 +29,8 @@ export class GestionClientesPage implements OnInit {
       const snapshot = await this.firestoreService.getUsuariosPendientes<any>('usuarios');
       this.clientes = snapshot.docs.map((doc: QueryDocumentSnapshot<any>) => ({
         id: doc.id,
-        nombre: `${doc.data().nombre } ${doc.data().apellido}`
+        nombre: `${doc.data().nombre } ${doc.data().apellido}`,
+        correo : doc.data().correo
       }));
       console.log("Clientes pendientes cargados:", this.clientes);
     } catch (error) {
@@ -37,9 +38,10 @@ export class GestionClientesPage implements OnInit {
     }
   }
 
-  async onAceptar(cliente: { id: string; nombre: string }) {
+  async onAceptar(cliente: { id: string; nombre: string; correo : string }) {
     try {
       await this.firestoreService.updateDocument(`usuarios/${cliente.id}`, { estadoCliente: 'aceptado' });
+      await this.pushNotificationsService.sendMail(true,cliente.nombre,cliente.correo);
       console.log("Cliente aceptado:", cliente.nombre);
       this.clientes = this.clientes.filter(c => c.id !== cliente.id);
     } catch (error) {
@@ -47,9 +49,10 @@ export class GestionClientesPage implements OnInit {
     }
   }
 
-  async onRechazar(cliente: { id: string; nombre: string }) {
+  async onRechazar(cliente: { id: string; nombre: string, correo : string}) {
     try {
       await this.firestoreService.updateDocument(`usuarios/${cliente.id}`, { estadoCliente: 'rechazado' });
+      await this.pushNotificationsService.sendMailreject(cliente.nombre,cliente.correo);
       console.log("Cliente rechazado:", cliente.nombre);
       this.clientes = this.clientes.filter(c => c.id !== cliente.id);
     } catch (error) {
