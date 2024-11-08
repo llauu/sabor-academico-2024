@@ -91,39 +91,6 @@ export class RegisterPage implements OnInit {
     }
   }
 
-
-  onScanResult(data: string) {
-    
-    this.fillFormWithScannedData(data);
-  }
-
-  // Llena los campos del formulario con los datos del QR
-  fillFormWithScannedData(data: string) {
-    try {
-      const extractedData = data.split('@');
-      if (extractedData.length >= 8) {
-        this.miformulario.get('nombre')?.setValue(extractedData[2]);
-        this.miformulario.get('apellido')?.setValue(extractedData[1]);
-        this.miformulario.get('dni')?.setValue(extractedData[4]);
-      } else {
-        console.error('Formato de datos escaneados incorrecto');
-      }
-    } catch (error) {
-      console.error('El QR no contiene datos válidos', error);
-    }
-  }
-
-  
-  navigateHome(){
-    this.router.navigate(['/login'])
-  }
-
-
-  navigateAn(){
-    this.router.navigate(['/anonymous'])
-  }
-
-
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
