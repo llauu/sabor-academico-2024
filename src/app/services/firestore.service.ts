@@ -22,7 +22,7 @@ export class FirestoreService {
     }
     const dataDoc: any = data;
     dataDoc.id = refDoc.id;
-    dataDoc.fecha = serverTimestamp();
+    dataDoc.creado = serverTimestamp();
     await setDoc(refDoc, dataDoc);
     return dataDoc.id;
   }
