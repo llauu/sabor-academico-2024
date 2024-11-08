@@ -20,10 +20,9 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from '../src/environments/environment';
 import { provideHttpClient } from '@angular/common/http';
 import { getMessaging, provideMessaging } from '@angular/fire/messaging';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 defineCustomElements(window);
 
@@ -46,6 +45,6 @@ bootstrapApplication(AppComponent, {
     provideFirestore(() => getFirestore()),
     provideHttpClient(),
     provideStorage(() => getStorage()),
-    provideMessaging(() => getMessaging()), provideAnimationsAsync('noop'), // Agrega explícitamente ModalController
+    provideMessaging(() => getMessaging()), provideAnimationsAsync(), // Agrega explícitamente ModalController
   ],
 });

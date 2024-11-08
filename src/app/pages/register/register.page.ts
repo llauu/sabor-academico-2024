@@ -1,23 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
-import { IonButton } from '@ionic/angular/standalone';
+import { FormControl, FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 
 import Swal from 'sweetalert2';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
-//import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
+import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, IonButton, SpinnerComponent, Scanner]
+  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule, Scanner, SpinnerComponent]
 })
 
 
@@ -28,10 +27,12 @@ export class RegisterPage implements OnInit {
 
   miformulario: FormGroup;
 
-  // Referencia al componente Scanner
-  //@ViewChild(Scanner) scanner!: Scanner;
-
-  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    protected authService: AuthService,
+    private router: Router
+  ) {
+    // Inicializamos el formulario reactivo
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -91,6 +92,10 @@ export class RegisterPage implements OnInit {
     }
   }
 
+<<<<<<< HEAD
+=======
+  // Crea un nuevo cliente con los datos del formulario
+>>>>>>> parent of 3453421 (Merge branch 'main' of https://github.com/llauu/sabor-academico-2024)
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
