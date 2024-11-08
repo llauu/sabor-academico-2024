@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Output, EventEmitter } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Output } from '@angular/core';
+import { LensFacing,
+} from '@capacitor-mlkit/barcode-scanning';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -11,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [CommonModule, MatIconModule]
 })
+
+
 export class Scanner {
   @Output() scanResult = new EventEmitter<string>();
   scannedResult: string | null = null;
@@ -33,7 +37,8 @@ export class Scanner {
     } catch (error) {
       console.error('Error al escanear el código:', error);
     }
-  };
+  }
+
 
   stopScan = async () => {
     document.querySelector('.scanner-area')?.classList.remove('barcode-scanner-active');

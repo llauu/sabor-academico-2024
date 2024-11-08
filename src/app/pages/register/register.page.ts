@@ -1,22 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { FormGroup, FormsModule, Validators, FormBuilder } from '@angular/forms';
+import { IonButton } from '@ionic/angular/standalone';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 
 import Swal from 'sweetalert2';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
-import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
+//import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule, Scanner, SpinnerComponent]
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, IonButton, SpinnerComponent, Scanner]
 })
 
 
@@ -27,12 +28,10 @@ export class RegisterPage implements OnInit {
 
   miformulario: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    protected authService: AuthService,
-    private router: Router
-  ) {
-    // Inicializamos el formulario reactivo
+  // Referencia al componente Scanner
+  //@ViewChild(Scanner) scanner!: Scanner;
+
+  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -92,7 +91,39 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  // Crea un nuevo cliente con los datos del formulario
+
+  onScanResult(data: string) {
+    
+    this.fillFormWithScannedData(data);
+  }
+
+  // Llena los campos del formulario con los datos del QR
+  fillFormWithScannedData(data: string) {
+    try {
+      const extractedData = data.split('@');
+      if (extractedData.length >= 8) {
+        this.miformulario.get('nombre')?.setValue(extractedData[2]);
+        this.miformulario.get('apellido')?.setValue(extractedData[1]);
+        this.miformulario.get('dni')?.setValue(extractedData[4]);
+      } else {
+        console.error('Formato de datos escaneados incorrecto');
+      }
+    } catch (error) {
+      console.error('El QR no contiene datos válidos', error);
+    }
+  }
+
+  
+  navigateHome(){
+    this.router.navigate(['/login'])
+  }
+
+
+  navigateAn(){
+    this.router.navigate(['/anonymous'])
+  }
+
+
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
