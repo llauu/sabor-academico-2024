@@ -35,6 +35,9 @@ export class HomePage {
       this.pushn.sendNotification(token, 'Sabor academico 2024', 'Esto es un body de prueba');
     }
   }
+  accesoGestionUsuarios(){
+    this.router.navigate(['/gestion-clientes']);
+  }
 
   accesoChat() {
     this.router.navigate(['/chat-mozo']);

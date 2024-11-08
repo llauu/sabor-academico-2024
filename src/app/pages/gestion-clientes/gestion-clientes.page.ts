@@ -29,7 +29,7 @@ export class GestionClientesPage implements OnInit {
       const snapshot = await this.firestoreService.getUsuariosPendientes<any>('usuarios');
       this.clientes = snapshot.docs.map((doc: QueryDocumentSnapshot<any>) => ({
         id: doc.id,
-        nombre: doc.data().nombre + doc.data().apellido
+        nombre: `${doc.data().nombre } ${doc.data().apellido}`
       }));
       console.log("Clientes pendientes cargados:", this.clientes);
     } catch (error) {
