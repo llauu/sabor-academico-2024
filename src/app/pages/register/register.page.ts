@@ -73,7 +73,7 @@ export class RegisterPage implements OnInit {
       fotoUrl: ''
   };
     try {
-      this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
       Swal.fire({
         title: 'Cliente creado',
         text: '¡Revise su casilla de correo!',
