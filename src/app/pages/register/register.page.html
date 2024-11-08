@@ -31,7 +31,9 @@
                 <small class="text-danger" *ngIf="miformulario.get('apellido')?.hasError('required')">El apellido es obligatorio.</small>
               </div>
             </div>
-
+            <div *ngIf="bandera">
+              <app-spinner></app-spinner>
+            </div>
             <!-- Campo DNI -->
             <div class="form-group">
               <input formControlName="dni" type="text" class="form-input" />
