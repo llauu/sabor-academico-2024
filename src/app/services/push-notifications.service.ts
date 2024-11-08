@@ -28,6 +28,11 @@ export class PushNotificationsService {
     this.sendHttpPostRequest('/send-mail', payload);
   }
 
+  sendMailreject(nombreUsuario: string, mail: string) {
+    const payload = {nombreUsuario, mail };
+    this.sendHttpPostRequest('/reject-mail', payload);
+  }
+  
   private sendHttpPostRequest(endpoint: string, payload: any) {
     const url = `${this.apiUrl}${endpoint}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
