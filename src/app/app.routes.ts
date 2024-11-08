@@ -37,5 +37,9 @@ export const routes: Routes = [
   {
     path: 'anonymous',
     loadComponent: () => import('./pages/register-anonymous/register-anonymous.component').then( m => m.RegisterAnonymousComponent)
+  },  {
+    path: 'gestion-clientes',
+    loadComponent: () => import('./pages/gestion-clientes/gestion-clientes.page').then( m => m.GestionClientesPage)
   },
+
 ];
