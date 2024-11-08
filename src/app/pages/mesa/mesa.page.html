@@ -1,0 +1,17 @@
+<section class="scanner-section">
+
+  <ion-button (click)="tryOpenScanner('ingreso')" color="primary" expand="block">
+    <mat-icon>qr_code</mat-icon> Escanear INGRESO
+  </ion-button>
+
+  <ion-button (click)="tryOpenScanner('mesa')" color="primary" expand="block">
+    <mat-icon>qr_code</mat-icon> Escanear MESA
+  </ion-button>
+
+  <!-- Componente Scanner oculto visualmente -->
+  <div style="display: none;">
+    <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
+  </div>
+
+  <p>{{texto}}</p>
+</section>

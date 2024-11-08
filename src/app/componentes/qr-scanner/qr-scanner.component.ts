@@ -11,11 +11,15 @@ import { MatIconModule } from '@angular/material/icon';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [CommonModule, MatIconModule]
 })
+
+
+
 export class Scanner {
   @Output() scanResult = new EventEmitter<string>();
   scannedResult: string | null = null;
 
   startScan = async () => {
+    
     document.querySelector('.scanner-area')?.classList.add('barcode-scanner-active');
 
     try {

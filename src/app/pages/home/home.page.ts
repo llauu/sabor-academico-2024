@@ -15,7 +15,7 @@ import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component'
 export class HomePage {
   loading!: HTMLIonLoadingElement;
 
-  constructor(private userService: UserService, private router: Router, private loadingCtrl: LoadingController, private pushn: PushNotificationsService) { }
+  constructor(private userService: UserService, public router: Router, private loadingCtrl: LoadingController, private pushn: PushNotificationsService) { }
 
   
   cerrarSesion() {

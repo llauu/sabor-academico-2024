@@ -90,4 +90,14 @@ export class FirestoreService {
     const snapshot = await this.getDocuments<any>('usuarios');
     return snapshot.docs.map(doc => doc.data());
   }
+
+  async getDocumentsByField<tipo>(collectionPath: string, fieldName: string, value: any): Promise<tipo[]> {
+    const collectionRef = collection(this.firestore, collectionPath);
+    const q = query(collectionRef, where(fieldName, "==", value));
+    
+    const querySnapshot: QuerySnapshot = await getDocs(q);
+    const documents: tipo[] = querySnapshot.docs.map(doc => doc.data() as tipo);
+    
+    return documents;
+  }
 }
