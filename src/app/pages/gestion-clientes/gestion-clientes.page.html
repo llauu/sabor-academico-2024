@@ -1,0 +1,18 @@
+<section class="clientes-container">
+  <h2>Gestión de Clientes</h2>
+  <ul class="clientes-lista">
+    <li *ngFor="let cliente of clientes" class="cliente-item">
+      <span class="cliente-nombre">{{ cliente.nombre }}</span>
+      <span class="cliente-acciones">
+        <!-- Tilde para aceptar -->
+        <button (click)="onAceptar(cliente)" class="accion-boton aceptar">
+          ✓
+        </button>
+        <!-- X para rechazar -->
+        <button (click)="onRechazar(cliente)" class="accion-boton rechazar">
+          ✕
+        </button>
+      </span>
+    </li>
+  </ul>
+</section>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DocumentSnapshot, Firestore, QuerySnapshot, collection, 
-  collectionGroup, deleteDoc, doc, getDoc, getDocs, serverTimestamp, 
+  collectionGroup, deleteDoc, doc, getDoc, getDocs, serverTimestamp, where, query,
   setDoc, updateDoc} from '@angular/fire/firestore';
 
   
@@ -59,6 +59,29 @@ export class FirestoreService {
     } else  {
       const refCollectionGroup = collectionGroup(this.firestore, path)
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
+    }
+  }
+  async getUsuariosPendientes<tipo>(path: string, group: boolean = false) {
+    let refCollection;
+  
+    if (!group) {
+      refCollection = collection(this.firestore, path);
+  
+      // Aplicar filtros para rol y estadoCliente
+      const q = query(refCollection, 
+                      where('rol', '==', 'cliente'), 
+                      where('estadoCliente', '==', 'pendiente'));
+  
+      return await getDocs(q) as QuerySnapshot<tipo>;
+    } else {
+      refCollection = collectionGroup(this.firestore, path);
+  
+      // Aplicar filtros para rol y estadoCliente en una colección agrupada
+      const q = query(refCollection, 
+                      where('rol', '==', 'cliente'), 
+                      where('estadoCliente', '==', 'pendiente'));
+  
+      return await getDocs(q) as QuerySnapshot<tipo>;
     }
   }
   
