@@ -5,7 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInpu
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
+import {PushNotificationsService} from '../../services/push-notifications.service'
 import Swal from 'sweetalert2';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
@@ -27,12 +27,7 @@ export class RegisterPage implements OnInit {
 
   miformulario: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    protected authService: AuthService,
-    private router: Router
-  ) {
-    // Inicializamos el formulario reactivo
+  constructor(private pushNotificationsService :PushNotificationsService,private fb: FormBuilder,protected authService: AuthService, private router: Router) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -106,7 +101,7 @@ export class RegisterPage implements OnInit {
     };
 
     try {
-      await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
+      this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
       Swal.fire({
         title: 'Cliente creado',
         text: '¡Revise su casilla de correo!',
