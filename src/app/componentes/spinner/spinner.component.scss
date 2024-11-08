@@ -1,0 +1,36 @@
+.spinner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+  }
+  
+  .spinner-image {
+    width: 300px;
+    animation: spinOnce 1.5s ease-in-out forwards, pulse 1.5s ease-in-out infinite 1.5s;
+  }
+  
+  @keyframes spinOnce {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+  

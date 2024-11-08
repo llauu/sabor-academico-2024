@@ -5,7 +5,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInpu
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
+import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 
@@ -14,13 +16,14 @@ import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule, Scanner]
+  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonInput, IonButton, IonIcon, CommonModule, FormsModule, Scanner, SpinnerComponent]
 })
 
 
 export class RegisterPage implements OnInit {
   // Referencia al componente Scanner
   @ViewChild(Scanner) scanner!: Scanner;
+  bandera : boolean = false;
 
   miformulario: FormGroup;
 
@@ -74,6 +77,10 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['/anonymous']);
   }
 
+  ngOnInit() {
+    this.bandera = true;
+  }
+
   // Método para enviar el formulario
   onSubmit() {
     if (this.miformulario.valid) {
@@ -125,7 +132,5 @@ export class RegisterPage implements OnInit {
       backdrop: `rgba(0,0,0,0.8)`,
     });
   }
-
-  ngOnInit() {}
 }
 
