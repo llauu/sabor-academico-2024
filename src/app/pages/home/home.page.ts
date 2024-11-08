@@ -4,13 +4,13 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, LoadingControll
 import { FcmService } from 'src/app/services/fcm.service';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 import { UserService } from 'src/app/services/user.service';
-
+import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
+  imports: [SpinnerComponent, IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
 })
 export class HomePage {
   loading!: HTMLIonLoadingElement;
@@ -34,6 +34,9 @@ export class HomePage {
       console.log('Enviando notificación de prueba');
       this.pushn.sendNotification(token, 'Sabor academico 2024', 'Esto es un body de prueba');
     }
+  }
+  accesoGestionUsuarios(){
+    this.router.navigate(['/gestion-clientes']);
   }
 
   accesoChat() {

@@ -44,7 +44,6 @@ export class LoginPage implements OnInit {
   }
   
   onSubmit() {
-    this.loading.present();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.pass)
         .then((res: any) => {
