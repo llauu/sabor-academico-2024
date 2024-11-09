@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
 
   constructor(public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
-      this.router.navigate(['/home-admin']);
+      this.cargarMenuPorRol(this.userService.getRol());
     }
   }
 
@@ -49,29 +49,7 @@ export class LoginPage implements OnInit {
           if(res.user.email !== null) {
             this.userService.getUserProfile(res.user.uid)
               .then((userProfile: any) => {
-                switch(userProfile.rol) {
-                  case 'dueno':
-                  case 'supervisor':
-                    this.router.navigate(['/menu-admin']);
-                    break;
-                    
-                  case 'maitre':
-                    this.router.navigate(['/menu-maitre']);
-                    break;
-
-                  case 'mozo':
-                    this.router.navigate(['/menu-mozo']);
-                    break;
-
-                  case 'cocinero':
-                  case 'bartender':
-                    this.router.navigate(['/menu-empleado']);
-                    break;
-                    
-                  case 'cliente':
-                    this.router.navigate(['/menu-cliente']);
-                    break;
-                }
+                this.cargarMenuPorRol(userProfile.rol);
               })
               .catch(err => {
                 console.log('Error al obtener datos de usuario: ', err);
@@ -105,6 +83,33 @@ export class LoginPage implements OnInit {
         .finally(() => {
           this.loading.dismiss();
         });
+    }
+  }
+
+
+  cargarMenuPorRol(rol: string) {
+    switch(rol) {
+      case 'dueno':
+      case 'supervisor':
+        this.router.navigate(['/menu-admin']);
+        break;
+        
+      case 'maitre':
+        this.router.navigate(['/menu-maitre']);
+        break;
+
+      case 'mozo':
+        this.router.navigate(['/menu-mozo']);
+        break;
+
+      case 'cocinero':
+      case 'bartender':
+        this.router.navigate(['/menu-empleado']);
+        break;
+        
+      case 'cliente':
+        this.router.navigate(['/menu-cliente']);
+        break;
     }
   }
 
