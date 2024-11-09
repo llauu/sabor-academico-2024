@@ -102,8 +102,8 @@ export class RegisterPage implements OnInit {
 
     try {
       await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
-
       this.pushNotificationsService.sendMail(false, cliente.nombre, cliente.correo);
+
       this.pushNotificationsService.sendNotificationToRole('Nuevo cliente registrado!', 'Un nuevo cliente se ha registrado y está pendiente de aprobación.', 'supervisor');
       this.pushNotificationsService.sendNotificationToRole('Nuevo cliente registrado!', 'Un nuevo cliente se ha registrado y está pendiente de aprobación.', 'dueno');
 
