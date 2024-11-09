@@ -64,4 +64,5 @@ Manejaremos distintas ramas secundarias para ir avanzando en las distintas funci
 - **LM_PushN**<br> Branch correspondiente al código para la implementacion de Push Notifications.
 - **JR_RegistroCliente**<br> Branch correspondiente al código para el registro de un nuevo cliente.
 - **menu**<br> Branch correspondiente al código para el menu.
+- **JR_ListadoAdminGestionClientes**<br> Branch correspondiente al código para la gestion de aprobacion o no de clientes.
 - **LM_RouterMenu**<br> Branch correspondiente al código para los diferentes menues dependiendo el perfil del usuario.
