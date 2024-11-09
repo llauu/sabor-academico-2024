@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonButtons, IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonInput, IonGrid, IonRow, IonCol, IonFooter, CommonModule, ReactiveFormsModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonGrid, IonRow, IonCol, CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class LoginPage implements OnInit {
   loginForm: any;
@@ -22,11 +22,10 @@ export class LoginPage implements OnInit {
 
   constructor(public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
-      this.router.navigate(['/home']);
+      this.cargarMenuPorRol(this.userService.getRol());
     }
   }
 
-  
   ngOnInit() {
     this.loginForm = new FormGroup ({
       email: new FormControl('', [Validators.email, Validators.required]),
@@ -48,10 +47,18 @@ export class LoginPage implements OnInit {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.pass)
         .then((res: any) => {
           if(res.user.email !== null) {
-            this.loginForm.controls.email.setValue('');
-            this.loginForm.controls.pass.setValue('');
-            this.errorMsg = '';
-            this.router.navigate(['/home']);
+            this.userService.getUserProfile(res.user.uid)
+              .then((userProfile: any) => {
+                this.cargarMenuPorRol(userProfile.rol);
+              })
+              .catch(err => {
+                console.log('Error al obtener datos de usuario: ', err);
+              })
+              .finally(() => {
+                this.loginForm.controls.email.setValue('');
+                this.loginForm.controls.pass.setValue('');
+                this.errorMsg = '';
+              });
           }
         })
         .catch(err => {
@@ -76,6 +83,33 @@ export class LoginPage implements OnInit {
         .finally(() => {
           this.loading.dismiss();
         });
+    }
+  }
+
+
+  cargarMenuPorRol(rol: string) {
+    switch(rol) {
+      case 'dueno':
+      case 'supervisor':
+        this.router.navigate(['/menu-admin']);
+        break;
+        
+      case 'maitre':
+        this.router.navigate(['/menu-maitre']);
+        break;
+
+      case 'mozo':
+        this.router.navigate(['/menu-mozo']);
+        break;
+
+      case 'cocinero':
+      case 'bartender':
+        this.router.navigate(['/menu-empleado']);
+        break;
+        
+      case 'cliente':
+        this.router.navigate(['/menu-cliente']);
+        break;
     }
   }
 

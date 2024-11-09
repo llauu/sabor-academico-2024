@@ -45,6 +45,26 @@ export const routes: Routes = [
   {
     path: 'mesa',
     loadComponent: () => import('./pages/mesa/mesa.page').then( m => m.MesaPage)
+  },  {
+    path: 'menu-admin',
+    loadComponent: () => import('./pages/menus/menu-admin/menu-admin.page').then( m => m.MenuAdminPage)
   },
+  {
+    path: 'menu-maitre',
+    loadComponent: () => import('./pages/menus/menu-maitre/menu-maitre.page').then( m => m.MenuMaitrePage)
+  },
+  {
+    path: 'menu-mozo',
+    loadComponent: () => import('./pages/menus/menu-mozo/menu-mozo.page').then( m => m.MenuMozoPage)
+  },
+  {
+    path: 'menu-cliente',
+    loadComponent: () => import('./pages/menus/menu-cliente/menu-cliente.page').then( m => m.MenuClientePage)
+  },
+  {
+    path: 'menu-empleado',
+    loadComponent: () => import('./pages/menus/menu-empleado/menu-empleado.page').then( m => m.MenuEmpleadoPage)
+  },
+
 
 ];

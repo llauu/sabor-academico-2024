@@ -102,7 +102,12 @@ export class RegisterPage implements OnInit {
 
     try {
       await this.authService.createUser(cliente, this.miformulario.get('correo')?.value, this.miformulario.get('contrasena')?.value);
-      await this.pushNotificationsService.sendMail(false,cliente.nombre,cliente.correo);
+      this.pushNotificationsService.sendMail(false, cliente.nombre, cliente.correo);
+
+      this.pushNotificationsService.sendNotificationToRole('Nuevo cliente registrado!', 'Un nuevo cliente se ha registrado y está pendiente de aprobación.', 'supervisor');
+      this.pushNotificationsService.sendNotificationToRole('Nuevo cliente registrado!', 'Un nuevo cliente se ha registrado y está pendiente de aprobación.', 'dueno');
+
+
       Swal.fire({
         title: 'Cliente creado',
         text: '¡Revise su casilla de correo!',
