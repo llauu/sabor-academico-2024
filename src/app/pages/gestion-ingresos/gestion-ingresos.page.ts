@@ -16,6 +16,12 @@ userFullName: string,
 id: string,
 }
 
+interface Table {
+  userUID: string,
+  number: string,
+  id: string
+}
+
 @Component({
   selector: 'app-gestion-clientes',
   standalone: true,
@@ -27,17 +33,17 @@ id: string,
 export class GestionIngresosPage implements OnInit {
 
   ingresos: Ingreso[] = []; // lista de clientes pendiente
-  mesas: any[] = []; // lista de clientes pendiente
-  mesaSeleccionada: any;
+  tables: Table[] = []; // lista de clientes pendiente
+  selectedTable: any;
   
 
   constructor(private pushNotificationsService : PushNotificationsService ,private router : Router, private firestoreService: FirestoreService) {}
 
   async ngOnInit() {
     this.ingresos = await this.buscarUsuariosPendientes();
-    this.mesas = await this.buscarMesasDisponibles();
+    this.tables = await this.buscarMesasDisponibles();
     console.log(this.ingresos)
-    console.log(this.mesas)
+    console.log(this.tables)
   }
   
   async onAceptar(ingreso: Ingreso) {
@@ -46,15 +52,29 @@ export class GestionIngresosPage implements OnInit {
       console.log("Ingreso aceptado:", ingreso.userFullName);
       this.ingresos = this.ingresos.filter(i => i.userUID !== ingreso.userUID);
 
+
+      const tablesMap = (this.tables as Array<Table>).reduce((map, mesa) => {
+        map[mesa.number] = mesa; // Asocia cada número de mesa con su objeto completo
+        return map;
+      }, {} as Record<string, Table>);
+      
+
+      // // Generar opciones para el modal
+      // const mesasOptions = Object.fromEntries(
+      //   Object.entries(tablesMap).map(([key, mesa]) => [key, `Mesa ${mesa.number}`])
+      // );
+
+      const mesasOptions = Object.keys(tablesMap).reduce((options, key) => {
+        options[key] = `Mesa ${tablesMap[key].number}`;
+        return options;
+      }, {} as Record<string, string>);
+
       // Abre el modal con SweetAlert2
-      const { value: selectedTable } = await Swal.fire({
+      // Abre el modal con SweetAlert2 para seleccionar la mesa
+      const { value: selectedNumber } = await Swal.fire({
         title: 'Selecciona una mesa',
         input: 'select',
-        inputOptions: {
-          'Mesa 1': 'Mesa 1',
-          'Mesa 2': 'Mesa 2',
-          'Mesa 3': 'Mesa 3', // Agrega más mesas según sea necesario
-        },
+        inputOptions: mesasOptions,
         inputPlaceholder: 'Selecciona una mesa',
         showCancelButton: true,
         confirmButtonText: 'Aceptar',
@@ -65,10 +85,13 @@ export class GestionIngresosPage implements OnInit {
         }
       });
 
-      if (selectedTable) {
-        this.mesaSeleccionada = selectedTable;
-        console.log("Mesa seleccionada:", this.mesaSeleccionada);
-        //await this.firestoreService.updateDocument(`listaMesas/${ingreso.id}`, { state: 'accepted' });
+      if (selectedNumber) {
+        // Almacena la mesa seleccionada y el userUID correspondiente
+        this.selectedTable = tablesMap[selectedNumber].id;
+        console.log("Mesa seleccionada:", this.selectedTable);
+        await this.firestoreService.updateDocument(`listaMesas/${this.selectedTable}`, { userUID: ingreso.userUID});
+        // console.log("actualizado");
+        
 
       }
     } catch (error) {
