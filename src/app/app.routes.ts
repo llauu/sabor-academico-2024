@@ -62,6 +62,10 @@ export const routes: Routes = [
     path: 'menu-empleado',
     loadComponent: () => import('./pages/menus/menu-empleado/menu-empleado.page').then( m => m.MenuEmpleadoPage)
   },
+  {
+    path: 'gestion-ingresos',
+    loadComponent: () => import('./pages/gestion-ingresos/gestion-ingresos.page').then( m => m.GestionIngresosPage)
+  },
 
 
 ];

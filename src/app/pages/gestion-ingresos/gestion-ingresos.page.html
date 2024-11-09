@@ -1,0 +1,29 @@
+<section class="vh-100 gradient-custom">
+  <div class="container">
+    <ion-button (click)="navigateHome()" expand="block" color="red" class="limpiar-button">
+      <img class="img" src="../../../assets/atras.png" alt="atras" width="25px">
+      ATRAS
+    </ion-button>
+
+    <div class="form-container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="title">Lista de espera</h2>
+          <p class="subtitle">Revisa y acepta o rechaza los clientes pendientes</p>
+
+          <ul class="clientes-lista">
+            <li *ngFor="let ingreso of ingresos" class="cliente-item">
+              <span class="cliente-nombre">{{ ingreso.userFullName }}</span>
+              <span class="cliente-acciones">
+                <!-- Tilde para aceptar -->
+                <button (click)="onAceptar(ingreso)" class="accion-boton aceptar">✓</button>
+                <!-- X para rechazar -->
+                <button (click)="onRechazar(ingreso)" class="accion-boton rechazar">✕</button>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

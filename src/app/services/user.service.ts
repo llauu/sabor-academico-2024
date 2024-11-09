@@ -85,8 +85,9 @@ export class UserService {
     return this.userProfile.token;
   }
 
-  getName() {
-    return this.userProfile.nombre + ' ' + this.userProfile.apellidos; 
+  async getName() {
+    await this.getState(); // Espera a que `getState` se complete
+    return this.user ? this.userProfile.nombre + ' ' + this.userProfile.apellidos : null; 
   }
 
   logout() {

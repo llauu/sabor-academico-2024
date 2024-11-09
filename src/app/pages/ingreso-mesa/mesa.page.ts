@@ -24,6 +24,7 @@ export class MesaPage implements OnInit {
   action : string = ""
   ingreso: boolean = true;
   mesa:boolean = false;
+  userFullName: any;
 
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, public router:Router) {}
@@ -32,11 +33,10 @@ export class MesaPage implements OnInit {
   async ngOnInit() {
     try {
       this.userUID = await this.userService.getUid();
-      const waiting = await this.buscarPorUserUID('listaEspera', 'userUID');
-      const table = await this.buscarPorUserUID('listaMesas', 'userUID');
+      this.userFullName= await this.userService.getName();
       console.log(this.userUID);
-      console.log(waiting);
-      console.log(table);
+      console.log(this.userFullName);
+
     } catch (error) {
       console.error('Error al obtener UID:', error);
     }
@@ -141,7 +141,12 @@ export class MesaPage implements OnInit {
 
   async registerUser() {
 
-    const newRegister = { userUID: this.userUID, state: "pending" };
+    const newRegister = 
+    { 
+      userUID: this.userUID, 
+      userFullName: this.userFullName,
+      state: "pending" 
+    };
 
     let title = ""
     let message = ""

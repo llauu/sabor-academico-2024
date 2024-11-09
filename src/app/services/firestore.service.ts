@@ -61,6 +61,8 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
+
+  
   async getUsuariosPendientes<tipo>(path: string, group: boolean = false) {
     let refCollection;
   
