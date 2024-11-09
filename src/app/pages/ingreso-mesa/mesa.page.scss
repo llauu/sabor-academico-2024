@@ -1,0 +1,70 @@
+* {
+    color: white;
+}
+
+ion-toolbar {
+    --background: #003049;
+}
+
+ion-title strong {
+    
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+    font-size: 33px;
+    font-weight: 800;
+}
+
+.spinner-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px; /* Espacio entre los botones */
+    width: 90%;
+}
+
+.scanner-section {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 20px; 
+    background-color: #900f0f;
+    height: 100%;
+}
+
+.inside-button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    gap: 5px;
+
+}
+
+ion-button {
+    --background: purple;
+    width: 100%;
+    height: 100%;
+    flex: 1; /* Para que los botones ocupen el espacio disponible */
+    margin: 0; /* Sin margen entre botones */
+    --border-radius: 25px;
+}
+
+mat-icon {
+    font-size: 4rem; /* Tamaño del icono */
+    min-height: 4rem; /* Asegura que el contenedor del icono tenga suficiente altura */
+    overflow: visible;
+    width: 100%;
+}

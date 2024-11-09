@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header">
+      <ion-title> <strong>Sabor académico</strong> </ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <section class="scanner-section">
+    
+    <div *ngIf="ingreso" class="spinner-container">
+
+      <ion-button (click)="tryOpenScanner('ingreso')">
+        <div class="inside-button">
+          <mat-icon>qr_code</mat-icon>
+          <span>Escanear ingreso</span>
+        </div>
+      </ion-button>
+
+      <ion-button (click)="goToMesa()">
+        <div class="inside-button">
+          <span>Ya tengo mesa</span>
+          <mat-icon >keyboard_arrow_right</mat-icon>
+        </div>
+      </ion-button>
+
+      <ion-button (click)="reviews()">
+        <div class="inside-button">
+          <span>Ver encuestas</span>
+        </div>
+      </ion-button>
+    </div>
+
+    <div *ngIf="mesa" class="spinner-container">
+
+      <ion-button (click)="tryOpenScanner('mesa')">
+        <div class="inside-button">
+          <mat-icon>qr_code</mat-icon>
+          <span>Escanear mesa</span>
+        </div>
+      </ion-button>
+
+      <ion-button (click)="goToIngreso()">
+        <div class="inside-button">
+          <mat-icon >keyboard_arrow_left</mat-icon>
+          <span>Volver atrás</span>
+        </div>
+      </ion-button>
+
+      <ion-button (click)="reviews()">
+        <div class="inside-button">
+          <span>Ver encuestas</span>
+        </div>
+      </ion-button>
+    </div>
+
+    <!-- Componente Scanner oculto visualmente -->
+    <div style="display: none;">
+      <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
+    </div>
+
+  </section>
+</ion-content>

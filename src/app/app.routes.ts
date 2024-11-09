@@ -31,10 +31,6 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/chat-mozo/chat-mozo.page').then( m => m.ChatMozoPage)
   },
   {
-    path: 'pruebaQR',
-    loadComponent: () => import('./componentes/qr-scanner/qr-scanner.component').then( m => m.Scanner)
-  },
-  {
     path: 'anonymous',
     loadComponent: () => import('./pages/register-anonymous/register-anonymous.component').then( m => m.RegisterAnonymousComponent)
   },
@@ -42,10 +38,11 @@ export const routes: Routes = [
     path: 'gestion-clientes',
     loadComponent: () => import('./pages/gestion-clientes/gestion-clientes.page').then( m => m.GestionClientesPage)
   },
+  // {
+  //   path: 'mesa',
+  //   loadComponent: () => import('./pages/ingreso-mesa/mesa.page').then( m => m.MesaPage)
+  // },
   {
-    path: 'mesa',
-    loadComponent: () => import('./pages/mesa/mesa.page').then( m => m.MesaPage)
-  },  {
     path: 'menu-admin',
     loadComponent: () => import('./pages/menus/menu-admin/menu-admin.page').then( m => m.MenuAdminPage)
   },
@@ -59,7 +56,7 @@ export const routes: Routes = [
   },
   {
     path: 'menu-cliente',
-    loadComponent: () => import('./pages/menus/menu-cliente/menu-cliente.page').then( m => m.MenuClientePage)
+    loadComponent: () => import('./pages/ingreso-mesa/mesa.page').then( m => m.MesaPage)
   },
   {
     path: 'menu-empleado',
