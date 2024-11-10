@@ -2,19 +2,21 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { UserService } from 'src/app/services/user.service';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
+import { addIcons } from 'ionicons';
+import { logOutOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-mesa',
   templateUrl: 'mesa.page.html',
   styleUrls: ['mesa.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, Scanner, MatIcon, IonButton, CommonModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, Scanner, MatIcon, IonButton, CommonModule, IonIcon],
 })
 export class MesaPage implements OnInit {
 
@@ -28,7 +30,9 @@ export class MesaPage implements OnInit {
   userFullName: any;
 
 
-  constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {}
+  constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {
+    addIcons({ logOutOutline });
+  }
 
 
   async ngOnInit() {
@@ -141,7 +145,6 @@ export class MesaPage implements OnInit {
 
 
   async registerUser() {
-
     const newRegister = 
     { 
       userUID: this.userUID, 
@@ -244,5 +247,37 @@ export class MesaPage implements OnInit {
 
   reviews() {
     console.log("aca abrimos modal con las reseñas")
+  }
+
+
+
+
+  
+  confirmLogout() {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#003049',
+      cancelButtonColor: '#D62828',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Cerrar sesión',
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.logOut();
+      }
+    });
+  }
+
+  logOut() {
+    this.userService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      });
   }
 }
