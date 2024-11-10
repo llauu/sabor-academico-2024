@@ -87,7 +87,7 @@ export class UserService {
 
   async getName() {
     await this.getState(); // Espera a que `getState` se complete
-    return this.user ? this.userProfile.nombre + ' ' + this.userProfile.apellidos : null; 
+    return this.user ? this.userProfile.nombre + ' ' + this.userProfile.apellido : null; 
   }
 
   logout() {
