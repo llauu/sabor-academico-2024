@@ -88,3 +88,46 @@ mat-icon {
   width: 42px;
   height: 42px;
 }
+
+// para q no me scrolle a los costados en la encuesta
+/* Ajustes generales para asegurar que el contenido no se desborde */
+.swal2-popup.no-scroll {
+    overflow: hidden; /* Evita el scroll */
+    max-width: 100%;
+}
+  
+.swal2-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Elimina el padding extra */
+}
+
+.swal2-html-container {
+    max-width: 100%;
+    overflow-y: auto; /* Permite el desplazamiento vertical solo si es necesario */
+}
+
+/* Ajusta los tamaños y márgenes de los inputs */
+.swal2-input {
+    font-size: 14px; /* Reduce el tamaño de los inputs */
+    padding: 5px;
+    margin: 5px 0; /* Añade márgenes suaves entre los elementos */
+}
+
+/* Ajustes en los labels y otros elementos */
+.swal2-label {
+    font-size: 14px; /* Ajusta el tamaño de los labels */
+    margin-bottom: 5px; /* Menos espacio entre el label y el control */
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 5px; /* Reduce el espacio entre los radios/checkboxes */
+}
+
+select {
+    font-size: 14px;
+    padding: 5px;
+}
+  
