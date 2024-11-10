@@ -139,4 +139,20 @@ select {
     box-sizing: border-box;
   }
   
+.swal2-popup {
+    font-size: 14px;
+  }
   
+  canvas {
+    max-width: 100%;
+    margin: auto;
+  }
+  
+  .swal2-html-container {
+    max-height: 570px;
+    overflow-y: auto;
+  }
+  
+  .div-encuesta {
+    display: flex;
+  }
