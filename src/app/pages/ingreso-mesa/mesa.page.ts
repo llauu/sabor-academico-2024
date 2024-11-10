@@ -7,6 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 
 @Component({
   selector: 'app-mesa',
@@ -27,7 +28,7 @@ export class MesaPage implements OnInit {
   userFullName: any;
 
 
-  constructor(private firestoreService: FirestoreService, private userService: UserService, public router:Router) {}
+  constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {}
 
 
   async ngOnInit() {
@@ -155,6 +156,9 @@ export class MesaPage implements OnInit {
       console.log('Documento agregado con ID:', idGenerado);
       title = "¡Listo!"
       message = "Ya fuiste agregado a la lista de espera";
+
+      // Enviar notificacion al maitre
+      this.pushNotification.sendNotificationToRole("Nuevo ingreso!", "Hay un nuevo cliente esperando para ingresar al local.", "maitre");
     } catch (error) {
       console.error('Error al agregar a la lista de espera:', error);
       title = "Lo sentimos";

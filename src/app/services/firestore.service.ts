@@ -102,4 +102,10 @@ export class FirestoreService {
     
     return documents;
   }
+
+  async getTokenByUid(uid: string) {
+    const doc: any = await this.getDocument(`usuarios/${uid}`);
+
+    return doc.data().token;
+  }
 }

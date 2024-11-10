@@ -23,10 +23,10 @@
 | 10 | Menu clientes                                           | Alfa        | Pendiente |
 | 11 | QR del DNI                                              | Beta        | Terminado |
 | 12 | QR de ingreso al local                                  | Beta        | Terminado |
-| 13 | QR de la mesa                                           | Beta        | Pendiente |
+| 13 | QR de la mesa                                           | Beta        | Terminado |
 | 14 | QR de propina                                           | Beta        | Pendiente |
-| 15 | Ingresar al local                                       | Beta        | Pendiente |
-| 16 | Listado de espera                                       | Beta        | Pendiente |
+| 15 | Ingresar al local                                       | Beta        | Terminado |
+| 16 | Listado de espera                                       | Beta        | Terminado |
 | 17 | Encuesta cliente                                        | -           | Pendiente |
 | 18 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
 | 19 | Manejo del estado del pedido                            | -           | Pendiente |
@@ -37,7 +37,8 @@
 | 24 | Correo Auto. Pendiente de Aprobado/Rechazado/Aceptado   | Gamma       | Terminado |
 | 25 | Correo Perso. Pendiente de Aprobado/Rechazado/Aceptado  | Gamma       | Terminado |
 | 26 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
-| 27 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Pendiente |
+| 27 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
+| 28 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
 | 28 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
 | 29 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
 | 30 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
