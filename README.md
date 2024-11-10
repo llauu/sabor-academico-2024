@@ -27,7 +27,8 @@
 | 14 | QR de propina                                           | Beta        | Pendiente |
 | 15 | Ingresar al local                                       | Beta        | Terminado |
 | 16 | Listado de espera                                       | Beta        | Terminado |
-| 17 | Encuesta cliente                                        | -           | Pendiente |
+| 17 | Alta Encuesta cliente                                   | Alfa        | Terminado |
+| 17 | Vista Encuesta cliente                                  | Alfa        | Pendiente |
 | 18 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
 | 19 | Manejo del estado del pedido                            | -           | Pendiente |
 | 20 | Confirmar pedido                                        | -           | Pendiente |
