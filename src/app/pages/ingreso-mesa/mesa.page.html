@@ -12,6 +12,7 @@
     
     <div *ngIf="ingreso" class="spinner-container">
 
+      <!-- Menu principal -->
       <ion-button (click)="tryOpenScanner('ingreso')">
         <div class="inside-button">
           <mat-icon>qr_code</mat-icon>
@@ -26,15 +27,26 @@
         </div>
       </ion-button>
 
-      <ion-button (click)="reviews()">
+      <ion-button (click)="mostrarEncuestasCliente()">
         <div class="inside-button">
           <span>Ver encuestas</span>
+          <mat-icon>bar_chart</mat-icon>
+        </div>
+      </ion-button>
+      
+      <ion-button (click)="realizarEncuestaCliente()">
+        <div class="inside-button">
+          <span>Hacer encuesta</span>
+          <div class="div-encuesta">
+            <mat-icon>sentiment_satisfied</mat-icon>
+            <mat-icon>sentiment_dissatisfied</mat-icon>
+          </div>
         </div>
       </ion-button>
     </div>
 
+    <!-- Seccion "Ya tengo mesa" -->
     <div *ngIf="mesa" class="spinner-container">
-
       <ion-button (click)="tryOpenScanner('mesa')">
         <div class="inside-button">
           <mat-icon>qr_code</mat-icon>
@@ -49,9 +61,20 @@
         </div>
       </ion-button>
 
-      <ion-button (click)="reviews()">
+      <ion-button (click)="mostrarEncuestasCliente()">
         <div class="inside-button">
           <span>Ver encuestas</span>
+          <mat-icon>bar_chart</mat-icon>
+        </div>
+      </ion-button>
+      
+      <ion-button (click)="realizarEncuestaCliente()">
+        <div class="inside-button">
+          <span>Hacer encuesta</span>
+          <div class="div-encuesta">
+            <mat-icon>sentiment_satisfied</mat-icon>
+            <mat-icon>sentiment_dissatisfied</mat-icon>
+          </div>
         </div>
       </ion-button>
     </div>
@@ -59,6 +82,10 @@
     <!-- Componente Scanner oculto visualmente -->
     <div style="display: none;">
       <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
+    </div>
+    
+    <div class="btn-logout" (click)="confirmLogout()">
+      <ion-icon name="log-out-outline"></ion-icon>
     </div>
 
   </section>

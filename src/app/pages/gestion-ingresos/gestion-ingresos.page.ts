@@ -10,10 +10,10 @@ import Swal from 'sweetalert2';
 
 
 interface Ingreso {
-userUID: string,
-uid: string,
-userFullName: string,
-id: string,
+  userUID: string,
+  uid: string,
+  userFullName: string,
+  id: string,
 }
 
 interface Table {
@@ -52,7 +52,6 @@ export class GestionIngresosPage implements OnInit {
       console.log("Ingreso aceptado:", ingreso.userFullName);
       this.ingresos = this.ingresos.filter(i => i.userUID !== ingreso.userUID);
 
-
       const tablesMap = (this.tables as Array<Table>).reduce((map, mesa) => {
         map[mesa.number] = mesa; // Asocia cada número de mesa con su objeto completo
         return map;
@@ -69,7 +68,6 @@ export class GestionIngresosPage implements OnInit {
         return options;
       }, {} as Record<string, string>);
 
-      // Abre el modal con SweetAlert2
       // Abre el modal con SweetAlert2 para seleccionar la mesa
       const { value: selectedNumber } = await Swal.fire({
         title: 'Selecciona una mesa',
@@ -91,8 +89,12 @@ export class GestionIngresosPage implements OnInit {
         console.log("Mesa seleccionada:", this.selectedTable);
         await this.firestoreService.updateDocument(`listaMesas/${this.selectedTable}`, { userUID: ingreso.userUID});
         // console.log("actualizado");
-        
 
+        // Logica envio de notificacion push a cliente
+        const token = await this.firestoreService.getTokenByUid(ingreso.userUID)
+        if(token) {
+          this.pushNotificationsService.sendNotification(token, 'Ya puedes ingresar a nuestro local!',`Tu mesa asignada es la numero ${selectedNumber}.`);
+        }
       }
     } catch (error) {
       console.error("Error al aceptar ingreso:", error);

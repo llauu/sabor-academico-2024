@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
@@ -14,11 +14,11 @@ import { Router } from '@angular/router';
   templateUrl: './menu-maitre.page.html',
   styleUrls: ['./menu-maitre.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon, IonButton]
 })
 export class MenuMaitrePage implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { 
+  constructor(private userService: UserService, public router: Router) { 
     addIcons({ logOutOutline });
   }
 

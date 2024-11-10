@@ -66,6 +66,7 @@ export const routes: Routes = [
     path: 'gestion-ingresos',
     loadComponent: () => import('./pages/gestion-ingresos/gestion-ingresos.page').then( m => m.GestionIngresosPage)
   },
+  
 
 
 ];
