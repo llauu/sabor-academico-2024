@@ -18,7 +18,7 @@
 | 5  | Spinner personalizado                                   | Gamma       | Terminado |
 | 6  | Alta cliente                                            | Gamma       | Terminado |
 | 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
-| 8  | Menu supervisor/dueño                                   | -           | Pendiente |
+| 8  | Menu supervisor/dueño                                   | Gamma       | Pendiente |
 | 9  | Menu empleados                                          | -           | Pendiente |
 | 10 | Menu clientes                                           | Beta        | Terminado |
 | 11 | QR del DNI                                              | Beta        | Terminado |
@@ -31,9 +31,9 @@
 | 18 | Graficos de encuestas de clientes                       | Alfa        | Terminado |
 | 19 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
 | 20 | Manejo del estado del pedido                            | -           | Pendiente |
-| 21 | Confirmar pedido                                        | -           | Pendiente |
+| 21 | Confirmar pedido                                        | Gamma       | Pendiente |
 | 22 | Pedir la cuenta                                         | -           | Pendiente |
-| 23 | Mozo confirma pago                                      | -           | Pendiente |
+| 23 | Mozo confirma pago                                      | Gamma       | Pendiente |
 | 24 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
 | 25 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
 | 26 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
