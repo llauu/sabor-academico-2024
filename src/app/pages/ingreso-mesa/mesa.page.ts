@@ -291,6 +291,10 @@ export class MesaPage implements OnInit {
             <option value="no">No</option>
             <option value="tal vez">Tal vez</option>
           </select>
+
+          <label>Fotos (opcional):</label>
+          <input type="file" id="fotos" accept="image/*" multiple class="swal2-input" style="margin: 0; width: 100%; font-size: 14px; padding: 6px; border-radius: 5px; display: inline-block;">
+          <small style="color: #888;">Máximo 3 fotos</small>
         </div>
       `,
       focusConfirm: false,
