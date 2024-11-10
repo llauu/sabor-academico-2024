@@ -15,9 +15,9 @@
 | 2  | Icono y Splash Screen                                   | Gamma       | Terminado |
 | 3  | Inicio de sesion                                        | Alfa        | Terminado |
 | 4  | Inicio                                                  | Alfa        | Terminado |
-| 5  | Spinner personalizado                                   | Gamma       | Pendiente |
+| 5  | Spinner personalizado                                   | Gamma       | Terminado |
 | 6  | Alta cliente                                            | Gamma       | Terminado |
-| 7  | Habilitacion de cliente                                 | Gamma       | Pendiente |
+| 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
 | 8  | Menu supervisor/dueño                                   | -           | Pendiente |
 | 9  | Menu empleados                                          | -           | Pendiente |
 | 10 | Menu clientes                                           | Beta        | Terminado |
@@ -35,8 +35,8 @@
 | 22 | Pedir la cuenta                                         | -           | Pendiente |
 | 23 | Mozo confirma pago                                      | -           | Pendiente |
 | 24 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
-| 25 | Correo Auto. Pendiente de Aprobado/Rechazado/Aceptado   | Gamma       | Terminado |
-| 26 | Correo Perso. Pendiente de Aprobado/Rechazado/Aceptado  | Gamma       | Terminado |
+| 25 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
+| 26 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
 | 27 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
 | 28 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
 | 29 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
