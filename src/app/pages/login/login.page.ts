@@ -61,7 +61,6 @@ async validarRegistroUsuario()
     catch
     {
       this.errorMsg = `La cuenta no fue habilitada, se encuentra en estado ${estadoCliente}` ;
-      estadoCliente = "";
       throw new Error;
     }
 }
