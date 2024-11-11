@@ -8,13 +8,15 @@ import { logOutOutline } from 'ionicons/icons';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { IonButton } from '@ionic/angular/standalone';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-menu-admin',
   templateUrl: './menu-admin.page.html',
   styleUrls: ['./menu-admin.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon]
+  imports: [MatIconModule,IonButton,IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon]
 })
 export class MenuAdminPage implements OnInit {
 
@@ -52,5 +54,9 @@ export class MenuAdminPage implements OnInit {
       .then(() => {
         this.router.navigate(['/login']);
       });
+  }
+  gestionUsuarios()
+  {
+    this.router.navigate(['/gestion-clientes']);
   }
 }
