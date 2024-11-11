@@ -21,7 +21,6 @@ export class LoginPage implements OnInit {
   errorMsg: string = '';
   loading!: HTMLIonLoadingElement;
 
-
   constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
       this.cargarMenuPorRol(this.userService.getRol());
@@ -46,6 +45,7 @@ export class LoginPage implements OnInit {
 
 async validarRegistroUsuario()
 {      
+    let estadoCliente : String   = "" ;
     try
     {
       const snapshot = await this.firestoreService.getUsuariosPendientes<any>('usuarios');
@@ -57,19 +57,13 @@ async validarRegistroUsuario()
       }));
       clientes.forEach(element => {
 
-        console.log("form " + this.loginForm.value.pass);
-        console.log("desde bd "  + element.contra);
-        if(element.contra == this.loginForm.value.pass && element.correo == this.loginForm.value.email && element.estadoCliente != "registrado")
-          {
-            console.log("entre");
-            throw new Error;
-          }
+        estadoCliente = element.estadoCliente;
+        if(element.contra == this.loginForm.value.pass && element.correo == this.loginForm.value.email && element.estadoCliente == "pendiente")  throw new Error;
       });
     }
     catch
     {
-      console.log("en el catch");
-      this.errorMsg = "La cuenta aun no fue habilitada";
+      this.errorMsg = `La cuenta aun no fue habilitada, se encuentra en estado ${estadoCliente}` ;
       throw new Error;
     }
 }
