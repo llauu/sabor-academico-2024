@@ -36,11 +36,18 @@ export class RegisterPage implements OnInit {
       dni: ['', [Validators.required, Validators.pattern('^[0-9]{8}$')]],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
-    });
+      confirmacion: ['', Validators.required]
+    }, { validator: this.matchPasswords });
   }
 
 
 
+  matchPasswords(group: FormGroup) {
+    const password = group.get('contrasena')?.value;
+    const confirmPassword = group.get('confirmacion')?.value;
+    return password === confirmPassword ? null : { notMatching: true };
+  }
+  
   // Método que se ejecuta cuando se recibe el resultado del escaneo QR
   onScanResult(data: string) {
     
