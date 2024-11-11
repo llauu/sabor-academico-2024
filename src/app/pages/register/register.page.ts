@@ -9,7 +9,9 @@ import {PushNotificationsService} from '../../services/push-notifications.servic
 import Swal from 'sweetalert2';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Scanner } from 'src/app/componentes/qr-scanner/qr-scanner.component';
+
 
 @Component({
   selector: 'app-register',
@@ -36,6 +38,8 @@ export class RegisterPage implements OnInit {
       contrasena: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
+
+
 
   // Método que se ejecuta cuando se recibe el resultado del escaneo QR
   onScanResult(data: string) {
@@ -85,8 +89,7 @@ export class RegisterPage implements OnInit {
       this.alertaError();
       console.log("Formulario no válido");
     }
-  }
-
+  }  
   async crearCliente() {
     const cliente = {
       nombre: this.miformulario.get('nombre')?.value,
@@ -140,5 +143,14 @@ export class RegisterPage implements OnInit {
       }
     });   
   }
+  async sacarFoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      promptLabelHeader: "FOTO LINDA",
+      promptLabelPicture: "TOMAR FOTO",
+      promptLabelPhoto: "DESDE GALERÍA"
+    });}
 }
 
