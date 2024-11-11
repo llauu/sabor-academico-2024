@@ -14,7 +14,6 @@
 
           <!-- Formulario Reactivo -->
           <form [formGroup]="miformulario" (ngSubmit)="onSubmit()">
-
             <!-- Campo Nombre -->
             <div class="form-group">
               <input formControlName="nombre" type="text" class="form-input" />
@@ -35,6 +34,7 @@
             <div *ngIf="bandera">
               <app-spinner></app-spinner>
             </div>
+
             <!-- Campo DNI -->
             <div class="form-group">
               <input formControlName="dni" type="text" class="form-input" />
@@ -74,16 +74,18 @@
               </div>
             </div>
 
-
-            <button>
-              <span>CREAR CLIENTE</span>
-            </button>
+            <!-- Botones de Crear Cliente y Subir Imagen -->
+            <div class="button-container">
+              <button type="submit" class="submit-button">
+                <span>CREAR CLIENTE</span>
+              </button>
+              <img (click)="sacarFoto()" class="upload-icon" src="../../../assets/logoSubirImagen.png" alt="subir imagen de usuario">
+            </div>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- Componente Scanner -->
     <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
 
   </div>
