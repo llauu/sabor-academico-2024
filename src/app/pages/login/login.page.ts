@@ -5,7 +5,9 @@ import { FormsModule, FormGroup, Validators, FormControl, ReactiveFormsModule } 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-
+import { FirestoreService } from '../../services/firestore.service';
+import { QueryDocumentSnapshot } from '@angular/fire/firestore';
+import { ExceptionCode } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginPage implements OnInit {
   loading!: HTMLIonLoadingElement;
 
 
-  constructor(public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
+  constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
       this.cargarMenuPorRol(this.userService.getRol());
     }
@@ -41,8 +43,39 @@ export class LoginPage implements OnInit {
   navigateRegister(){
     this.router.navigate(['/register'])
   }
-  
-  onSubmit() {
+
+async validarRegistroUsuario()
+{      
+    try
+    {
+      const snapshot = await this.firestoreService.getUsuariosPendientes<any>('usuarios');
+      const clientes = snapshot.docs.map((doc: QueryDocumentSnapshot<any>) => ({
+        id: doc.id,
+        estadoCliente : doc.data().estadoCliente,
+        correo : doc.data().correo,
+        contra : doc.data().contrasena,
+      }));
+      clientes.forEach(element => {
+
+        console.log("form " + this.loginForm.value.pass);
+        console.log("desde bd "  + element.contra);
+        if(element.contra == this.loginForm.value.pass && element.correo == this.loginForm.value.email && element.estadoCliente != "registrado")
+          {
+            console.log("entre");
+            throw new Error;
+          }
+      });
+    }
+    catch
+    {
+      console.log("en el catch");
+      this.errorMsg = "La cuenta aun no fue habilitada";
+      throw new Error;
+    }
+}
+
+ async onSubmit() {
+    await this.validarRegistroUsuario();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.pass)
         .then((res: any) => {
