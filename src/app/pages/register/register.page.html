@@ -14,7 +14,6 @@
 
           <!-- Formulario Reactivo -->
           <form [formGroup]="miformulario" (ngSubmit)="onSubmit()">
-
             <!-- Campo Nombre -->
             <div class="form-group">
               <input formControlName="nombre" type="text" class="form-input" />
@@ -35,7 +34,7 @@
             <div *ngIf="bandera">
               <app-spinner></app-spinner>
             </div>
-            
+
             <!-- Campo DNI -->
             <div class="form-group">
               <input formControlName="dni" type="text" class="form-input" />
@@ -66,8 +65,6 @@
               </div>
             </div>
 
-
-
             <!-- Campo Confirmación de Contraseña -->
             <div class="form-group">
               <input formControlName="confirmacion" type="password" class="form-input" />
@@ -76,8 +73,10 @@
                 <small class="text-danger">Las contraseñas no coinciden.</small>
               </div>
             </div>
-            <div class="class="button-container>
-              <button type="submit">
+
+            <!-- Botones de Crear Cliente y Subir Imagen -->
+            <div class="button-container">
+              <button type="submit" class="submit-button">
                 <span>CREAR CLIENTE</span>
               </button>
               <img (click)="sacarFoto()" class="upload-icon" src="../../../assets/logoSubirImagen.png" alt="subir imagen de usuario">
