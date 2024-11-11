@@ -65,6 +65,16 @@
               </div>
             </div>
 
+            <!-- Campo Confirmación de Contraseña -->
+            <div class="form-group">
+              <input formControlName="confirmacion" type="password" class="form-input" />
+              <label class="form-label">Confirmar Contraseña</label>
+              <div *ngIf="miformulario.hasError('notMatching') && miformulario.get('confirmacion')?.touched">
+                <small class="text-danger">Las contraseñas no coinciden.</small>
+              </div>
+            </div>
+
+
             <button>
               <span>CREAR CLIENTE</span>
             </button>
