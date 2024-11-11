@@ -60,6 +60,6 @@ export class GestionClientesPage implements OnInit {
     }
   }
   navigateHome(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/menu-admin']);
   }
 }

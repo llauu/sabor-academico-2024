@@ -48,28 +48,28 @@ async validarRegistroUsuario()
     let estadoCliente : String   = "" ;
     try
     {
-      const snapshot = await this.firestoreService.getUsuariosPendientes<any>('usuarios');
-      const clientes = snapshot.docs.map((doc: QueryDocumentSnapshot<any>) => ({
-        id: doc.id,
-        estadoCliente : doc.data().estadoCliente,
-        correo : doc.data().correo,
-        contra : doc.data().contrasena,
-      }));
-      clientes.forEach(element => {
-
+      console.log("Adentro");
+      const snapshot = await this.firestoreService.getUsuarios();
+      console.log("largo " + snapshot.length);
+      
+      snapshot.forEach(element => {
         estadoCliente = element.estadoCliente;
-        if(element.contra == this.loginForm.value.pass && element.correo == this.loginForm.value.email && element.estadoCliente == "pendiente")  throw new Error;
+        if(element.contrasena == this.loginForm.value.pass && element.correo == this.loginForm.value.email && (element.estadoCliente == "pendiente" || element.estadoCliente == "rechazado"))  throw new Error;
       });
+
     }
     catch
     {
       this.errorMsg = `La cuenta no fue habilitada, se encuentra en estado ${estadoCliente}` ;
+      estadoCliente = "";
       throw new Error;
     }
 }
 
  async onSubmit() {
+  console.log("Antes de entrar");
     await this.validarRegistroUsuario();
+    console.log("Ya lo pase");
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.pass)
         .then((res: any) => {
