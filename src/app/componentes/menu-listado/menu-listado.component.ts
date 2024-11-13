@@ -146,7 +146,15 @@ export class MenuListadoComponent implements OnInit {
   submitOrder() {
 
     console.log(this.userID);
-    
+
+    let productosFiltrados = this.productos.map(p => ({
+      id: p.id,
+      nombre: p.nombre,
+      precioUnitario: p.precio,
+      precioTotal: p.precioTotalProducto,
+      cantidad: p.cantidad,
+      sector: p.sector
+    }));
 
     const pedido = {
       userID: this.userID,
@@ -154,11 +162,11 @@ export class MenuListadoComponent implements OnInit {
       tiempo: this.tiempoTotal,
       cocina : {
         estado: "pendiente",
-        productos: this.productos
+        productos: productosFiltrados.filter(p => p.sector === "cocina")
       },
       bar: {
         estado: "pendiente",
-        productos: this.productos
+        productos: productosFiltrados.filter(p => p.sector === "bar")
       }
     }
 
