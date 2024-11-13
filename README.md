@@ -17,10 +17,10 @@
 | 5  | Spinner personalizado                                   | Gamma       | Terminado |
 | 6  | Alta cliente                                            | Gamma       | Terminado |
 | 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
-| 8  | Menu supervisor/dueño                                   | Gamma       | Pendiente |
+| 8  | Menu supervisor/dueño                                   | Gamma       | Terminado |
 | 9  | Menu empleados                                          | Gamma       | Pendiente |
 | 10 | Menu maitre                                             | Alfa        | Terminado |
-| 11 | Menu mozo                                               | Gamma       | Pendiente |
+| 11 | Menu mozo                                               | Beta        | Pendiente |
 | 12 | Menu clientes                                           | Beta        | Terminado |
 | 13 | QR del DNI                                              | Beta        | Terminado |
 | 14 | QR de ingreso al local                                  | Beta        | Terminado |
@@ -30,10 +30,10 @@
 | 18 | Listado de espera                                       | Beta        | Terminado |
 | 19 | Encuesta de satisfaccion al cliente                     | Alfa        | Terminado |
 | 20 | Graficos de encuestas de clientes                       | Alfa        | Terminado |
-| 21 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
-| 22 | Manejo del estado del pedido                            | -           | Pendiente |
+| 21 | Pedir platos y bebidas (menu)                           | Beta        | Terminado |
+| 22 | Manejo del estado del pedido                            | Beta        | Terminado |
 | 23 | Confirmar pedido                                        | Gamma       | Pendiente |
-| 24 | Pedir la cuenta                                         | -           | Pendiente |
+| 24 | Pedir la cuenta                                         | Alfa        | Pendiente |
 | 25 | Mozo confirma pago                                      | Gamma       | Pendiente |
 | 26 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
 | 27 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
