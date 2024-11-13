@@ -38,13 +38,13 @@ export class MesaPage implements OnInit {
 
   async ngOnInit() {
     try {
-      this.userUID = await this.userService.getUid();
+      this.userUID = await this.userService.getId();
       this.userFullName= await this.userService.getName();
       console.log(this.userUID);
       console.log(this.userFullName);
 
     } catch (error) {
-      console.error('Error al obtener UID:', error);
+      console.error('Error al obtener ID:', error);
     }
   }
 
@@ -59,8 +59,8 @@ export class MesaPage implements OnInit {
     let title = "";
     let message = ""
 
-    const waiting = await this.buscarPorUserUID('listaEspera', 'userUID');
-    const table = await this.buscarPorUserUID('listaMesas', 'userUID');
+    const waiting = await this.buscarPorUserID('listaEspera', 'userID');
+    const table = await this.buscarPorUserID('listaMesas', 'userID');
 
     if ((action === "ingreso" && !waiting[0]) || 
         (action === "mesa" && waiting[0]?.state === "accepted" && table[0]?.number)) {
@@ -189,7 +189,7 @@ export class MesaPage implements OnInit {
     let message = ""
 
     try {
-      const table = await this.buscarPorUserUID('listaMesas',"userUID");
+      const table = await this.buscarPorUserID('listaMesas',"userID");
 
       console.log(table[0]?.number)
 
@@ -219,10 +219,10 @@ export class MesaPage implements OnInit {
     })
   }
 
-  async buscarPorUserUID(collection: string, field: string): Promise<any> {
+  async buscarPorUserID(collection: string, field: string): Promise<any> {
 
     if (!this.userUID) {
-      console.error("User UID is undefined");
+      console.error("User ID is undefined");
       return [];
     }
 
@@ -230,7 +230,7 @@ export class MesaPage implements OnInit {
       const documents = await this.firestoreService.getDocumentsByField<any>(collection, field, this.userUID);
       return documents;
     } catch (error) {
-      console.error(`Error al obtener documentos de la colección ${collection} con UID: ${this.userUID}`, error);
+      console.error(`Error al obtener documentos de la colección ${collection} con ID: ${this.userUID}`, error);
       return [];
     }
   }

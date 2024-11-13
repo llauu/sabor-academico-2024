@@ -8,8 +8,8 @@ import { DocumentSnapshot, Firestore, QuerySnapshot, collection,
   providedIn: 'root'
 })
 export class FirestoreService {
+
   constructor(private firestore: Firestore) { }
-  
   
   //---| CREATE |---//
   async createDocument<tipo>(path: string, data: tipo, id: string | null = null) {
@@ -112,5 +112,10 @@ export class FirestoreService {
     const doc: any = await this.getDocument(`usuarios/${uid}`);
 
     return doc.data().token;
+  }
+
+  async getProductos() {
+    const snapshot = await this.getDocuments<any>('productos');
+    return snapshot.docs.map(doc => doc.data());
   }
 }

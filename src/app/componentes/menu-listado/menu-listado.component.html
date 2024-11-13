@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+
+    <!-- Total y Tiempo Estimado -->
+    <button class="summary-button" (click)="showOrderSummary()">
+        <span class="material-icons">receipt</span>
+    </button>
+    <div class="total">
+      Total: {{ this.precioTotal| currency }}
+    </div>
+    <div class="total-time">
+      Tiempo estimado: {{ getTotalTime() }} minutos
+    </div>
+  
+    <!-- Lista de Productos -->
+    <div *ngFor="let producto of productos" class="product-item">
+
+        <div class="product-header" (click)="toggleProduct(producto)">
+            <span>{{ producto.nombre }}</span>
+            <span>{{ producto.precioTotalProducto | currency }}</span>
+            <span *ngIf="producto.cantidad > 0">({{ producto.cantidad }})</span>
+            <button (click)="decreaseQuantity(producto, $event)">➖</button>
+            <button (click)="increaseQuantity(producto, $event)">➕</button>
+        </div>
+        <div class="product-details" *ngIf="producto.expanded">
+            <app-menu-item [imagenes]="producto.imagenes"></app-menu-item>
+            <p>{{ producto.descripcion }}</p>
+            <p>Precio unitario: {{ producto.precio | currency }}</p>
+            <p>Tiempo estimado: {{ producto.tiempo }} minutos</p>
+        </div>
+        </div>
+  
+        <!-- Botones de Confirmar y Cancelar Pedido -->
+        <div class="button-group">
+            <button (click)="showOrderSummary()">Confirmar Pedido</button>
+            <button (click)="cancelOrder()">Cancelar Pedido</button>
+        </div>
+  
+  </ion-content>
+  

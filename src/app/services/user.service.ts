@@ -68,9 +68,11 @@ export class UserService {
     });
   }
 
-  async getUid(): Promise<string | null> {
+  async getId(): Promise<string | null> {
     await this.getState(); // Espera a que `getState` se complete
-    return this.user ? this.user.uid : null;
+
+    console.log(this.user ? this.user.id : null)
+    return this.user ? this.user.id : null;
   }
 
   getLogged() {
