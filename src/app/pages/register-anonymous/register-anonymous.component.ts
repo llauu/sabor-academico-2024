@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FcmService } from 'src/app/services/fcm.service';
 @Component({
   selector: 'app-register-anonymous',
   templateUrl: './register-anonymous.component.html',
@@ -27,7 +28,7 @@ export class RegisterAnonymousComponent implements OnInit {
   
   miformulario: FormGroup;
 
-  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router, private firestoreService: FirestoreService) {
+  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router, private firestoreService: FirestoreService, private fcm: FcmService) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
     }, );
@@ -69,10 +70,14 @@ export class RegisterAnonymousComponent implements OnInit {
       fotoUrl: ''
   };
     try {
-       await this.firestoreService.createDocument(`usuarios`, cliente );
-       Swal.fire({
+      const uid = await this.firestoreService.createDocument(`usuarios`, cliente );
+
+      // Inicializamos push notifications
+      this.fcm.init(uid);
+
+      Swal.fire({
         title: 'Cliente creado',
-        text: '¡Revise su casilla de correo!',
+        text: '¡Ya puede disfrutar de nuestros servicios anónimamente!',
         icon: 'success',
         confirmButtonText: 'Aceptar',
         backdrop: `rgba(0,0,0,0.8)`,
@@ -81,7 +86,7 @@ export class RegisterAnonymousComponent implements OnInit {
           document.body.classList.remove('swal2-height-auto');
         }
       });
-      this.router.navigate(['/home'])
+      this.router.navigate(['/menu-cliente'])
     } catch (error) {
       console.error('Error durante la creación del cliente:', error);
     }

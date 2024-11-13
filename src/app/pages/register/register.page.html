@@ -81,12 +81,12 @@
               </button>
               <img (click)="sacarFoto()" class="upload-icon" src="../../../assets/logoSubirImagen.png" alt="subir imagen de usuario">
             </div>
+            <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
           </form>
         </div>
       </div>
     </div>
 
-    <app-qr-scanner (scanResult)="onScanResult($event)"></app-qr-scanner>
 
   </div>
 </section>

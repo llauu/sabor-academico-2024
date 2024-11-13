@@ -110,8 +110,9 @@ export class GestionIngresosPage implements OnInit {
       console.error("Error al rechazar el cliente:", error);
     }
   }
+
   navigateHome(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/menu-maitre']);
   }
 
 

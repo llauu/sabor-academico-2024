@@ -8,13 +8,14 @@ import { logOutOutline } from 'ionicons/icons';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-menu-maitre',
   templateUrl: './menu-maitre.page.html',
   styleUrls: ['./menu-maitre.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon, IonButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon, IonButton, MatIconModule]
 })
 export class MenuMaitrePage implements OnInit {
 

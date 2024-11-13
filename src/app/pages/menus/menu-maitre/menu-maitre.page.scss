@@ -1,40 +1,95 @@
-ion-button {
-    --color: var(--colorado);
-    --border-color: var(--colorado);
-  }
-  
-  ion-toolbar {
-    --background: var(--azul);
-  }
-  
-  ion-title {
-    padding: 20px 0px;
-    font-size: 33px;
-    font-weight: 800;
-    text-align: center;
-  }
-  
-  ion-content {
-    --background: var(--arena)
-  }
+* {
+  color: white;
+}
 
-  
-  .btn-logout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    background-color: var(--azul);
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.75);
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-  }
+ion-toolbar {
+  --background: #003049;
+}
 
-  .btn-logout ion-icon {
-    width: 42px;
-    height: 42px;
-  }
+ion-title strong {
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+  font-size: 33px;
+  font-weight: 800;
+}
+
+.admin-menu-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  background-color: #900f0f;
+  padding: 20px;
+}
+
+.admin-button {
+  --background: purple;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto;
+  height: 60px;
+  font-size: 1.2rem;
+  --border-radius: 25px;
+}
+
+.inside-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  gap: 5px;
+}
+
+mat-icon {
+  font-size: 3rem;
+  min-height: 3rem;
+  width: 100%;
+}
+
+.btn-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: var(--azul);
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.75);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.btn-logout ion-icon {
+  width: 42px;
+  height: 42px;
+}
+.admin-button {
+  --border-radius: 25px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  --background: purple;
+  width: 100%;
+  height: 100%;
+}
+.inside-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon {
+  font-size: 2.5rem;
+}
+
