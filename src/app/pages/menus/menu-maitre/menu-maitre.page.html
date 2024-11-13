@@ -1,8 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <strong>Sabor Académico</strong>
-    </ion-title>
+    <div class="header">
+      <ion-title>
+        <strong>Sabor Académico</strong>
+      </ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +12,7 @@
   <div>
     <app-spinner></app-spinner>
   </div>
-  <div id="container">
+  <!-- <div id="container">
     <h2>Menu maitre</h2>
     
     <ion-button size="large" expand="block" fill="outline" (click)="router.navigate(['/gestion-ingresos'])">Lista de espera</ion-button>
@@ -18,5 +20,16 @@
     <div class="btn-logout" (click)="confirmLogout()">
       <ion-icon name="log-out-outline"></ion-icon>
     </div>
-  </div>
+  </div> -->
+  <section class="admin-menu-section">
+    <ion-button (click)="router.navigate(['/gestion-ingresos'])" expand="block" class="admin-button">
+      <div class="inside-button">
+        <span>Gestionar ingreso al local</span>
+        <mat-icon class="icon">storefront</mat-icon>
+      </div>
+    </ion-button>
+    <div class="btn-logout" (click)="confirmLogout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </div>
+  </section>
 </ion-content>

@@ -18,6 +18,9 @@ body, html {
   width: 100%;
   max-width: 600px;
   padding: 20px; /* Añadido para mejorar el espacio interno */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .card {
@@ -34,6 +37,7 @@ body, html {
 
 .title {
   font-weight: bold;
+  margin: 0;
   margin-bottom: 1rem;
 }
 
@@ -187,7 +191,7 @@ button:active {
   --min-height: 30px;
   font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 50px;
+  margin-bottom: 15px;
   background-color: #a8adb3;
   color : black;
 }

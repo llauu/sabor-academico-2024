@@ -94,7 +94,7 @@ export class UserService {
     this.logged = false;
     this.user = null;
     this.userProfile = null;
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
     return this.authService.logout();
   }
 }
