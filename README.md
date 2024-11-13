@@ -7,8 +7,7 @@
 - **[Gamma]** [Rodriguez, Julian](https://github.com/rodriguezjulian)
 
 
-## Tareas 📑
-### Asignacion de tareas
+## Asignación de tareas 📑
 | #  | Tarea                                                   | Responsable | Estado    |
 | -- | ------------------------------------------------------- | ----------- | --------- |
 | 1  | Generacion de proyecto                                  | Beta        | Terminado |
@@ -19,31 +18,34 @@
 | 6  | Alta cliente                                            | Gamma       | Terminado |
 | 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
 | 8  | Menu supervisor/dueño                                   | Gamma       | Pendiente |
-| 9  | Menu empleados                                          | -           | Pendiente |
-| 10 | Menu clientes                                           | Beta        | Terminado |
-| 11 | QR del DNI                                              | Beta        | Terminado |
-| 12 | QR de ingreso al local                                  | Beta        | Terminado |
-| 13 | QR de la mesa                                           | Beta        | Terminado |
-| 14 | QR de propina                                           | Beta        | Pendiente |
-| 15 | Ingresar al local                                       | Beta        | Terminado |
-| 16 | Listado de espera                                       | Beta        | Terminado |
-| 17 | Encuesta de satisfaccion al cliente                     | Alfa        | Terminado |
-| 18 | Graficos de encuestas de clientes                       | Alfa        | Terminado |
-| 19 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
-| 20 | Manejo del estado del pedido                            | -           | Pendiente |
-| 21 | Confirmar pedido                                        | Gamma       | Pendiente |
-| 22 | Pedir la cuenta                                         | -           | Pendiente |
-| 23 | Mozo confirma pago                                      | Gamma       | Pendiente |
-| 24 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
-| 25 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
-| 26 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
-| 27 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
-| 28 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
-| 29 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
-| 30 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
-| 31 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
-| 32 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
-| 33 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Pendiente |
+| 9  | Menu empleados                                          | Gamma       | Pendiente |
+| 10 | Menu maitre                                             | Alfa        | Terminado |
+| 11 | Menu mozo                                               | Gamma       | Pendiente |
+| 12 | Menu clientes                                           | Beta        | Terminado |
+| 13 | QR del DNI                                              | Beta        | Terminado |
+| 14 | QR de ingreso al local                                  | Beta        | Terminado |
+| 15 | QR de la mesa                                           | Beta        | Terminado |
+| 16 | QR de propina                                           | Beta        | Pendiente |
+| 17 | Ingresar al local                                       | Beta        | Terminado |
+| 18 | Listado de espera                                       | Beta        | Terminado |
+| 19 | Encuesta de satisfaccion al cliente                     | Alfa        | Terminado |
+| 20 | Graficos de encuestas de clientes                       | Alfa        | Terminado |
+| 21 | Pedir platos y bebidas (menu)                           | Beta        | Pendiente |
+| 22 | Manejo del estado del pedido                            | -           | Pendiente |
+| 23 | Confirmar pedido                                        | Gamma       | Pendiente |
+| 24 | Pedir la cuenta                                         | -           | Pendiente |
+| 25 | Mozo confirma pago                                      | Gamma       | Pendiente |
+| 26 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
+| 27 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
+| 28 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
+| 29 | Push N. / Manejo de tokens                              | Alfa        | Terminado |
+| 30 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
+| 31 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
+| 32 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
+| 33 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
+| 34 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
+| 35 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
+| 36 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Pendiente |
 
 
 ## Fecha de inicio 📆
