@@ -150,12 +150,13 @@ export class RegisterPage implements OnInit {
       }
     });   
   }
+  
   async sacarFoto() {
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.Base64,
-      promptLabelHeader: "FOTO LINDA",
+      promptLabelHeader: "FOTO DE PERFIL",
       promptLabelPicture: "TOMAR FOTO",
       promptLabelPhoto: "DESDE GALERÍA"
     });}

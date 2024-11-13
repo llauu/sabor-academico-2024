@@ -7,7 +7,7 @@
     <div class="form-container">
       <div class="card">
         <div class="card-body">
-          <h2 class="title">Registro</h2>
+          <h2 class="title">Registro anónimo</h2>
           <p class="subtitle">Por favor ingrese los datos requeridos</p>
           <!-- Formulario Reactivo -->
           <form [formGroup]="miformulario" (ngSubmit)="onSubmit()">
@@ -18,10 +18,19 @@
                 <small class="text-danger" *ngIf="miformulario.get('nombre')?.hasError('required')">El nombre es obligatorio.</small>
               </div>
             </div>
+
+
+            <div class="button-container">
+              <button type="submit" class="submit-button">
+                <span>CREAR CLIENTE</span>
+              </button>
+              <img (click)="sacarFoto()" class="upload-icon" src="../../../assets/logoSubirImagen.png" alt="Subir imagen de usuario">
+            </div>
+
             <!-- Botón de Enviar -->
-            <button type="submit">
+            <!-- <button type="submit">
               <span>CREAR CLIENTE</span>
-            </button>
+            </button> -->
           </form>
         </div>
       </div>

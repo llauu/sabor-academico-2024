@@ -16,7 +16,7 @@ body, html {
 .container {
     width: 100%;
     max-width: 800px; /* Aumentado el ancho máximo del contenedor */
-    padding: 40px; /* Ajusta el padding si es necesario */
+    padding: 20px; /* Ajusta el padding si es necesario */
 }
 
 .card {
@@ -25,7 +25,7 @@ body, html {
     padding: 2rem;
     color: white;
     text-align: center;
-    min-height: 400px; /* Establece una altura mínima */
+    min-height: 500px; /* Establece una altura mínima */
 }
 
 .card-body {
@@ -90,7 +90,7 @@ button[type="submit"] {
     line-height: 1em;
     max-width: 100%;
     min-width: 140px;
-    padding: 3px;
+    padding: 10px;
     text-decoration: none;
     user-select: none;
     cursor: pointer;
@@ -137,3 +137,28 @@ button[type="submit"]:active {
 .img{
     margin-right: 15px ;
 }
+
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 140px;
+  }
+  
+  .submit-button {
+    flex: 1;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .upload-icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-left: 10px;
+  }

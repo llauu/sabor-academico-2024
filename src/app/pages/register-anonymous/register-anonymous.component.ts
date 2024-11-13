@@ -8,6 +8,9 @@ import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FcmService } from 'src/app/services/fcm.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
+
 @Component({
   selector: 'app-register-anonymous',
   templateUrl: './register-anonymous.component.html',
@@ -60,6 +63,16 @@ export class RegisterAnonymousComponent implements OnInit {
   navigateRegister(){
     this.router.navigate(['/register'])
   }
+
+  async sacarFoto() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      promptLabelHeader: "FOTO DE PERFIL",
+      promptLabelPicture: "TOMAR FOTO",
+      promptLabelPhoto: "DESDE GALERÍA"
+    });}
 
   async crearCliente() {
     const cliente = {
