@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon } from '@ionic/angular/standalone';
-import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 import { addIcons } from 'ionicons';
-import { checkbox, logOutOutline } from 'ionicons/icons';
+import { logOutOutline } from 'ionicons/icons';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../../services/firestore.service';
 import { IonicModule } from '@ionic/angular';
 import { Firestore } from '@angular/fire/firestore';
-import { user } from '@angular/fire/auth';
-
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-menu-empleado',
   templateUrl: './menu-empleado.page.html',
@@ -25,43 +22,48 @@ export class MenuEmpleadoPage implements OnInit {
   pedidos: any[] = [];
   user : any ;
   userProfile : any;
+  pedidosSubscription: Subscription | undefined;
   constructor(private firestore: Firestore, private firestoreService: FirestoreService, private userService: UserService, private router: Router) { 
     addIcons({ logOutOutline });
   }
 
   ngOnInit() {
-    console.log("antes");
     this.userService.getState()
       .then((user: any) => {
         this.user = user;
-
         return this.userService.getUserProfile(user.uid);
       })
       .then((userProfile: any) => {
-        console.log("userProfile: ", userProfile);
         this.userProfile = userProfile;
-        this.cargarPedidos();
+        this.subscribeToPedidos();
       })
       .catch((error) => {
         console.error("Error en ngOnInit:", error);
       });
-      if(this.userProfile.rol === "bartender")
-      {
-        
-      }
   }
-  
 
-  async cargarPedidos() {
-    const pedidosData = await this.firestoreService.getPedidos();
-    if (this.userProfile.rol === 'bartender') {
-      this.pedidos = pedidosData.filter((pedido: any) => pedido.bar?.estado === 'pendiente');
-    } else if (this.userProfile.rol === 'cocinero') {
-      this.pedidos = pedidosData.filter((pedido: any) => pedido.cocina?.estado === 'pendiente');
+  subscribeToPedidos() {
+    this.pedidosSubscription = this.firestoreService.getPedidos().subscribe(pedidosData => {
+      if (this.userProfile.rol === 'bartender') {
+        this.pedidos = pedidosData.filter((pedido: any) => pedido.bar?.estado === 'pendiente');
+      } else if (this.userProfile.rol === 'cocinero') {
+        this.pedidos = pedidosData.filter((pedido: any) => pedido.cocina?.estado === 'pendiente');
+      }
+    });
+  }
+
+  async validarEstado(pedidoId: string) {
+    const pedido = await this.firestoreService.getDocument(`listaPedidos/${pedidoId}`);
+    if (pedido.exists()) {
+      const pedidoData : any= pedido.data();
+      
+      if (pedidoData.bar?.estado === 'realizado' && pedidoData.cocina?.estado === 'realizado') {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+          estado: 'realizado'
+        });
+      }
     }
   }
-  
-  
   async marcarRealizado(pedidoId: string) {
       if(this.userProfile.rol === "bartender")
       {
@@ -75,6 +77,7 @@ export class MenuEmpleadoPage implements OnInit {
           'cocina.estado': 'realizado'
         });
       }
+      await this.validarEstado(pedidoId);
 
     this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
   }
@@ -105,5 +108,10 @@ export class MenuEmpleadoPage implements OnInit {
       .then(() => {
         this.router.navigate(['/login']);
       });
+  }
+  ngOnDestroy() {
+    if (this.pedidosSubscription) {
+      this.pedidosSubscription.unsubscribe();
+    }
   }
 }

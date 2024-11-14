@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { DocumentSnapshot, Firestore, QuerySnapshot, collection, 
   collectionGroup, deleteDoc, doc, getDoc, getDocs, serverTimestamp, where, query,
   setDoc, updateDoc} from '@angular/fire/firestore';
+import {  onSnapshot } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
   
 @Injectable({
@@ -61,10 +63,18 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
-  async getPedidos() {
+  getPedidos(): Observable<any[]> {
     const refCollection = collection(this.firestore, 'listaPedidos');
-    const snapshot = await getDocs(refCollection);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    return new Observable(observer => {
+      const unsubscribe = onSnapshot(refCollection, (snapshot: QuerySnapshot) => {
+        const pedidos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        observer.next(pedidos);
+      }, (error) => {
+        observer.error(error);
+      });
+      return () => unsubscribe();
+    });
   }
 
   
