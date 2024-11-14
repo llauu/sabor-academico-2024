@@ -56,7 +56,7 @@ El proyecto fue **iniciado** el día 29 de octubre de 2024.
 Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
 
 
-## Branches 🌿
+## Ramas 🌿
 ### Principal
 - **main**<br> Es la versión principal donde estaremos manejando las versiones finales del proyecto.
 
