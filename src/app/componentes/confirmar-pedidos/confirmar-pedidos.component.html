@@ -1,3 +1,38 @@
-<p>
-  confirmar-pedidos works!
-</p>
+<section class="vh-100 gradient-custom">
+  <div class="container">
+    <div class="form-container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="title">Confirmación de Pedidos</h2>
+          <p class="subtitle">Pedidos en estado pendiente</p>
+
+          <ul class="pedido-lista">
+            <li *ngFor="let pedido of pedidos" class="pedido-item">
+              <div class="pedido-encabezado">
+                <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
+                <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                  {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                </button>
+              </div>
+
+              <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
+                <div *ngIf="pedido.cocina">
+                  <strong>Cocina</strong>
+                  <p *ngFor="let producto of pedido.cocina.productos">
+                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                  </p>
+                </div>
+                <div *ngIf="pedido.bar">
+                  <strong>Bar</strong>
+                  <p *ngFor="let producto of pedido.bar.productos">
+                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
