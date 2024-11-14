@@ -18,9 +18,9 @@
 | 6  | Alta cliente                                            | Gamma       | Terminado |
 | 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
 | 8  | Menu supervisor/dueño                                   | Gamma       | Terminado |
-| 9  | Menu empleados                                          | Gamma       | Pendiente |
+| 9  | Menu empleados                                          | Gamma       | Terminado |
 | 10 | Menu maitre                                             | Alfa        | Terminado |
-| 11 | Menu mozo                                               | Alfa        | Pendiente |
+| 11 | Menu mozo                                               | Gamma       | Pendiente |
 | 12 | Menu clientes                                           | Alfa        | Terminado |
 | 13 | QR del DNI                                              | Beta        | Terminado |
 | 14 | QR de ingreso al local                                  | Beta        | Terminado |
@@ -33,7 +33,7 @@
 | 21 | Pedir platos y bebidas (menu)                           | Beta        | Terminado |
 | 22 | Manejo del estado del pedido                            | Beta        | Terminado |
 | 23 | Confirmar pedido                                        | Gamma       | Pendiente |
-| 24 | Pedir la cuenta                                         | Alfa        | Pendiente |
+| 24 | Pedir la cuenta                                         | Alfa        | Terminado |
 | 25 | Mozo confirma pago                                      | Gamma       | Pendiente |
 | 26 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
 | 27 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
