@@ -3,7 +3,7 @@
 }
 
 .gradient-custom {
-  background: linear-gradient(to bottom, #ad0d0d, #ffee00); /* Degradado */
+  background: linear-gradient(to bottom, #ad0d0d, #ffee00);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,13 +29,13 @@
 
 .title {
   font-weight: bold;
-  font-size: 2rem; /* Aumenta el tamaño del título */
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 .subtitle {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2rem; /* Aumenta el tamaño de la subtítulo */
+  font-size: 1.2rem;
   margin-bottom: 2rem;
 }
 
@@ -46,11 +46,9 @@
 }
 
 .pedido-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px; /* Aumenta el padding para mejorar visibilidad */
+  padding: 15px 20px;
   margin: 15px 0;
+  color : black;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -61,34 +59,34 @@
   background-color: #f1f1f1;
 }
 
-.pedido-estado {
-  flex-basis: 100%;
-  text-align: left;
-  margin-bottom: 10px;
-  font-size: 1.2rem; /* Aumenta el tamaño del texto */
+.pedido-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
   color: #333;
 }
 
-.pedido-info {
+.pedido-detalle {
   text-align: left;
-  font-size: 1.1rem; /* Aumenta el tamaño del texto */
+  font-size: 1.1rem;
   color: #555;
   font-weight: 500;
-}
-
-.pedido-acciones {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 10px;
 }
 
 .accion-boton {
   cursor: pointer;
   border: none;
   background: none;
-  font-size: 2.5rem; /* Aumenta el tamaño del check */
+  font-size: 1.8rem;
   color: #4caf50;
   transition: transform 0.2s;
+}
+
+.accion-boton.realizar {
+  color: #4caf50;
+  margin-right: 30px;
 }
 
 .accion-boton:hover {
