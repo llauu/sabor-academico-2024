@@ -63,6 +63,7 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
+
   getPedidos(): Observable<any[]> {
     const refCollection = collection(this.firestore, 'listaPedidos');
     
@@ -117,6 +118,36 @@ export class FirestoreService {
       return null;
     }
   }
+
+
+  async getMesaPorUserID(uid: string) {
+    const col = collection(this.firestore, 'listaMesas');
+  
+    const q = query(col, where('userID', '==', uid));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data();
+    } else {
+      console.log('No se encontró ninguna mesa con el userId proporcionado.');
+      return null;
+    }
+  }
+
+
+  async getPedidoPorUserID(uid: string) {
+    const col = collection(this.firestore, 'listaPedidos');
+  
+    const q = query(col, where('userID', '==', uid));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data();
+    } else {
+      console.log('No se encontró ninguna pedido con el userId proporcionado.');
+      return null;
+    }
+  }
   
   async getUsuarios() {
     const snapshot = await this.getDocuments<any>('usuarios');
@@ -145,9 +176,21 @@ export class FirestoreService {
   }
   
   async getPedidoByUid(uid: string) {
-    const doc: any = await this.getDocument(`listaPedidos/${uid}`);
-
-    return doc.data();
+    try {
+      // Llamar a getDocument para obtener el snapshot del documento
+      const docSnapshot = await this.getDocument(`listaPedidos/${uid}`);
+  
+      // Verificar si el documento existe
+      if (!docSnapshot.exists()) {
+        throw new Error('No se encontró el pedido con el uid proporcionado');
+      }
+  
+      // Devolver los datos del documento
+      return docSnapshot.data(); // Acceder a los datos del documento
+    } catch (error) {
+      console.error('Error al obtener el pedido:', error);
+      throw error; // Manejar el error según sea necesario
+    }
   }
 
   async getProductos() {

@@ -24,8 +24,10 @@ import { PushNotificationsService } from 'src/app/services/push-notifications.se
 export class MenuClienteEsperandoPage implements OnInit {
   @ViewChild(Scanner) scanner!: Scanner;
   estadoPedido = 'pendiente';
-  idPedido: string = '';
   pedido: any;
+  userID: any;
+  cuenta: boolean = false;
+  recibido: boolean = false;
 
   constructor(private userService: UserService, public router: Router, private firestoreService: FirestoreService, private route: ActivatedRoute,
               private pushN: PushNotificationsService
@@ -33,9 +35,16 @@ export class MenuClienteEsperandoPage implements OnInit {
     addIcons({ logOutOutline });
   }
 
-  ngOnInit() {
-    this.idPedido = this.route.snapshot.paramMap.get('idPedido') || '';
-    console.log("ID del Pedido recibido:", this.idPedido);
+  async ngOnInit() {
+    this.userID = await this.userService.getId();
+    console.log(this.userID);
+
+    this.pedido = await this.firestoreService.getPedidoPorUserID(this.userID);
+    this.estadoPedido = this.pedido?.estado ? this.pedido.estado : "pendiente";
+    console.log('Pedido:', this.pedido);
+    console.log('Estado:', this.pedido.estado);
+    console.log('Mesa:', this.pedido.mesa);
+
     addIcons({ logOutOutline });
   }
 
@@ -47,56 +56,244 @@ export class MenuClienteEsperandoPage implements OnInit {
     return this.scanner.startScan();
   }
 
+
+  // Manejo del resultado del escaneo
   async onScanResult(result: string) {
-    const pedido: any = await this.firestoreService.getPedidoByUid(this.idPedido);
-    let mensaje = '';
-    let titulo = '';
+    console.log("aca en onScanResult")
 
-    console.log('Pedido:', pedido);
-    console.log('Estado:', pedido.estado);
 
-    this.pedido = pedido;
-    this.estadoPedido = pedido.estado;
+    this.pedido = await this.firestoreService.getPedidoPorUserID(this.userID);
+    this.estadoPedido = this.pedido?.estado ? this.pedido.estado : "pendiente";
+    
+    console.log('Resultado del escaneo:', result);
 
-    console.log(this.pedido);
-    console.log(this.estadoPedido);
+    if (this.estadoPedido == "recibido" && result.startsWith("propina")) {
+      this.registrarPropina(result);
+    } else if (result.startsWith("mesa")) {
+      console.log('result', result);
+      this.actualizarEstadoPedido(result);
+    }
+    else {
 
-    switch(this.estadoPedido) {
-      case 'pendiente':
-        titulo = 'Pedido pendiente';
-        mensaje = 'Tu pedido está pendiente de preparación.';
+      Swal.fire({
+        title: "Error",
+        text: "El QR que escaneaste no es válido",
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');   
+        }
+      })
+
+    }
+  }
+
+
+  async registrarPropina(propina: string){
+
+    console.log("aca en registrarPropina")
+
+    switch (propina) {
+      case 'propina_malo':
+        this.pedido.porcentajePropina = 0;
         break;
-
-      case 'derivado':
-        titulo = 'En preparacion';
-        mensaje = 'Estamos preparando tu pedido.';
+      case 'mesa_regular':
+        this.pedido.porcentajePropina = 0.05;
         break;
-
-      case 'listo para servir':
-        titulo = 'Listo para servir';
-        mensaje = 'Tu pedido está listo para ser servido.';
-        this.estadoPedido = 'recibido';
-        this.firestoreService.updateDocument(`listaPedidos/${this.idPedido}`, { estado: 'recibido' });
+      case 'propina_bueno':
+        this.pedido.porcentajePropina = 0.10;
         break;
-
-      case 'recibido':
-        titulo = 'Ingrese la propina';
-        mensaje = 'Se abrirá la cámara para escanear el código QR de la propina.';
-        this.pushN.sendNotificationToRole('Han pedido la cuenta!', `La mesa ${this.pedido.mesa} ha solicitado la cuenta.`, 'mozo');
+      case 'propina_muy_bueno':
+        this.pedido.porcentajePropina = 0.15;
+        break;
+      case 'propina_excelente':
+        this.pedido.porcentajePropina = 0.20;
         break;
     }
 
-    Swal.fire({
-      title: titulo,
-      text: mensaje,
-      icon: 'info',
-      confirmButtonText: 'Aceptar',
-      backdrop: `rgba(0,0,0,0.8)`,
-      didOpen: () => {
-        document.documentElement.classList.remove('swal2-height-auto');
-        document.body.classList.remove('swal2-height-auto');
+    this.pedido.propina = this.pedido.precio * this.pedido.porcentajePropina
+
+    try {
+      this.firestoreService.updateDocument(`listaPedidos/${this.pedido.id}`, 
+        { propina: this.pedido.propina});
+
+        Swal.fire({
+          title: "Gracias",
+          text: "Sabor académico te agradece por la valoración",
+          icon: 'success',
+          confirmButtonText: 'PAGAR',
+          backdrop: `rgba(0,0,0,0.8)`,
+          didOpen: () => {
+            document.documentElement.classList.remove('swal2-height-auto');
+            document.body.classList.remove('swal2-height-auto');
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log("vamor a pagar")
+            // Aquí llamamos a la función si se presionó "Aceptar"
+            this.simulacionPago();
+        }})
       }
-    })
+    
+
+    catch {
+
+      Swal.fire({
+        title: "Ocurrió un probema",
+        text: "No se pudo guardar tu propina",
+        icon: 'error',
+        confirmButtonText: 'PAGAR',
+        backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');
+        }
+      })
+    }
+      
+  }
+
+
+  simulacionPago() {
+
+    // ACA DISPARAR EL SWEET ALERT CON EL DETALLE DE LA CUENTA
+
+  }
+
+
+  async actualizarEstadoPedido(tableNumber: string) {
+
+    console.log("aca en actualizar estado pedido")
+    console.log(tableNumber)
+
+    switch (tableNumber) {
+      case 'mesa_uno':
+        tableNumber = '1';
+        break;
+      case 'mesa_dos':
+        tableNumber = '2';
+        break;
+      case 'mesa_tres':
+        tableNumber = '3';
+        break;
+      case 'mesa_cuatro':
+        tableNumber = '4';
+        break;
+      case 'mesa_cinco':
+        tableNumber = '5';
+        break;
+      case 'mesa_seis':
+        tableNumber = '6';
+        break;
+      case 'mesa_siete':
+        tableNumber = '7';
+        break;
+    }
+
+    console.log(tableNumber)
+    console.log(this.pedido.mesa)
+
+
+    if(tableNumber !== this.pedido.mesa){
+      Swal.fire({
+        title: "No permitido",
+        text: "Este no es el QR de tu mesa. Tu mesa es la numero: " + this.pedido.mesa,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        backdrop: `rgba(0,0,0,0.8)`,
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');   
+        }
+      })
+    }
+
+    else {
+
+      let mensaje = '';
+      let titulo = '';
+  
+      switch(this.estadoPedido) {
+        case 'pendiente':
+          titulo = 'Pedido pendiente';
+          mensaje = 'Tu pedido está pendiente de preparación.';
+          break;
+  
+        case 'derivado':
+          titulo = 'En preparacion';
+          mensaje = 'Estamos preparando tu pedido.';
+          break;
+  
+        case 'listo para servir':
+          titulo = 'Listo para servir';
+          mensaje = 'Tu pedido está listo para ser servido.';
+          this.estadoPedido = 'recibido';
+          this.firestoreService.updateDocument(`listaPedidos/${this.pedido.id}`, { estado: 'recibido' });
+          break;
+  
+        case 'recibido':
+          {
+            
+            if(!this.recibido){
+              titulo = 'Pedido recibido';
+              mensaje = '¡Esperamos que disfrutes tu pedido!';
+              this.recibido = true;
+              break;
+            }
+  
+            else {
+              this.cuenta = true;
+              titulo = 'Ingrese la propina';
+              mensaje = 'Se abrirá la cámara para escanear el código QR de la propina.';
+              this.scanner.stopScan();
+              this.pushN.sendNotificationToRole('Han pedido la cuenta!', `La mesa ${this.pedido.mesa} ha solicitado la cuenta.`, 'mozo');
+              break;
+            }
+          }
+      }
+  
+      if(this.estadoPedido == "recibido" && this.cuenta){
+
+        console.log("aca en este sweet alertsssss")
+  
+       Swal.fire({
+            title: titulo,
+            text: mensaje,
+            icon: 'info',
+            confirmButtonText: 'Aceptar',
+            backdrop: `rgba(0,0,0,0.8)`,
+            didOpen: () => {
+              document.documentElement.classList.remove('swal2-height-auto');
+              document.body.classList.remove('swal2-height-auto');
+            }
+          }).then((result) => {
+            if (result.isConfirmed) {
+              console.log("aceptamos qr de propina")
+              // Aquí llamamos a la función si se presionó "Aceptar"
+              this.escanearQR();
+          }})
+      }
+      else { 
+        Swal.fire({
+          title: titulo,
+          text: mensaje,
+          icon: 'info',
+          confirmButtonText: 'Aceptar',
+          backdrop: `rgba(0,0,0,0.8)`,
+          didOpen: () => {
+            document.documentElement.classList.remove('swal2-height-auto');
+            document.body.classList.remove('swal2-height-auto');
+          }
+        })
+      }
+  
+
+    }
+
+
+   
   }
   
 

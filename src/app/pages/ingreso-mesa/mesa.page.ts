@@ -29,6 +29,7 @@ export class MesaPage implements OnInit {
   ingreso: boolean = true;
   mesa:boolean = false;
   userFullName: any;
+  pedidoExistente : any = null;
 
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {
@@ -59,8 +60,8 @@ export class MesaPage implements OnInit {
     let title = "";
     let message = ""
 
-    const waiting = await this.buscarPorUserID('listaEspera', 'userID');
-    const table = await this.buscarPorUserID('listaMesas', 'userID');
+    const waiting = await this.buscarPorUserID('listaEspera');
+    const table = await this.buscarPorUserID('listaMesas');
     
     console.log(waiting)
     console.log(table)
@@ -209,13 +210,17 @@ export class MesaPage implements OnInit {
     let valido = false;
 
     try {
-      const table = await this.buscarPorUserID('listaMesas',"userID");
+      const table = await this.buscarPorUserID('listaMesas');
 
       console.log(table[0]?.number)
 
+      this.pedidoExistente = await this.buscarPorUserID('listaPedidos')
+
+      message = this.pedidoExistente[0] ? "Tu pedido está:" + this.pedidoExistente[0].estado : "Ahora vas a poder hacer el pedido"
+
       if (tableNumber === table[0]?.number) {
-        title = "¡Bienvenido a la mesa: " + table[0]?.number + '!'
-        message = "Ahora vas a poder hacer el pedido";
+        title = "¡Bienvenido a tu mesa: " + table[0]?.number + '!'
+        message = message;
         valido = true;
       } else {
         title = "Error"
@@ -239,12 +244,19 @@ export class MesaPage implements OnInit {
     }).then((result) => {
       // Si el usuario hace clic en "Aceptar"
       if (result.isConfirmed) {
-        if (valido) this.router.navigate(['/menu-cliente']);
+        if (valido) {
+
+          if(this.pedidoExistente[0])
+            this.router.navigate(['/menu-cliente-esperando']);
+          else
+            this.router.navigate(['/menu']);
+
+        }
       }
     })
   }
 
-  async buscarPorUserID(collection: string, field: string): Promise<any> {
+  async buscarPorUserID(collection: string): Promise<any> {
 
     if (!this.userID) {
       console.error("User ID is undefined");
@@ -252,7 +264,7 @@ export class MesaPage implements OnInit {
     }
 
     try {
-      const documents = await this.firestoreService.getDocumentsByField<any>(collection, field, this.userID);
+      const documents = await this.firestoreService.getDocumentsByField<any>(collection, "userID", this.userID);
       return documents;
     } catch (error) {
       console.error(`Error al obtener documentos de la colección ${collection} con ID: ${this.userID}`, error);

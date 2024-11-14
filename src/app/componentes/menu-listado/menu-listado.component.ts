@@ -19,16 +19,19 @@ import { Router } from '@angular/router';
 export class MenuListadoComponent implements OnInit {
   
   productos : any[] = []
-  userID: string | null = '';
+  userID: any;
   userFullName: string | null = '';
   precioTotal: number = 0;
   tiempoTotal: number = 0;
+  mesa: any
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    // this.userID = await this.userService.getId();
-    // this.userFullName = await this.userService.getName();
+    this.userID = await this.userService.getId();
+    this.userFullName = await this.userService.getName();
+    this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
+    this.productos = await this.firestoreService.getProductos();
     this.productos = await this.firestoreService.getProductos();
 
     for(let p of this.productos){
@@ -186,7 +189,8 @@ export class MenuListadoComponent implements OnInit {
       bar: {
         estado: "pendiente",
         productos: productosFiltrados.filter(p => p.sector === "bar")
-      }
+      },
+      mesa: this.mesa
     }
 
     try {

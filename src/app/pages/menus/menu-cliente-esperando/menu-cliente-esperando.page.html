@@ -10,14 +10,14 @@
 <ion-content [fullscreen]="true">
   <section class="scanner-section">
     <div class="spinner-container">
-      <ion-button (click)="escanearQR()" expand="block" class="admin-button" *ngIf="this.estadoPedido != 'recibido'">
+      <ion-button (click)="escanearQR()" expand="block" class="admin-button" *ngIf="this.estadoPedido != 'recibido' ||( this.estadoPedido == 'recibido' && !recibido)">
         <div class="inside-button">
-          <span> {{estadoPedido == 'listo para servir' ? 'Recibi mi pedido' : 'Escanear QR'}}</span>
+          <span> {{estadoPedido == 'recibido' ? 'Recibí mi pedido' : 'Ver pedido'}}</span>
           <mat-icon class="icon">qr_code</mat-icon>
         </div>
       </ion-button>
 
-      <ion-button (click)="escanearQR()" expand="block" class="admin-button" *ngIf="this.estadoPedido == 'recibido'"> 
+      <ion-button (click)="escanearQR()" expand="block" class="admin-button" *ngIf="this.estadoPedido == 'recibido' && recibido"> 
         <div class="inside-button">
           <span> Pedir cuenta </span>
           <mat-icon class="icon">qr_code</mat-icon>
