@@ -1,20 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      <strong>Sabor Académico</strong>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<section class="vh-100 gradient-custom">
+  <div class="container">
+    <ion-button expand="block" color="red" class="limpiar-button">
+      <img class="img" src="../../../assets/atras.png" alt="atras" width="25px">
+      ATRAS
+    </ion-button>
 
-<ion-content [fullscreen]="true">
-  <div>
-    <app-spinner></app-spinner>
-  </div>
-  <div id="container">
-    <h2>Menu empleado</h2>
-    
-    <div class="btn-logout" (click)="confirmLogout()">
-      <ion-icon name="log-out-outline"></ion-icon>
+    <div class="form-container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="title">Lista de Pedidos</h2>
+          <p class="subtitle">Pedidos pendientes del sector cocina</p>
+
+          <ul class="pedido-lista">
+            <li *ngFor="let pedido of pedidos" class="pedido-item">
+              <div class="pedido-estado">
+                <p><strong>Estado:</strong> {{ pedido.cocina.estado }}</p>
+              </div>
+              <div class="pedido-info">
+                <p *ngFor="let producto of pedido.cocina.productos">
+                  <strong>Descripción:</strong> {{ producto.nombre }}<br>
+                  <strong>Cantidad:</strong> {{ producto.cantidad }}
+                </p>
+              </div>
+              <ion-checkbox (ionChange)="marcarRealizado(pedido.id)" color="success"></ion-checkbox>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-</ion-content>
+</section>

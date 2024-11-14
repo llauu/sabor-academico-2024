@@ -61,6 +61,11 @@ export class FirestoreService {
       return await getDocs(refCollectionGroup) as QuerySnapshot<tipo>;
     }
   }
+  async getPedidos() {
+    const refCollection = collection(this.firestore, 'listaPedidos');
+    const snapshot = await getDocs(refCollection);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  }
 
   
   async getUsuariosPendientes<tipo>(path: string, group: boolean = false) {
