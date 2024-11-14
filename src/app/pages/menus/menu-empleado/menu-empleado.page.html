@@ -20,7 +20,10 @@
                   <strong>Cantidad:</strong> {{ producto.cantidad }}
                 </p>
               </div>
-              <ion-checkbox (ionChange)="marcarRealizado(pedido.id)" color="success"></ion-checkbox>
+              <!-- Botón para marcar como realizado -->
+              <div class="pedido-acciones">
+                <button (click)="marcarRealizado(pedido.id)" class="accion-boton realizar">✓</button>
+              </div>
             </li>
           </ul>
         </div>

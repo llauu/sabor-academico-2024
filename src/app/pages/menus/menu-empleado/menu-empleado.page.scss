@@ -29,11 +29,13 @@
 
 .title {
   font-weight: bold;
+  font-size: 2rem; /* Aumenta el tamaño del título */
   margin-bottom: 1rem;
 }
 
 .subtitle {
   color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem; /* Aumenta el tamaño de la subtítulo */
   margin-bottom: 2rem;
 }
 
@@ -47,8 +49,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
-  margin: 10px 0;
+  padding: 15px 20px; /* Aumenta el padding para mejorar visibilidad */
+  margin: 15px 0;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -63,28 +65,36 @@
   flex-basis: 100%;
   text-align: left;
   margin-bottom: 10px;
-  font-size: 16px;
+  font-size: 1.2rem; /* Aumenta el tamaño del texto */
   color: #333;
 }
 
 .pedido-info {
   text-align: left;
-  font-size: 14px;
+  font-size: 1.1rem; /* Aumenta el tamaño del texto */
   color: #555;
   font-weight: 500;
 }
 
-.limpiar-button {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 30px;
-  background-color: #a8adb3;
-  color: black;
+.pedido-acciones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.img {
-  margin-right: 15px;
+.accion-boton {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 2.5rem; /* Aumenta el tamaño del check */
+  color: #4caf50;
+  transition: transform 0.2s;
 }
+
+.accion-boton:hover {
+  transform: scale(1.2);
+}
+
 .btn-logout {
   display: flex;
   justify-content: center;
