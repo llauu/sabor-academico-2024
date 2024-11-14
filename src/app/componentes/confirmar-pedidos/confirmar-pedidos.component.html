@@ -10,9 +10,12 @@
             <li *ngFor="let pedido of pedidos" class="pedido-item">
               <div class="pedido-encabezado">
                 <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
-                <button (click)="toggleDetalles(pedido)" class="accion-boton">
-                  {{ pedido.mostrarDetalles ? '▲' : '▼' }}
-                </button>
+                <div class="pedido-acciones">
+                  <button (click)="confirmarPedido(pedido.id)" class="accion-boton confirmar">✓</button>
+                  <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                    {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                  </button>
+                </div>
               </div>
 
               <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">

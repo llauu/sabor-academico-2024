@@ -83,6 +83,11 @@
     transition: transform 0.2s;
   }
   
+  .accion-boton.confirmar {
+    color: #4caf50;
+    margin-right: 10px;
+  }
+  
   .accion-boton:hover {
     transform: scale(1.2);
   }

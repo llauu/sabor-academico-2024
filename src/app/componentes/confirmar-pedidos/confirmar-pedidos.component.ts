@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-confirmar-pedidos',
   templateUrl: './confirmar-pedidos.component.html',
@@ -27,5 +28,18 @@ export class ConfirmarPedidosComponent implements OnInit {
 
   toggleDetalles(pedido: any) {
     pedido.mostrarDetalles = !pedido.mostrarDetalles;
+  }
+
+  async confirmarPedido(pedidoId: string) {
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      estado: 'derivado'
+    });
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      'bar.estado': 'derivado'
+    });
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      'cocina.estado': 'derivado'
+    });
+    this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
   }
 }
