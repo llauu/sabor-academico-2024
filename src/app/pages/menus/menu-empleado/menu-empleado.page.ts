@@ -52,11 +52,11 @@ export class MenuEmpleadoPage implements OnInit {
     this.pedidosSubscription = this.firestoreService.getPedidos().subscribe((pedidosData) => {
       if (this.userProfile.rol === 'bartender') {
         this.pedidos = pedidosData
-          .filter((pedido: any) => pedido.bar?.estado === 'pendiente')
+          .filter((pedido: any) => pedido.bar?.estado === 'derivado')
           .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
       } else if (this.userProfile.rol === 'cocinero') {
         this.pedidos = pedidosData
-          .filter((pedido: any) => pedido.cocina?.estado === 'pendiente')
+          .filter((pedido: any) => pedido.cocina?.estado === 'derivado')
           .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
       }
     });
@@ -70,13 +70,13 @@ export class MenuEmpleadoPage implements OnInit {
       if(this.userProfile.rol === "bartender")
       {
         await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
-          'bar.estado': 'realizado'
+          'bar.estado': 'listo para servir'
         });
       }
       else
       {
         await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
-          'cocina.estado': 'realizado'
+          'cocina.estado': 'listo para servir'
         });
       }
       await this.validarEstado(pedidoId);
@@ -88,13 +88,13 @@ export class MenuEmpleadoPage implements OnInit {
     if (pedido.exists()) {
       const pedidoData : any= pedido.data();
       
-      if (pedidoData.bar?.estado === 'realizado' && pedidoData.cocina?.estado === 'realizado') {
+      if (pedidoData.bar?.estado === 'listo para servir' && pedidoData.cocina?.estado === 'listo para servir') {
         await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
-          estado: 'realizado'
+          estado: 'listo para servir'
         });
       }
     }}
-    
+
   confirmLogout() {
     Swal.fire({
       title: '¿Estás seguro?',
