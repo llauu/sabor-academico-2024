@@ -38,10 +38,10 @@ export const routes: Routes = [
     path: 'gestion-clientes',
     loadComponent: () => import('./pages/gestion-clientes/gestion-clientes.page').then( m => m.GestionClientesPage)
   },
-  // {
-  //   path: 'mesa',
-  //   loadComponent: () => import('./pages/ingreso-mesa/mesa.page').then( m => m.MesaPage)
-  // },
+  {
+    path: 'ingreso-mesa',
+    loadComponent: () => import('./pages/ingreso-mesa/mesa.page').then( m => m.MesaPage)
+  },
   {
     path: 'menu-admin',
     loadComponent: () => import('./pages/menus/menu-admin/menu-admin.page').then( m => m.MenuAdminPage)
@@ -56,7 +56,7 @@ export const routes: Routes = [
   },
   {
     path: 'menu-cliente',
-    loadComponent: () => import('./pages/ingreso-mesa/mesa.page').then( m => m.MesaPage)
+    loadComponent: () => import('./pages/menus/menu-cliente/menu-cliente.page').then( m => m.MenuClientePage)
   },
   {
     path: 'menu-empleado',
@@ -70,6 +70,11 @@ export const routes: Routes = [
     path: 'menu',
     loadComponent: () => import('./componentes/menu-listado/menu-listado.component').then( m => m.MenuListadoComponent)
   },
+  {
+    path: 'menu-cliente-esperando',
+    loadComponent: () => import('./pages/menus/menu-cliente-esperando/menu-cliente-esperando.page').then( m => m.MenuClienteEsperandoPage)
+  },
+
   
 
 

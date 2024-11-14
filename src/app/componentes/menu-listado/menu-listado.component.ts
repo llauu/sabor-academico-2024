@@ -5,6 +5,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 import { IonicModule } from '@ionic/angular';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-listado',
@@ -23,7 +24,7 @@ export class MenuListadoComponent implements OnInit {
   precioTotal: number = 0;
   tiempoTotal: number = 0;
 
-  constructor(private firestoreService: FirestoreService, private userService: UserService) {}
+  constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
     this.userID = await this.userService.getId();
@@ -70,7 +71,6 @@ export class MenuListadoComponent implements OnInit {
   }
 
   showOrderSummary() {
-
     const selectedproductos = this.productos.filter(product => product.cantidad > 0);
     if (selectedproductos.length === 0) {
       return; // Si no hay productos seleccionados, el tiempo es 0
@@ -145,8 +145,7 @@ export class MenuListadoComponent implements OnInit {
     alert('Pedido cancelado');
   }
 
-  submitOrder() {
-
+  async submitOrder() {
     console.log(this.userID);
 
     let productosFiltrados = this.productos.map(p => ({
@@ -162,6 +161,7 @@ export class MenuListadoComponent implements OnInit {
       userID: this.userID,
       precio: this.precioTotal,
       tiempo: this.tiempoTotal,
+      estado: "pendiente",
       cocina : {
         estado: "pendiente",
         productos: productosFiltrados.filter(p => p.sector === "cocina")
@@ -172,7 +172,13 @@ export class MenuListadoComponent implements OnInit {
       }
     }
 
-    this.firestoreService.createDocument("listaPedidos", pedido)
+    try {
+      const idPedido = await this.firestoreService.createDocument("listaPedidos", pedido);
+  
+      this.router.navigate(['/menu-cliente-esperando', { idPedido }]);
+    } catch (error) {
+      console.error("Error al crear el pedido:", error);
+    }
   }
   
 }

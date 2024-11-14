@@ -9,7 +9,6 @@
 <ion-content [fullscreen]="true">
 
   <section class="scanner-section">
-    
     <div *ngIf="ingreso" class="spinner-container">
 
       <!-- Menu principal -->
@@ -34,15 +33,6 @@
         </div>
       </ion-button>
       
-      <ion-button (click)="realizarEncuestaCliente()">
-        <div class="inside-button">
-          <span>Hacer encuesta</span>
-          <div class="div-encuesta">
-            <mat-icon>sentiment_satisfied</mat-icon>
-            <mat-icon>sentiment_dissatisfied</mat-icon>
-          </div>
-        </div>
-      </ion-button>
     </div>
 
     <!-- Seccion "Ya tengo mesa" -->
@@ -65,16 +55,6 @@
         <div class="inside-button">
           <span>Ver encuestas</span>
           <mat-icon>bar_chart</mat-icon>
-        </div>
-      </ion-button>
-      
-      <ion-button (click)="realizarEncuestaCliente()">
-        <div class="inside-button">
-          <span>Hacer encuesta</span>
-          <div class="div-encuesta">
-            <mat-icon>sentiment_satisfied</mat-icon>
-            <mat-icon>sentiment_dissatisfied</mat-icon>
-          </div>
         </div>
       </ion-button>
     </div>

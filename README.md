@@ -21,7 +21,7 @@
 | 9  | Menu empleados                                          | Gamma       | Pendiente |
 | 10 | Menu maitre                                             | Alfa        | Terminado |
 | 11 | Menu mozo                                               | Alfa        | Pendiente |
-| 12 | Menu clientes                                           | Beta        | Terminado |
+| 12 | Menu clientes                                           | Alfa        | Terminado |
 | 13 | QR del DNI                                              | Beta        | Terminado |
 | 14 | QR de ingreso al local                                  | Beta        | Terminado |
 | 15 | QR de la mesa                                           | Beta        | Terminado |
@@ -45,7 +45,7 @@
 | 33 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
 | 34 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
 | 35 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
-| 36 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Pendiente |
+| 36 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Terminado |
 
 
 ## Fecha de inicio 📆

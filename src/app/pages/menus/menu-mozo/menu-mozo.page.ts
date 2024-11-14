@@ -27,6 +27,11 @@ export class MenuMozoPage implements OnInit {
     addIcons({ logOutOutline });
   }
 
+
+  abrirChat() {
+    this.router.navigate(['/chat-mozo']);
+  }
+
   confirmLogout() {
     Swal.fire({
       title: '¿Estás seguro?',

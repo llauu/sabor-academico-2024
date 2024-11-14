@@ -99,7 +99,7 @@ export class RegisterAnonymousComponent implements OnInit {
           document.body.classList.remove('swal2-height-auto');
         }
       });
-      this.router.navigate(['/menu-cliente'])
+      this.router.navigate(['/ingreso-mesa'])
     } catch (error) {
       console.error('Error durante la creación del cliente:', error);
     }

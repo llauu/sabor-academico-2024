@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadingController, AlertController, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
-import { addDoc, collection, collectionData, doc, Firestore, orderBy, query, setDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDocs, orderBy, query, setDoc, where } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
+
+
 @Component({
   selector: 'app-chat-mozo',
   templateUrl: './chat-mozo.page.html',
@@ -22,30 +24,62 @@ export class ChatMozoPage implements OnInit {
   user: any;
   sub: Subscription | null = null;
   loading!: HTMLIonLoadingElement;
+  nombreUsuario: string = '';
+  userProfile: any;
 
   constructor(
     private firestore: Firestore,
     public auth: AuthService,
     public userService: UserService,
     private router: Router,
-    private loadingCtrl: LoadingController,
     private pushNotifications: PushNotificationsService, private alertController: AlertController
   ) {}
 
   async ngOnInit() {
-    
       this.userService.getState()
         .then(user => {
           this.user = user;
-    
-      this.getMessages();
+
+          this.userService.getUserProfile(this.user.uid)
+            .then((userProfile: any) => {
+              this.userProfile = userProfile;
+
+              if(userProfile.rol == 'cliente') {
+                this.obtenerMesaPorUser(this.user.uid)
+                .then((mesa) => {
+                  console.log(mesa);
+                  this.nombreUsuario = `${userProfile.nombre} ${userProfile.apellido} | Mesa ${mesa!['number']}`;
+                })
+              }
+              else {
+                this.nombreUsuario = `${userProfile.nombre} ${userProfile.apellido} | Mozo`;
+              }
+            });
+          
+          this.getMessages();
     });
+  }
+
+  async obtenerMesaPorUser(uid: string) {
+    const col = collection(this.firestore, 'listaMesas');
+  
+    // Aplicar filtros para rol y estadoCliente
+    const q = query(col, 
+                    where('userID', '==', uid));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data();
+    } else {
+      console.log('No se encontró ninguna mesa con el userId proporcionado.');
+      return null;
+    }
   }
 
   sendMessage() {
     if (this.messageText !== '') {
       let col = collection(this.firestore, 'consultasMozos/chat/mensajes');
-      addDoc(col, { 'fecha': new Date(), 'usuario': this.user.email, 'mensaje': this.messageText })
+      addDoc(col, { 'fecha': new Date(), 'email': this.user.email, 'usuario': this.nombreUsuario, 'mensaje': this.messageText })
         .then(() => {
           this.pushNotifications.sendNotificationToRole('Has recibido una nueva consulta!', this.messageText, 'mozo');
         })
@@ -72,10 +106,6 @@ export class ChatMozoPage implements OnInit {
     });
   }
 
-  formatUser(user: string): string {
-    return user.split('@')[0];
-  }
-
   formatTimestamp(timestamp: any): string {
     const date = timestamp.toDate(); 
     return formatDate(date, 'd MMM. y h:mm a', 'en-US'); 
@@ -90,6 +120,12 @@ export class ChatMozoPage implements OnInit {
 
   volver() {
     this.sub?.unsubscribe();
-    this.router.navigate(['/home']);
+
+    if(this.userProfile.rol == 'cliente') {
+      this.router.navigate(['/menu-cliente']);
+    }
+    else {
+      this.router.navigate(['/menu-mozo']);
+    }
   }
 }

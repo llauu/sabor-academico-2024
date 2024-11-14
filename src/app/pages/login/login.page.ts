@@ -135,7 +135,7 @@ async validarRegistroUsuario()
         break;
         
       case 'cliente':
-        this.router.navigate(['/menu-cliente']);
+        this.router.navigate(['/ingreso-mesa']);
         break;
     }
   }
