@@ -18,14 +18,16 @@ import { UserService } from 'src/app/services/user.service';
 export class MenuListadoComponent implements OnInit {
   
   productos : any[] = []
-  userID: string | null = 'vdqY9AVIQVWwrMws4eXz9lCxIjS2';
+  userID: string | null = '';
+  userFullName: string | null = '';
   precioTotal: number = 0;
   tiempoTotal: number = 0;
 
   constructor(private firestoreService: FirestoreService, private userService: UserService) {}
 
   async ngOnInit() {
-    //this.userID = await this.userService.getId();
+    this.userID = await this.userService.getId();
+    this.userFullName = await this.userService.getName();
     this.productos = await this.firestoreService.getProductos();
 
     for(let p of this.productos){

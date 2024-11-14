@@ -23,8 +23,8 @@ export class MesaPage implements OnInit {
 
 
   @ViewChild(Scanner) scanner!: Scanner;
-  isScanAllowed: boolean = false; // La condición booleana para permitir el escaneo
-  userUID: any;
+ // isScanAllowed: boolean = false; // La condición booleana para permitir el escaneo
+  userID: any;
   action : string = ""
   ingreso: boolean = true;
   mesa:boolean = false;
@@ -38,9 +38,9 @@ export class MesaPage implements OnInit {
 
   async ngOnInit() {
     try {
-      this.userUID = await this.userService.getId();
+      this.userID = await this.userService.getId();
       this.userFullName= await this.userService.getName();
-      console.log(this.userUID);
+      console.log(this.userID);
       console.log(this.userFullName);
 
     } catch (error) {
@@ -61,11 +61,15 @@ export class MesaPage implements OnInit {
 
     const waiting = await this.buscarPorUserID('listaEspera', 'userID');
     const table = await this.buscarPorUserID('listaMesas', 'userID');
-
+    
+    console.log(waiting)
+    console.log(table)
+    
     if ((action === "ingreso" && !waiting[0]) || 
         (action === "mesa" && waiting[0]?.state === "accepted" && table[0]?.number)) {
           console.log("aca");
-          this.isScanAllowed = true;
+          console.log(`Escaneo permitido para acción: ${action}`);
+          return this.scanner.startScan();
     } 
 
     else if (action === "mesa" && !waiting[0]) {
@@ -85,27 +89,21 @@ export class MesaPage implements OnInit {
       message = "Te estamos asignando una mesa";
     }
 
+    console.log(message)
+    console.log(`Escaneo NO permitido para acción: ${action}`);
 
-    if (this.isScanAllowed) {
-      console.log(`Escaneo permitido para acción: ${action}`);
-      this.scanner.startScan();
-    } else {
-      console.log(message)
-      console.log(`Escaneo NO permitido para acción: ${action}`);
-
-
-      Swal.fire({
-        title: title,
-        text: message,
-        icon: 'info',
-        confirmButtonText: 'Aceptar',
-        backdrop: `rgba(0,0,0,0.8)`,
-        didOpen: () => {
-          document.documentElement.classList.remove('swal2-height-auto');
-          document.body.classList.remove('swal2-height-auto');   
-        }
-      })
-    }
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'info',
+      confirmButtonText: 'Aceptar',
+      backdrop: `rgba(0,0,0,0.8)`,
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    })
+    
   }
 
   // // Cambia la condición para permitir el escaneo (esto es solo un ejemplo)
@@ -118,9 +116,9 @@ export class MesaPage implements OnInit {
 
     console.log('Resultado del escaneo:', result);
 
-    if (result === "ingreso") {
+    if (this.action == "ingreso" && result === "ingreso") {
       this.registerUser();
-    } else if (result.startsWith("mesa")) {
+    } else if (this.action == "mesa" && result.startsWith("mesa")) {
       this.requestTable(result);
     }
     else {
@@ -139,8 +137,6 @@ export class MesaPage implements OnInit {
 
     }
 
-    this.isScanAllowed = false
-
   }
 
 
@@ -148,7 +144,7 @@ export class MesaPage implements OnInit {
   async registerUser() {
     const newRegister = 
     { 
-      userUID: this.userUID, 
+      userID: this.userID, 
       userFullName: this.userFullName,
       state: "pending" 
     };
@@ -226,16 +222,16 @@ export class MesaPage implements OnInit {
 
   async buscarPorUserID(collection: string, field: string): Promise<any> {
 
-    if (!this.userUID) {
+    if (!this.userID) {
       console.error("User ID is undefined");
       return [];
     }
 
     try {
-      const documents = await this.firestoreService.getDocumentsByField<any>(collection, field, this.userUID);
+      const documents = await this.firestoreService.getDocumentsByField<any>(collection, field, this.userID);
       return documents;
     } catch (error) {
-      console.error(`Error al obtener documentos de la colección ${collection} con ID: ${this.userUID}`, error);
+      console.error(`Error al obtener documentos de la colección ${collection} con ID: ${this.userID}`, error);
       return [];
     }
   }

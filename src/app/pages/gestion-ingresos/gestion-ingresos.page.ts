@@ -10,14 +10,14 @@ import Swal from 'sweetalert2';
 
 
 interface Ingreso {
-  userUID: string,
+  userID: string,
   uid: string,
   userFullName: string,
   id: string,
 }
 
 interface Table {
-  userUID: string,
+  userID: string,
   number: string,
   id: string
 }
@@ -48,20 +48,11 @@ export class GestionIngresosPage implements OnInit {
   
   async onAceptar(ingreso: Ingreso) {
     try {
-      await this.firestoreService.updateDocument(`listaEspera/${ingreso.id}`, { state: 'accepted' });
-      console.log("Ingreso aceptado:", ingreso.userFullName);
-      this.ingresos = this.ingresos.filter(i => i.userUID !== ingreso.userUID);
-
       const tablesMap = (this.tables as Array<Table>).reduce((map, mesa) => {
         map[mesa.number] = mesa; // Asocia cada número de mesa con su objeto completo
         return map;
       }, {} as Record<string, Table>);
       
-
-      // // Generar opciones para el modal
-      // const mesasOptions = Object.fromEntries(
-      //   Object.entries(tablesMap).map(([key, mesa]) => [key, `Mesa ${mesa.number}`])
-      // );
 
       const mesasOptions = Object.keys(tablesMap).reduce((options, key) => {
         options[key] = `Mesa ${tablesMap[key].number}`;
@@ -84,14 +75,18 @@ export class GestionIngresosPage implements OnInit {
       });
 
       if (selectedNumber) {
+
+        await this.firestoreService.updateDocument(`listaEspera/${ingreso.id}`, { state: 'accepted' });
+        console.log("Ingreso aceptado:", ingreso.userFullName);
+        this.ingresos = this.ingresos.filter(i => i.userID !== ingreso.userID);
+
         // Almacena la mesa seleccionada y el userUID correspondiente
         this.selectedTable = tablesMap[selectedNumber].id;
         console.log("Mesa seleccionada:", this.selectedTable);
-        await this.firestoreService.updateDocument(`listaMesas/${this.selectedTable}`, { userUID: ingreso.userUID});
-        // console.log("actualizado");
+        await this.firestoreService.updateDocument(`listaMesas/${this.selectedTable}`, { userID: ingreso.userID});
 
         // Logica envio de notificacion push a cliente
-        const token = await this.firestoreService.getTokenByUid(ingreso.userUID)
+        const token = await this.firestoreService.getTokenByUid(ingreso.userID)
         if(token) {
           this.pushNotificationsService.sendNotification(token, 'Ya puedes ingresar a nuestro local!',`Tu mesa asignada es la numero ${selectedNumber}.`);
         }
@@ -103,9 +98,9 @@ export class GestionIngresosPage implements OnInit {
 
   async onRechazar(ingreso: Ingreso) {
     try {
-      ///await this.firestoreService.updateDocument(`usuarios/${cliente.id}`, { estadoCliente: 'rechazado' });
+      await this.firestoreService.updateDocument(`usuarios/${ingreso.id}`, { estadoCliente: 'rechazado' });
       console.log("Cliente rechazado:", ingreso.userFullName);
-      this.ingresos = this.ingresos.filter(i => i.userUID !== ingreso.userUID);
+      this.ingresos = this.ingresos.filter(i => i.userID !== ingreso.userID);
     } catch (error) {
       console.error("Error al rechazar el cliente:", error);
     }
@@ -130,8 +125,11 @@ export class GestionIngresosPage implements OnInit {
 
   async buscarMesasDisponibles(): Promise<any> {
 
+    console.log("buscnado mesas")
     try {
-      const documents = await this.firestoreService.getDocumentsByField<any>("listaMesas", "userUID", "");
+      const documents = await this.firestoreService.getDocumentsByField<any>("listaMesas", "userID", "");
+      console.log(documents);
+      
       return documents;
     } catch (error) {
       console.error("Error al obtener documentos de la colección listaMesas sin usuario asignado", error);
