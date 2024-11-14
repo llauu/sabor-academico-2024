@@ -21,8 +21,8 @@
               </div>
               <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
                 <p *ngFor="let producto of (userProfile?.rol === 'bartender' ? pedido.bar.productos : pedido.cocina.productos)">
-                  <strong>Descripción:</strong> {{ producto.nombre }}<br>
-                  <strong>Cantidad:</strong> {{ producto.cantidad }}
+                   {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+   
                 </p>
               </div>
             </li>
