@@ -65,4 +65,4 @@ Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
 Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del proyecto de forma segura, evitando riesgos en la rama principal en caso de que ocurra algún error irreversible.
 - **Gamma**<br> Las ramas comenzadas con "_JR__" seran pertenecientes a los avances desarrollados por el integrante _Gamma_.
 - **Alfa**<br> Las ramas comenzadas con "_LM__" seran pertenecientes a los avances desarrollados por el integrante _Alfa_.
-- **Beta**<br> Trabajara en la rama "_menu_" para el desarrollo de pruebas propias y agregara los cambios directamente en la rama "_main_".
+- **Beta**<br> Trabajará en la rama "_menu_" para desarrollar y probar nuevas funcionalidades de forma independiente. Una vez comprobado su correcto funcionamiento, integrará los cambios directamente en la rama "_main_".
