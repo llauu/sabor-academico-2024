@@ -27,8 +27,8 @@ export class MenuListadoComponent implements OnInit {
   constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    this.userID = await this.userService.getId();
-    this.userFullName = await this.userService.getName();
+    // this.userID = await this.userService.getId();
+    // this.userFullName = await this.userService.getName();
     this.productos = await this.firestoreService.getProductos();
 
     for(let p of this.productos){
@@ -136,13 +136,30 @@ export class MenuListadoComponent implements OnInit {
   
   cancelOrder() {
     // Restablece la cantidad y el precio total de cada producto
-    this.productos.forEach(product => {
-      product.cantidad = 0;
-      product.precioTotalProducto = 0;
-      this.precioTotal = 0;
-      product.expanded = false;
-    });
-    alert('Pedido cancelado');
+    Swal.fire({
+      title: '¿Estas seguro que querés cancelar el pedido?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Cancelar',
+      cancelButtonText: 'Volver',
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    }).then((result: { isConfirmed: any; }) => {
+
+      if(result.isConfirmed){
+        this.productos.forEach(product => {
+          product.cantidad = 0;
+          product.precioTotalProducto = 0;
+          this.precioTotal = 0;
+          product.expanded = false;
+        });
+
+        this.router.navigate(['menu-cliente'])
+      }
+      
+    })
   }
 
   async submitOrder() {

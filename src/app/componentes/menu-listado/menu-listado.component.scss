@@ -26,10 +26,22 @@
   color: white;
 }
 
+.button-group button:first-child:disabled {
+  background-color: #386142; /* Color verde para confirmar */
+  color: white;
+}
+
+
 .button-group button:last-child {
   background-color: #dc3545; /* Color rojo para cancelar */
   color: white;
 }
+
+.button-group button:last-child:disabled{
+  background-color: #a75860; /* Color rojo para cancelar */
+  color: white;
+}
+
 
 .summary-button {
   position: fixed;

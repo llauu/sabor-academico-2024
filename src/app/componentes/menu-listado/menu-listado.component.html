@@ -5,7 +5,7 @@
         <span class="material-icons">receipt</span>
     </button>
     <div class="total">
-      Total: {{ this.precioTotal| currency }}
+      Total: {{ getTotalPrice() | currency }}
     </div>
     <div class="total-time">
       Tiempo estimado: {{ getTotalTime() }} minutos
@@ -31,7 +31,7 @@
   
         <!-- Botones de Confirmar y Cancelar Pedido -->
         <div class="button-group">
-            <button (click)="showOrderSummary()">Confirmar Pedido</button>
+            <button [disabled]="getTotalPrice() == 0" (click)="showOrderSummary()">Confirmar Pedido</button>
             <button (click)="cancelOrder()">Cancelar Pedido</button>
         </div>
   
