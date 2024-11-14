@@ -45,10 +45,6 @@ export class MenuEmpleadoPage implements OnInit {
       .catch((error) => {
         console.error("Error en ngOnInit:", error);
       });
-      if(this.userProfile.rol === "bartender")
-      {
-        
-      }
   }
   
 
@@ -61,7 +57,18 @@ export class MenuEmpleadoPage implements OnInit {
     }
   }
   
-  
+  async validarEstado(pedidoId: string) {
+    const pedido = await this.firestoreService.getDocument(`listaPedidos/${pedidoId}`);
+    if (pedido.exists()) {
+      const pedidoData : any= pedido.data();
+      
+      if (pedidoData.bar?.estado === 'realizado' && pedidoData.cocina?.estado === 'realizado') {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+          estado: 'realizado'
+        });
+      }
+    }
+  }
   async marcarRealizado(pedidoId: string) {
       if(this.userProfile.rol === "bartender")
       {
@@ -75,6 +82,7 @@ export class MenuEmpleadoPage implements OnInit {
           'cocina.estado': 'realizado'
         });
       }
+      await this.validarEstado(pedidoId);
 
     this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
   }
