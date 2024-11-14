@@ -126,7 +126,25 @@ export class MenuClienteEsperandoPage implements OnInit {
 
   //--------------------------------------------------------------------------------------------------------------------------------------------------
   // Funcion para realizar la encuesta de satisfaccion del cliente
-  realizarEncuestaCliente() {
+  async realizarEncuestaCliente() {
+    const userId = await this.userService.getId();
+    const encuesta = await this.firestoreService.getEncuestaPorUser(userId!);
+
+    if(encuesta) {
+      Swal.fire({
+        title: 'Encuesta ya realizada',
+        text: 'Ya has realizado la encuesta de satisfacción.',
+        icon: 'info',
+        confirmButtonText: 'Aceptar',
+        didOpen: () => {
+          document.documentElement.classList.remove('swal2-height-auto');
+          document.body.classList.remove('swal2-height-auto');
+        }
+      });
+      return;
+    }
+
+
     Swal.fire({
       title: '<strong>Encuesta de Satisfacción</strong>',
       width: '90%',
@@ -202,7 +220,7 @@ export class MenuClienteEsperandoPage implements OnInit {
         const encuestaData = result.value;
         
         console.log(encuestaData);
-        this.firestoreService.createDocument('encuestas', encuestaData);
+        this.firestoreService.createDocument('encuestas', {...encuestaData, userID: userId});
 
         Swal.fire({
           title: '¡Gracias por tu tiempo!',

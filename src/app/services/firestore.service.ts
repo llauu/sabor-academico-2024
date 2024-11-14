@@ -93,6 +93,21 @@ export class FirestoreService {
   }
   
   
+  async getEncuestaPorUser(uid: string) {
+    const col = collection(this.firestore, 'encuestas');
+  
+    const q = query(col, 
+                    where('userID', '==', uid));
+
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data();
+    } else {
+      console.log('No se encontró ninguna mesa con el userId proporcionado.');
+      return null;
+    }
+  }
+  
   async getUsuarios() {
     const snapshot = await this.getDocuments<any>('usuarios');
     return snapshot.docs.map(doc => doc.data());

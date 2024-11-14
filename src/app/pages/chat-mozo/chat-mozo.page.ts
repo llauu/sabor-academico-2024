@@ -48,7 +48,7 @@ export class ChatMozoPage implements OnInit {
                 this.obtenerMesaPorUser(this.user.uid)
                 .then((mesa) => {
                   console.log(mesa);
-                  this.nombreUsuario = `${userProfile.nombre} ${userProfile.apellido} | Mesa ${mesa!['number']}`;
+                  this.nombreUsuario = `${userProfile.nombre} | Mesa ${mesa!['number']}`;
                 })
               }
               else {
