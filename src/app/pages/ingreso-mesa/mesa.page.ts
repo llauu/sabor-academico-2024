@@ -119,6 +119,7 @@ export class MesaPage implements OnInit {
     if (this.action == "ingreso" && result === "ingreso") {
       this.registerUser();
     } else if (this.action == "mesa" && result.startsWith("mesa")) {
+      console.log('result', result);
       this.requestTable(result);
     }
     else {
@@ -179,9 +180,33 @@ export class MesaPage implements OnInit {
   }
 
   async requestTable(tableNumber: string) {
+    switch (tableNumber) {
+      case 'mesa_uno':
+        tableNumber = '1';
+        break;
+      case 'mesa_dos':
+        tableNumber = '2';
+        break;
+      case 'mesa_tres':
+        tableNumber = '3';
+        break;
+      case 'mesa_cuatro':
+        tableNumber = '4';
+        break;
+      case 'mesa_cinco':
+        tableNumber = '5';
+        break;
+      case 'mesa_seis':
+        tableNumber = '6';
+        break;
+      case 'mesa_siete':
+        tableNumber = '7';
+        break;
+    }
 
     let title = ""
     let message = ""
+    let valido = false;
 
     try {
       const table = await this.buscarPorUserID('listaMesas',"userID");
@@ -191,6 +216,7 @@ export class MesaPage implements OnInit {
       if (tableNumber === table[0]?.number) {
         title = "¡Bienvenido a la mesa: " + table[0]?.number + '!'
         message = "Ahora vas a poder hacer el pedido";
+        valido = true;
       } else {
         title = "Error"
         message = "Tu mesa es la numero: " + table[0]?.number;
@@ -213,7 +239,7 @@ export class MesaPage implements OnInit {
     }).then((result) => {
       // Si el usuario hace clic en "Aceptar"
       if (result.isConfirmed) {
-        this.router.navigate(['/menu-cliente'])
+        if (valido) this.router.navigate(['/menu-cliente']);
       }
     })
   }
