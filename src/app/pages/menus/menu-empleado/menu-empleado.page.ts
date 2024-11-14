@@ -18,17 +18,23 @@ import { Subscription } from 'rxjs';
   imports: [ CommonModule, FormsModule, IonicModule ]
 })
 export class MenuEmpleadoPage implements OnInit {
-
   pedidos: any[] = [];
-  user : any ;
-  userProfile : any;
+  user: any;
+  userProfile: any;
   pedidosSubscription: Subscription | undefined;
-  constructor(private firestore: Firestore, private firestoreService: FirestoreService, private userService: UserService, private router: Router) { 
+
+  constructor(
+    private firestore: Firestore,
+    private firestoreService: FirestoreService,
+    private userService: UserService,
+    private router: Router
+  ) {
     addIcons({ logOutOutline });
   }
 
   ngOnInit() {
-    this.userService.getState()
+    this.userService
+      .getState()
       .then((user: any) => {
         this.user = user;
         return this.userService.getUserProfile(user.uid);
@@ -43,27 +49,23 @@ export class MenuEmpleadoPage implements OnInit {
   }
 
   subscribeToPedidos() {
-    this.pedidosSubscription = this.firestoreService.getPedidos().subscribe(pedidosData => {
+    this.pedidosSubscription = this.firestoreService.getPedidos().subscribe((pedidosData) => {
       if (this.userProfile.rol === 'bartender') {
-        this.pedidos = pedidosData.filter((pedido: any) => pedido.bar?.estado === 'pendiente');
+        this.pedidos = pedidosData
+          .filter((pedido: any) => pedido.bar?.estado === 'pendiente')
+          .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
       } else if (this.userProfile.rol === 'cocinero') {
-        this.pedidos = pedidosData.filter((pedido: any) => pedido.cocina?.estado === 'pendiente');
+        this.pedidos = pedidosData
+          .filter((pedido: any) => pedido.cocina?.estado === 'pendiente')
+          .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
       }
     });
   }
 
-  async validarEstado(pedidoId: string) {
-    const pedido = await this.firestoreService.getDocument(`listaPedidos/${pedidoId}`);
-    if (pedido.exists()) {
-      const pedidoData : any= pedido.data();
-      
-      if (pedidoData.bar?.estado === 'realizado' && pedidoData.cocina?.estado === 'realizado') {
-        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
-          estado: 'realizado'
-        });
-      }
-    }
+  toggleDetalles(pedido: any) {
+    pedido.mostrarDetalles = !pedido.mostrarDetalles;
   }
+
   async marcarRealizado(pedidoId: string) {
       if(this.userProfile.rol === "bartender")
       {
@@ -81,7 +83,18 @@ export class MenuEmpleadoPage implements OnInit {
 
     this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
   }
-
+  async validarEstado(pedidoId: string) {
+    const pedido = await this.firestoreService.getDocument(`listaPedidos/${pedidoId}`);
+    if (pedido.exists()) {
+      const pedidoData : any= pedido.data();
+      
+      if (pedidoData.bar?.estado === 'realizado' && pedidoData.cocina?.estado === 'realizado') {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+          estado: 'realizado'
+        });
+      }
+    }}
+    
   confirmLogout() {
     Swal.fire({
       title: '¿Estás seguro?',

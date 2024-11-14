@@ -10,19 +10,20 @@
 
           <ul class="pedido-lista">
             <li *ngFor="let pedido of pedidos" class="pedido-item">
-              <div class="pedido-estado">
-                <p><strong>N° Mesa:</strong> {{ pedido.mesa }}</p>
-                <p><strong>Estado:</strong> {{ userProfile?.rol === 'bartender' ? pedido.bar.estado : pedido.cocina.estado }}</p>
+              <div class="pedido-encabezado">
+                <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
+                <div class="pedido-acciones">
+                  <button (click)="marcarRealizado(pedido.id)" class="accion-boton realizar">✓</button>
+                  <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                    {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                  </button>
+                </div>
               </div>
-              <div class="pedido-info">
+              <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
                 <p *ngFor="let producto of (userProfile?.rol === 'bartender' ? pedido.bar.productos : pedido.cocina.productos)">
-                  <strong>Descripción:</strong> {{ producto.nombre }}<br>
-                  <strong>Cantidad:</strong> {{ producto.cantidad }}
+                   {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+   
                 </p>
-              </div>
-              <!-- Botón para marcar como realizado -->
-              <div class="pedido-acciones">
-                <button (click)="marcarRealizado(pedido.id)" class="accion-boton realizar">✓</button>
               </div>
             </li>
           </ul>
