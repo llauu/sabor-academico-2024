@@ -20,7 +20,7 @@
 | 8  | Menu supervisor/dueño                                   | Gamma       | Terminado |
 | 9  | Menu empleados                                          | Gamma       | Pendiente |
 | 10 | Menu maitre                                             | Alfa        | Terminado |
-| 11 | Menu mozo                                               | Beta        | Pendiente |
+| 11 | Menu mozo                                               | Alfa        | Pendiente |
 | 12 | Menu clientes                                           | Beta        | Terminado |
 | 13 | QR del DNI                                              | Beta        | Terminado |
 | 14 | QR de ingreso al local                                  | Beta        | Terminado |
@@ -62,12 +62,7 @@ Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
 
 
 ### Secundarias
-Manejaremos distintas ramas secundarias para ir avanzando en las distintas funcionalidades del proyecto.
-- **JR_SplashScreen+Logo**<br> Branch correspondiente al código del splash screen y el logo.
-- **ConfigAppNotificacionesEmail**<br> Branch correspondiente al código de configuracion de las Push Notifications y Correos Automaticos.
-- **LM_PushN**<br> Branch correspondiente al código para la implementacion de Push Notifications.
-- **JR_RegistroCliente**<br> Branch correspondiente al código para el registro de un nuevo cliente.
-- **menu**<br> Branch correspondiente al código para el menu.
-- **JR_ListadoAdminGestionClientes**<br> Branch correspondiente al código para la gestion de aprobacion o no de clientes.
-- **LM_RouterMenu**<br> Branch correspondiente al código para los diferentes menues dependiendo el perfil del usuario.
-- **LM_PushNClients**<br> Branch correspondiente al código para nuevas push notifications y logica de encuestas de clientes completa.
+Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del proyecto de forma segura, evitando riesgos en la rama principal en caso de que ocurra algún error irreversible.
+- **Gamma**<br> Las ramas comenzadas con "_JR__" seran pertenecientes a los avances desarrollados por el integrante _Gamma_.
+- **Alfa**<br> Las ramas comenzadas con "_LM__" seran pertenecientes a los avances desarrollados por el integrante _Alfa_.
+- **Beta**<br> Trabajara en la rama "_menu_" para el desarrollo de pruebas propias y agregara los cambios directamente en la rama "_main_".
