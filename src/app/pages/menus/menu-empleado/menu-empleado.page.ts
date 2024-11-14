@@ -54,8 +54,13 @@ export class MenuEmpleadoPage implements OnInit {
 
   async cargarPedidos() {
     const pedidosData = await this.firestoreService.getPedidos();
-  
+    if (this.userProfile.rol === 'bartender') {
+      this.pedidos = pedidosData.filter((pedido: any) => pedido.bar?.estado === 'pendiente');
+    } else if (this.userProfile.rol === 'cocinero') {
+      this.pedidos = pedidosData.filter((pedido: any) => pedido.cocina?.estado === 'pendiente');
+    }
   }
+  
   
   async marcarRealizado(pedidoId: string) {
       if(this.userProfile.rol === "bartender")

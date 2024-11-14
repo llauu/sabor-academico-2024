@@ -4,15 +4,18 @@
       <div class="card">
         <div class="card-body">
           <h2 class="title">Lista de Pedidos</h2>
-          <p class="subtitle">Pedidos pendientes del sector cocina</p>
+          <p class="subtitle">
+            Pedidos pendientes del sector {{ userProfile?.rol === 'bartender' ? 'bar' : 'cocina' }}
+          </p>
 
           <ul class="pedido-lista">
             <li *ngFor="let pedido of pedidos" class="pedido-item">
               <div class="pedido-estado">
-                <p><strong>Estado:</strong> {{ pedido.cocina.estado }}</p>
+                <p><strong>N° Mesa:</strong> {{ pedido.mesa }}</p>
+                <p><strong>Estado:</strong> {{ userProfile?.rol === 'bartender' ? pedido.bar.estado : pedido.cocina.estado }}</p>
               </div>
               <div class="pedido-info">
-                <p *ngFor="let producto of pedido.cocina.productos">
+                <p *ngFor="let producto of (userProfile?.rol === 'bartender' ? pedido.bar.productos : pedido.cocina.productos)">
                   <strong>Descripción:</strong> {{ producto.nombre }}<br>
                   <strong>Cantidad:</strong> {{ producto.cantidad }}
                 </p>
