@@ -113,6 +113,12 @@ export class FirestoreService {
 
     return doc.data().token;
   }
+  
+  async getPedidoByUid(uid: string) {
+    const doc: any = await this.getDocument(`listaPedidos/${uid}`);
+
+    return doc.data();
+  }
 
   async getProductos() {
     const snapshot = await this.getDocuments<any>('productos');

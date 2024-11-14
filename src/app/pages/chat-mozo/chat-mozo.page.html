@@ -14,7 +14,7 @@
       <app-spinner></app-spinner>
     </div>
     @for (message of messages; track $index) {
-      @if(message.usuario === user.email) {
+      @if(message.email === user.email) {
         <div class="chat-message chat-message-me">
           <div class="chat-message-text">{{ message.mensaje }}</div>
           <div class="chat-message-time">{{ formatTimestamp(message.fecha) }}</div>
@@ -22,7 +22,7 @@
       }
       @else {
         <div class="chat-message chat-message-other">
-          <div class="chat-message-user"><b>{{ formatUser(message.usuario) }}</b></div>
+          <div class="chat-message-user"><b>{{ message.usuario }}</b></div>
           <div class="chat-message-text">{{ message.mensaje }}</div>
           <div class="chat-message-time">{{ formatTimestamp(message.fecha) }}</div>
         </div>

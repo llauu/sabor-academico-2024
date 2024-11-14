@@ -1,22 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <strong>Sabor Académico</strong>
-    </ion-title>
+    <div class="header">
+      <ion-title>
+        <strong>Sabor Académico</strong>
+      </ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
-  <div>
-    <app-spinner></app-spinner>
-  </div>
-  <div id="container">
-    <h2>Menu cliente</h2>
-    <ion-button size="large" expand="block" fill="outline" (click)="router.navigate(['/mesa'])">Mesa</ion-button>
+  <section class="scanner-section">
+    <div class="spinner-container">
+      <ion-button (click)="hacerPedido()" expand="block" class="admin-button">
+        <div class="inside-button">
+          <span>Hacer pedido</span>
+          <mat-icon class="icon">local_dining</mat-icon>
+        </div>
+      </ion-button>
+  
+      <ion-button (click)="mostrarEncuestasCliente()" expand="block" class="admin-button">
+        <div class="inside-button">
+          <span>Ver encuestas</span>
+          <mat-icon class="icon">bar_chart</mat-icon>
+        </div>
+      </ion-button>
+  
+      <ion-button (click)="abrirChat()" expand="block" class="admin-button">
+        <div class="inside-button">
+          <span>Consultar a mozos</span>
+          <mat-icon class="icon">forum</mat-icon>
+        </div>
+      </ion-button>
+    </div>
 
-    
     <div class="btn-logout" (click)="confirmLogout()">
       <ion-icon name="log-out-outline"></ion-icon>
     </div>
-  </div>
+  </section>
 </ion-content>

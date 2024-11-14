@@ -119,6 +119,7 @@ export class MesaPage implements OnInit {
     if (this.action == "ingreso" && result === "ingreso") {
       this.registerUser();
     } else if (this.action == "mesa" && result.startsWith("mesa")) {
+      console.log('result', result);
       this.requestTable(result);
     }
     else {
@@ -136,7 +137,6 @@ export class MesaPage implements OnInit {
       })
 
     }
-
   }
 
 
@@ -180,9 +180,33 @@ export class MesaPage implements OnInit {
   }
 
   async requestTable(tableNumber: string) {
+    switch (tableNumber) {
+      case 'mesa_uno':
+        tableNumber = '1';
+        break;
+      case 'mesa_dos':
+        tableNumber = '2';
+        break;
+      case 'mesa_tres':
+        tableNumber = '3';
+        break;
+      case 'mesa_cuatro':
+        tableNumber = '4';
+        break;
+      case 'mesa_cinco':
+        tableNumber = '5';
+        break;
+      case 'mesa_seis':
+        tableNumber = '6';
+        break;
+      case 'mesa_siete':
+        tableNumber = '7';
+        break;
+    }
 
     let title = ""
     let message = ""
+    let valido = false;
 
     try {
       const table = await this.buscarPorUserID('listaMesas',"userID");
@@ -192,6 +216,7 @@ export class MesaPage implements OnInit {
       if (tableNumber === table[0]?.number) {
         title = "¡Bienvenido a la mesa: " + table[0]?.number + '!'
         message = "Ahora vas a poder hacer el pedido";
+        valido = true;
       } else {
         title = "Error"
         message = "Tu mesa es la numero: " + table[0]?.number;
@@ -200,7 +225,6 @@ export class MesaPage implements OnInit {
       console.error('Error al buscar el usuario en las mesas:', error);
       message = "Ocurrió un error. Intentá en unos segundos";
     }
-
 
     Swal.fire({
       title: title,
@@ -215,7 +239,7 @@ export class MesaPage implements OnInit {
     }).then((result) => {
       // Si el usuario hace clic en "Aceptar"
       if (result.isConfirmed) {
-        this.router.navigate(['/menu'])
+        if (valido) this.router.navigate(['/menu-cliente']);
       }
     })
   }
@@ -250,102 +274,6 @@ export class MesaPage implements OnInit {
   reviews() {
     console.log("aca abrimos modal con las reseñas")
   }
-
-
-
-
-  // Funcion para realizar la encuesta de satisfaccion del cliente
-  realizarEncuestaCliente() {
-    Swal.fire({
-      title: '<strong>Encuesta de Satisfacción</strong>',
-      width: '90%',
-      padding: '1em',
-      customClass: {
-        popup: 'no-scroll',
-      },
-      html: `
-        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px;">
-          <label>Calificación (1-10):</label>
-          <input id="calificacion" type="range" min="1" max="10" value="5" class="swal2-input" style="margin: 0; width: 100%;">
-
-          <label>Comentario:</label>
-          <input id="comentario" type="text" class="swal2-input" style="margin: 0; width: 100%;">
-
-          <label>¿Cómo fue la atención del mozo?</label>
-          <div style="margin-bottom: 1em; font-size: 14px;">
-            <input type="radio" name="atencionMozo" value="muy buena" style="margin-right: 5px;"> Muy buena<br>
-            <input type="radio" name="atencionMozo" value="buena" style="margin-right: 5px;"> Buena<br>
-            <input type="radio" name="atencionMozo" value="normal" style="margin-right: 5px;"> Normal<br>
-            <input type="radio" name="atencionMozo" value="mala" style="margin-right: 5px;"> Mala<br>
-          </div>
-
-          <label>Aspectos en buena condición:</label>
-          <div style="margin-bottom: 1em; font-size: 14px;">
-            <input type="checkbox" id="iluminacion" value="Iluminación" style="margin-right: 5px;"> Iluminación<br>
-            <input type="checkbox" id="ventilacion" value="Ventilación" style="margin-right: 5px;"> Ventilación<br>
-            <input type="checkbox" id="ambiente" value="Ambiente" style="margin-right: 5px;"> Ambiente<br>
-            <input type="checkbox" id="ruido" value="Ruido" style="margin-right: 5px;"> Ruido<br>
-          </div>
-
-          <label>¿Recomendarías el restaurant?</label>
-          <select id="recomendacion" class="swal2-input" style="margin: 0; width: 100%; font-size: 14px;">
-            <option value="si">Sí</option>
-            <option value="no">No</option>
-            <option value="tal vez">Tal vez</option>
-          </select>
-
-          <label>Fotos (opcional):</label>
-          <input type="file" id="fotos" accept="image/*" multiple class="swal2-input" style="margin: 0; width: 100%; font-size: 14px; padding: 6px; border-radius: 5px; display: inline-block;">
-          <small style="color: #888;">Máximo 3 fotos</small>
-        </div>
-      `,
-      focusConfirm: false,
-      didOpen: () => {
-        document.documentElement.classList.remove('swal2-height-auto');
-        document.body.classList.remove('swal2-height-auto');   
-      },
-      preConfirm: () => {
-        const calificacion = (document.getElementById('calificacion') as HTMLInputElement).value;
-        const comentario = (document.getElementById('comentario') as HTMLInputElement).value;
-
-        // Obtener el valor de la atención del mozo seleccionada en radio button
-        const atencionMozo = (document.querySelector('input[name="atencionMozo"]:checked') as HTMLInputElement)?.value;
-
-        // Obtener valores seleccionados de los checkboxes
-        const aspectosCondicion = [
-          (document.getElementById('iluminacion') as HTMLInputElement).checked ? 'Iluminación' : '',
-          (document.getElementById('ventilacion') as HTMLInputElement).checked ? 'Ventilación' : '',
-          (document.getElementById('ambiente') as HTMLInputElement).checked ? 'Ambiente' : '',
-          (document.getElementById('ruido') as HTMLInputElement).checked ? 'Ruido' : '',
-        ].filter(Boolean);
-
-        const recomendacion = (document.getElementById('recomendacion') as HTMLSelectElement).value;
-
-        return { calificacion, comentario, atencionMozo, aspectosCondicion, recomendacion };
-      },
-      confirmButtonText: 'Enviar Encuesta',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const encuestaData = result.value;
-        
-        console.log(encuestaData);
-        this.firestoreService.createDocument('encuestas', encuestaData);
-
-        Swal.fire({
-          title: '¡Gracias por tu tiempo!',
-          text: 'La encuesta fue enviada con éxito.',
-          icon: 'success',
-          didOpen: () => {
-            document.documentElement.classList.remove('swal2-height-auto');
-            document.body.classList.remove('swal2-height-auto');
-          }
-        });
-      }
-    });
-  }
-
 
   // Funcion para abrir el modal con los resultados de las encuestas a clientes
   async mostrarEncuestasCliente() {
