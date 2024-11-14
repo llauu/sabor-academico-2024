@@ -194,8 +194,8 @@ export class MesaPage implements OnInit {
       console.log(table[0]?.number)
 
       if (tableNumber === table[0]?.number) {
-        title = "¡Bienvenido!"
-        message = "Dirigite a la mesa numero: " + table[0]?.number;
+        title = "¡Bienvenido a la mesa: " + table[0]?.number + '!'
+        message = "Ahora vas a poder hacer el pedido";
       } else {
         title = "Error"
         message = "Tu mesa es la numero: " + table[0]?.number;
@@ -215,6 +215,11 @@ export class MesaPage implements OnInit {
       didOpen: () => {
         document.documentElement.classList.remove('swal2-height-auto');
         document.body.classList.remove('swal2-height-auto');   
+      }
+    }).then((result) => {
+      // Si el usuario hace clic en "Aceptar"
+      if (result.isConfirmed) {
+        this.router.navigate(['/menu'])
       }
     })
   }
