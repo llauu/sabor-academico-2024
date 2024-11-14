@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ConfirmarPedidosComponent } from './componentes/confirmar-pedidos/confirmar-pedidos.component';
 
 export const routes: Routes = [
   {
@@ -73,6 +74,10 @@ export const routes: Routes = [
   {
     path: 'menu-cliente-esperando',
     loadComponent: () => import('./pages/menus/menu-cliente-esperando/menu-cliente-esperando.page').then( m => m.MenuClienteEsperandoPage)
+  },
+  {
+    path: 'confirmar-pedidos',
+    loadComponent: () => import('./componentes/confirmar-pedidos/confirmar-pedidos.component').then( m => m.ConfirmarPedidosComponent)
   },
 
   

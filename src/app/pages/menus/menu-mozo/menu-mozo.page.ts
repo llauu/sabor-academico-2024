@@ -8,16 +8,19 @@ import { logOutOutline } from 'ionicons/icons';
 import Swal from 'sweetalert2';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { Chart } from 'chart.js';
+
 
 @Component({
   selector: 'app-menu-mozo',
   templateUrl: './menu-mozo.page.html',
   styleUrls: ['./menu-mozo.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon, IonButton]
+  imports: [    MatIconModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, SpinnerComponent, IonIcon, IonButton]
 })
 export class MenuMozoPage implements OnInit {
-
 
   constructor(private userService: UserService, public router: Router) { 
     addIcons({ logOutOutline });
@@ -27,9 +30,16 @@ export class MenuMozoPage implements OnInit {
     addIcons({ logOutOutline });
   }
 
+  confirmarPedidos() {
+    this.router.navigate(['/confirmar-pedidos']);
+  }
 
   abrirChat() {
     this.router.navigate(['/chat-mozo']);
+  }
+
+  confirmarPagos() {
+    // Lógica para confirmar pagos
   }
 
   confirmLogout() {
