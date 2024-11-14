@@ -1,21 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { CommonModule } from '@angular/common';
-
+import { IonButton } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-confirmar-pedidos',
   templateUrl: './confirmar-pedidos.component.html',
   styleUrls: ['./confirmar-pedidos.component.scss'],
-  imports : [CommonModule],
+  imports : [CommonModule, IonButton],
   standalone: true,
 })
 export class ConfirmarPedidosComponent implements OnInit {
   pedidos: any[] = [];
 
-  constructor(private firestoreService: FirestoreService) {}
+  constructor(private firestoreService: FirestoreService,   private router: Router) {}
 
   ngOnInit() {
     this.cargarPedidosPendientes();
+  }
+  menuMozo(){
+      this.router.navigate(['/menu-mozo'])
   }
 
   cargarPedidosPendientes() {
