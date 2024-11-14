@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { FirestoreService } from '../../../services/firestore.service';
 import { IonicModule } from '@ionic/angular';
 import { Firestore } from '@angular/fire/firestore';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-menu-empleado',
@@ -22,33 +23,54 @@ import { Firestore } from '@angular/fire/firestore';
 export class MenuEmpleadoPage implements OnInit {
 
   pedidos: any[] = [];
-
+  user : any ;
+  userProfile : any;
   constructor(private firestore: Firestore, private firestoreService: FirestoreService, private userService: UserService, private router: Router) { 
     addIcons({ logOutOutline });
   }
 
   ngOnInit() {
-    this.cargarPedidos();
+    console.log("antes");
+    this.userService.getState()
+      .then((user: any) => {
+        this.user = user;
+
+        return this.userService.getUserProfile(user.uid);
+      })
+      .then((userProfile: any) => {
+        console.log("userProfile: ", userProfile);
+        this.userProfile = userProfile;
+        this.cargarPedidos();
+      })
+      .catch((error) => {
+        console.error("Error en ngOnInit:", error);
+      });
+      if(this.userProfile.rol === "bartender")
+      {
+        
+      }
   }
+  
 
   async cargarPedidos() {
     const pedidosData = await this.firestoreService.getPedidos();
-    
-    pedidosData.forEach((pedido: any) => {
-      console.log('Pedido completo:', pedido);
-    });
-    
-    this.pedidos = pedidosData.filter((pedido: any) => pedido.cocina?.estado === 'pendiente');
+  
   }
-
-  /*getRol() {
-    return this.userProfile.rol;
-  }*/
   
   async marcarRealizado(pedidoId: string) {
-    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
-      'cocina.estado': 'realizado'
-    });
+      if(this.userProfile.rol === "bartender")
+      {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+          'bar.estado': 'realizado'
+        });
+      }
+      else
+      {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+          'cocina.estado': 'realizado'
+        });
+      }
+
     this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
   }
 

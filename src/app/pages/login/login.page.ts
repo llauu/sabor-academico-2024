@@ -48,15 +48,11 @@ async validarRegistroUsuario()
     let estadoCliente : String   = "" ;
     try
     {
-      console.log("Adentro");
       const snapshot = await this.firestoreService.getUsuarios();
-      console.log("largo " + snapshot.length);
-      
       snapshot.forEach(element => {
         estadoCliente = element.estadoCliente;
         if(element.contrasena == this.loginForm.value.pass && element.correo == this.loginForm.value.email && (element.estadoCliente == "pendiente" || element.estadoCliente == "rechazado"))  throw new Error;
       });
-
     }
     catch
     {
