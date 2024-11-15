@@ -9,7 +9,9 @@ import { FirestoreService } from '../../services/firestore.service';
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { ExceptionCode } from '@capacitor/core';
 import {SpinnerComponent} from '../../componentes/spinner/spinner.component'
+import { Media } from '@capacitor-community/media';
 @Component({
+  
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
@@ -19,8 +21,10 @@ import {SpinnerComponent} from '../../componentes/spinner/spinner.component'
 export class LoginPage implements OnInit {
   loginForm: any;
   errorMsg: string = '';
+  isLoading : boolean = false;
   loading!: HTMLIonLoadingElement;
-  isLoading: boolean = false;
+  public audioInicioSesion = new Audio('../../../assets/inicioSesion.mp3');
+  private currentAudio: HTMLAudioElement | null = null;
   constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
       this.cargarMenuPorRol(this.userService.getRol());
@@ -47,7 +51,6 @@ export class LoginPage implements OnInit {
     }, 3000);
   }
   
-
 async validarRegistroUsuario()
 {      
     let estadoCliente : String   = "" ;
@@ -66,10 +69,15 @@ async validarRegistroUsuario()
       throw new Error;
     }
 }
-
+playAudio(audio: HTMLAudioElement) {
+  audio.load();
+  audio.play().catch(err => console.error('Error al reproducir el audio:', err));
+}
  async onSubmit() {
   console.log("Antes de entrar");
   this.isLoading = true;
+  this.currentAudio = this.audioInicioSesion;
+  this.playAudio(this.audioInicioSesion);
     await this.validarRegistroUsuario();
     console.log("Ya lo pase");
     if (this.loginForm.valid) {
