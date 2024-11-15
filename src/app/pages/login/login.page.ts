@@ -39,9 +39,14 @@ export class LoginPage implements OnInit {
       });
   }
 
-  navigateRegister(){
-    this.router.navigate(['/register'])
+  navigateRegister() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      this.router.navigate(['/register']);
+    }, 3000);
   }
+  
 
 async validarRegistroUsuario()
 {      
