@@ -79,8 +79,8 @@ export const routes: Routes = [
     path: 'confirmar-pedidos',
     loadComponent: () => import('./componentes/confirmar-pedidos/confirmar-pedidos.component').then( m => m.ConfirmarPedidosComponent)
   },
-
-  
-
-
+  {
+    path: 'confirmar-pago',
+    loadComponent: () => import('./componentes/confirmar-pago/confirmar-pago.component').then( m => m.ConfirmarPagoComponent)
+  },
 ];

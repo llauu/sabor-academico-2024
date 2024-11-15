@@ -39,7 +39,7 @@ export class MenuMozoPage implements OnInit {
   }
 
   confirmarPagos() {
-    // Lógica para confirmar pagos
+    this.router.navigate(['/confirmar-pago']);
   }
 
   confirmLogout() {
