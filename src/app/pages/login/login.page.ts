@@ -8,19 +8,19 @@ import { UserService } from 'src/app/services/user.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { ExceptionCode } from '@capacitor/core';
-
+import {SpinnerComponent} from '../../componentes/spinner/spinner.component'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonGrid, IonRow, IonCol, CommonModule, ReactiveFormsModule, FormsModule]
+  imports: [SpinnerComponent,IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonGrid, IonRow, IonCol, CommonModule, ReactiveFormsModule, FormsModule]
 })
 export class LoginPage implements OnInit {
   loginForm: any;
   errorMsg: string = '';
   loading!: HTMLIonLoadingElement;
-
+  isLoading: boolean = false;
   constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
       this.cargarMenuPorRol(this.userService.getRol());
@@ -64,6 +64,7 @@ async validarRegistroUsuario()
 
  async onSubmit() {
   console.log("Antes de entrar");
+  this.isLoading = true;
     await this.validarRegistroUsuario();
     console.log("Ya lo pase");
     if (this.loginForm.valid) {
@@ -72,6 +73,7 @@ async validarRegistroUsuario()
           if(res.user.email !== null) {
             this.userService.getUserProfile(res.user.uid)
               .then((userProfile: any) => {
+                this.isLoading = false;
                 this.cargarMenuPorRol(userProfile.rol);
               })
               .catch(err => {
