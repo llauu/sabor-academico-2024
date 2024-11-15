@@ -1,0 +1,46 @@
+<section class="vh-100 gradient-custom">
+  <div class="container">
+    <div class="form-container">
+      <ion-button (click)="menuMozo()" expand="block" color="red" class="limpiar-button">
+        <img class="img" src="../../../assets/atras.png" alt="atras" width="25px">
+        ATRAS
+      </ion-button>
+      <div class="card">
+        
+        <div class="card-body">
+          <h2 class="title">Confirmación de Pedidos</h2>
+          <p class="subtitle">Pedidos en estado pendiente</p>
+
+          <ul class="pedido-lista">
+            <li *ngFor="let pedido of pedidos" class="pedido-item">
+              <div class="pedido-encabezado">
+                <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
+                <div class="pedido-acciones">
+                  <button (click)="confirmarPedido(pedido.id)" class="accion-boton confirmar">✓</button>
+                  <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                    {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
+                <div *ngIf="pedido.cocina">
+                  <strong>Cocina</strong>
+                  <p *ngFor="let producto of pedido.cocina.productos">
+                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                  </p>
+                </div>
+                <div *ngIf="pedido.bar">
+                  <strong>Bar</strong>
+                  <p *ngFor="let producto of pedido.bar.productos">
+                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
