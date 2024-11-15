@@ -23,6 +23,10 @@ export class MenuEmpleadoPage implements OnInit {
   userProfile: any;
   pedidosSubscription: Subscription | undefined;
 
+  private currentAudio: HTMLAudioElement | null = null;
+  loading!: HTMLIonLoadingElement;
+  public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
+
   constructor(
     private firestore: Firestore,
     private firestoreService: FirestoreService,
@@ -46,6 +50,11 @@ export class MenuEmpleadoPage implements OnInit {
       .catch((error) => {
         console.error("Error en ngOnInit:", error);
       });
+  }
+
+  playAudio(audio: HTMLAudioElement) {
+    audio.load();
+    audio.play().catch(err => console.error('Error al reproducir el audio:', err));
   }
 
   subscribeToPedidos() {
@@ -119,6 +128,8 @@ export class MenuEmpleadoPage implements OnInit {
   logOut() {
     this.userService.logout()
       .then(() => {
+        this.currentAudio = this.audioInicioSesion;
+        this.playAudio(this.audioInicioSesion);
         this.router.navigate(['/login']);
       });
   }

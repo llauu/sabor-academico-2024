@@ -20,6 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class MenuAdminPage implements OnInit {
 
+  private currentAudio: HTMLAudioElement | null = null;
+  loading!: HTMLIonLoadingElement;
+  public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
+  
   constructor(private userService: UserService, private router: Router) { 
     addIcons({ logOutOutline });
   }
@@ -27,7 +31,10 @@ export class MenuAdminPage implements OnInit {
   ngOnInit() {
     addIcons({ logOutOutline });
   }
-
+  playAudio(audio: HTMLAudioElement) {
+    audio.load();
+    audio.play().catch(err => console.error('Error al reproducir el audio:', err));
+  }
   confirmLogout() {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -52,6 +59,8 @@ export class MenuAdminPage implements OnInit {
   logOut() {
     this.userService.logout()
       .then(() => {
+        this.currentAudio = this.audioInicioSesion;
+        this.playAudio(this.audioInicioSesion);
         this.router.navigate(['/login']);
       });
   }

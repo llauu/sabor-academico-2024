@@ -6,10 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { FirestoreService } from '../../services/firestore.service';
-import { QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { ExceptionCode } from '@capacitor/core';
 import {SpinnerComponent} from '../../componentes/spinner/spinner.component'
-import { Media } from '@capacitor-community/media';
+
 @Component({
   
   selector: 'app-login',
