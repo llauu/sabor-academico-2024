@@ -30,6 +30,9 @@ export class MenuClienteEsperandoPage implements OnInit {
   cuenta: boolean = false;
   recibido: boolean = false;
 
+  estaViendoEncuesta: boolean = false;
+  estaHaciendoEncuesta: boolean = false;
+
   constructor(private userService: UserService, public router: Router, private firestoreService: FirestoreService, private route: ActivatedRoute,
               private pushN: PushNotificationsService
   ) { 
@@ -60,34 +63,41 @@ export class MenuClienteEsperandoPage implements OnInit {
 
   // Manejo del resultado del escaneo
   async onScanResult(result: string) {
-    
-    console.log("aca en onScanResult")
-
-    this.pedido = await this.firestoreService.getPedidoPorUserID(this.userID);
-    this.estadoPedido = this.pedido?.estado ? this.pedido.estado : "pendiente";
-    
-    console.log('Resultado del escaneo:', result);
-
-    if (this.estadoPedido == "recibido" && result.startsWith("propina")) {
-      this.registrarPropina(result);
-    } else if (result.startsWith("mesa")) {
-      console.log('result', result);
-      this.actualizarEstadoPedido(result);
+    // LOGICA ENCUESTAS
+    if(this.estaViendoEncuesta || this.estaHaciendoEncuesta) {
+        if(this.estaHaciendoEncuesta) {
+          this.realizarEncuestaCliente();
+          this.estaHaciendoEncuesta = false;
+          this.estaViendoEncuesta = false;
+        } else {
+          this.mostrarEncuestasCliente();
+          this.estaHaciendoEncuesta = false;
+          this.estaViendoEncuesta = false;
+        }
     }
     else {
-
-      sweetAlertConfig.fire({
-        title: "Error",
-        text: "El QR que escaneaste no es válido",
-        icon: 'error',
-        confirmButtonText: 'Aceptar',
-        backdrop: `rgba(0,0,0,0.8)`,
-        didOpen: () => {
-          document.documentElement.classList.remove('swal2-height-auto');
-          document.body.classList.remove('swal2-height-auto');   
-        }
-      })
-
+      this.pedido = await this.firestoreService.getPedidoPorUserID(this.userID);
+      this.estadoPedido = this.pedido?.estado ? this.pedido.estado : "pendiente";
+  
+      if (this.estadoPedido == "recibido" && result.startsWith("propina")) {
+        this.registrarPropina(result);
+      } else if (result.startsWith("mesa")) {
+        console.log('result', result);
+        this.actualizarEstadoPedido(result);
+      }
+      else {
+        sweetAlertConfig.fire({
+          title: "Error",
+          text: "El QR que escaneaste no es válido",
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          backdrop: `rgba(0,0,0,0.8)`,
+          didOpen: () => {
+            document.documentElement.classList.remove('swal2-height-auto');
+            document.body.classList.remove('swal2-height-auto');   
+          }
+        })
+      }
     }
   }
 
@@ -429,7 +439,15 @@ export class MenuClienteEsperandoPage implements OnInit {
    
   }
   
+  escanerQRVerEncuesta() {
+    this.estaViendoEncuesta = true;
+    this.scanner.startScan();
+  }
 
+  escanerQRHacerEncuesta() {
+    this.estaHaciendoEncuesta = true;
+    this.scanner.startScan();
+  }
 
 
 
