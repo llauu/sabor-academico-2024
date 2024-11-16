@@ -255,7 +255,7 @@ export class MesaPage implements OnInit {
           if(this.pedidoExistente[0])
             this.router.navigate(['/menu-cliente-esperando']);
           else
-            this.router.navigate(['/menu']);
+            this.router.navigate(['/menu-cliente']);
 
         }
       }
