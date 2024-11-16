@@ -196,7 +196,7 @@ export class MenuListadoComponent implements OnInit {
         estado: "pendiente",
         productos: productosFiltrados.filter(p => p.sector === "bar")
       },
-      mesa: this.mesa
+      mesa: this.mesa.number
     }
 
     try {

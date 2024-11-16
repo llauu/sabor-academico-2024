@@ -3,6 +3,7 @@ import { FirestoreService } from '../../services/firestore.service';
 import { CommonModule } from '@angular/common';
 import { IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 @Component({
   selector: 'app-confirmar-pedidos',
   templateUrl: './confirmar-pedidos.component.html',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class ConfirmarPedidosComponent implements OnInit {
   pedidos: any[] = [];
 
-  constructor(private firestoreService: FirestoreService,   private router: Router) {}
+  constructor(private firestoreService: FirestoreService,   private router: Router, private pushN: PushNotificationsService) {}
 
   ngOnInit() {
     this.cargarPedidosPendientes();
@@ -45,5 +46,8 @@ export class ConfirmarPedidosComponent implements OnInit {
       'cocina.estado': 'derivado'
     });
     this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
+
+    this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector de la cocina.', 'cocinero');
+    this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector del bar.', 'bartender');
   }
 }
