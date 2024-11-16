@@ -22,6 +22,10 @@ export class UserService {
     this.user = user;
     this.userProfile = user;
     this.logged = true;
+
+    console.log('User data set: ', this.user);
+    console.log('User profile set: ', this.userProfile);
+    console.log('Logged: ', this.logged);
   }
   
   getState() {
@@ -95,6 +99,14 @@ export class UserService {
 
   getToken() {
     return this.userProfile.token;
+  }
+
+  getTipoCliente() {
+    return this.user.tipoCliente;
+  }
+
+  getUserAnonimo() {
+    return this.user;
   }
 
   async getName() {

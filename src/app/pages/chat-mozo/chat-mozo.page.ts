@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoadingController, AlertController, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { AlertController, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addDoc, collection, collectionData, doc, Firestore, getDocs, orderBy, query, setDoc, where } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,9 +23,10 @@ export class ChatMozoPage implements OnInit {
   messages: any = [];
   user: any;
   sub: Subscription | null = null;
-  loading!: HTMLIonLoadingElement;
   nombreUsuario: string = '';
   userProfile: any;
+
+
 
   constructor(
     private firestore: Firestore,
@@ -36,28 +37,38 @@ export class ChatMozoPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    if(this.userService.getTipoCliente() == 'anonimo') {
+      this.user = this.userService.getUserAnonimo();
+      this.user.uid = await this.userService.getId();
+      this.userProfile = this.userService.getUserAnonimo();
+
+      console.log(this.user);
+
+      this.getMessages();
+    }
+    else {
       this.userService.getState()
-        .then(user => {
-          this.user = user;
+      .then(user => {
+        this.user = user;
 
-          this.userService.getUserProfile(this.user.uid)
-            .then((userProfile: any) => {
-              this.userProfile = userProfile;
+        this.userService.getUserProfile(this.user.uid)
+          .then((userProfile: any) => {
+            this.userProfile = userProfile;
 
-              if(userProfile.rol == 'cliente') {
-                this.obtenerMesaPorUser(this.user.uid)
-                .then((mesa) => {
-                  console.log(mesa);
-                  this.nombreUsuario = `${userProfile.nombre} | Mesa ${mesa!['number']}`;
-                })
-              }
-              else {
-                this.nombreUsuario = `${userProfile.nombre} ${userProfile.apellido} | Mozo`;
-              }
-            });
-          
-          this.getMessages();
-    });
+            if(userProfile.rol == 'cliente') {
+              this.obtenerMesaPorUser(this.user.uid)
+              .then((mesa) => {
+                this.nombreUsuario = `${userProfile.nombre} | Mesa ${mesa!['number']}`;
+              })
+            }
+            else {
+              this.nombreUsuario = `${userProfile.nombre} ${userProfile.apellido} | Mozo`;
+            }
+          });
+        
+        this.getMessages();
+      });
+    }
   }
 
   async obtenerMesaPorUser(uid: string) {
@@ -79,7 +90,7 @@ export class ChatMozoPage implements OnInit {
   sendMessage() {
     if (this.messageText !== '') {
       let col = collection(this.firestore, 'consultasMozos/chat/mensajes');
-      addDoc(col, { 'fecha': new Date(), 'email': this.user.email, 'userID': this.user.uid, 'usuario': this.nombreUsuario, 'mensaje': this.messageText })
+      addDoc(col, { 'fecha': new Date(), 'userID': this.user.uid, 'usuario': this.nombreUsuario, 'mensaje': this.messageText })
         .then(() => {
           this.pushNotifications.sendNotificationToRole('Has recibido una nueva consulta!', this.messageText, 'mozo');
         })
@@ -101,7 +112,6 @@ export class ChatMozoPage implements OnInit {
       // Scroll hacia abajo al recibir nuevos mensajes
       setTimeout(() => {
         this.scrollToBottom();
-        this.loading.dismiss();
       }, 0);
     });
   }

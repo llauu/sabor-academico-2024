@@ -36,7 +36,6 @@ export class ConfirmarPagoComponent implements OnInit {
     console.log("pedido id " + pedidoId);
   
     try {
-      
       const pedidoData: any = await this.firestoreService.getPedidoByUid(pedidoId);
 
       const userId = pedidoData.userID;
