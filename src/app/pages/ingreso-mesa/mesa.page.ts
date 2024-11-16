@@ -34,7 +34,7 @@ export class MesaPage implements OnInit {
   private currentAudio: HTMLAudioElement | null = null;
   loading!: HTMLIonLoadingElement;
   public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
-  
+  public audio = new Audio('../../../../assets/inicioSesion.mp3');
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {
     addIcons({ logOutOutline });
@@ -43,6 +43,8 @@ export class MesaPage implements OnInit {
 
   async ngOnInit() {
     try {
+      this.currentAudio = this.audio;
+      this.playAudio(this.audio);
       this.userID = await this.userService.getId();
       this.userFullName= await this.userService.getName();
       console.log(this.userID);

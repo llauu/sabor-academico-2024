@@ -23,12 +23,14 @@ export class MenuMaitrePage implements OnInit {
   private currentAudio: HTMLAudioElement | null = null;
   loading!: HTMLIonLoadingElement;
   public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
-
+  public audio = new Audio('../../../../assets/inicioSesion.mp3');
   constructor(private userService: UserService, public router: Router) { 
     addIcons({ logOutOutline });
   }
 
   ngOnInit() {
+    this.currentAudio = this.audio;
+    this.playAudio(this.audio);
     addIcons({ logOutOutline });
   }
 

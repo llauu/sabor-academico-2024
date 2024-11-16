@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
   errorMsg: string = '';
   isLoading : boolean = false;
   loading!: HTMLIonLoadingElement;
-  public audioInicioSesion = new Audio('../../../assets/inicioSesion.mp3');
+
   private currentAudio: HTMLAudioElement | null = null;
   constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
     if(this.userService.getLogged()) {
@@ -67,15 +67,10 @@ async validarRegistroUsuario()
       throw new Error;
     }
 }
-playAudio(audio: HTMLAudioElement) {
-  audio.load();
-  audio.play().catch(err => console.error('Error al reproducir el audio:', err));
-}
+
  async onSubmit() {
   console.log("Antes de entrar");
   this.isLoading = true;
-  this.currentAudio = this.audioInicioSesion;
-  this.playAudio(this.audioInicioSesion);
     await this.validarRegistroUsuario();
     console.log("Ya lo pase");
     if (this.loginForm.valid) {

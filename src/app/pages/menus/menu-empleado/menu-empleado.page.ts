@@ -28,7 +28,7 @@ export class MenuEmpleadoPage implements OnInit {
   private currentAudio: HTMLAudioElement | null = null;
   loading!: HTMLIonLoadingElement;
   public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
-
+  public audio = new Audio('../../../../assets/inicioSesion.mp3');
   constructor(
     private firestore: Firestore,
     private firestoreService: FirestoreService,
@@ -40,6 +40,8 @@ export class MenuEmpleadoPage implements OnInit {
   }
 
   ngOnInit() {
+    this.currentAudio = this.audio;
+    this.playAudio(this.audio);
     this.userService
       .getState()
       .then((user: any) => {
