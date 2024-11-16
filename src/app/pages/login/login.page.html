@@ -9,7 +9,7 @@
 <div *ngIf="isLoading" class="spinner-overlay">
   <app-spinner></app-spinner>
 </div>
-<ion-content [fullscreen]="true" class="ion-padding login-page">
+<ion-content class="ion-padding login-page">
   <form (ngSubmit)="onSubmit()">
     <ion-input label="Correo electrónico" label-placement="floating" fill="solid" placeholder="Ingrese su correo electrónico..." [formControl]="loginForm.controls.email"></ion-input>
     <ion-input label="Contraseña" type="password" label-placement="floating" fill="solid" placeholder="Ingrese su contraseña..." [formControl]="loginForm.controls.pass"></ion-input>
