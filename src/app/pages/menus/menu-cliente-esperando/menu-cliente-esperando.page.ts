@@ -156,12 +156,146 @@ export class MenuClienteEsperandoPage implements OnInit {
   }
 
 
-  simulacionPago() {
+  async simulacionPago() {
+    this.pedido = await this.firestoreService.getPedidoPorUserID('1jqyeXYCmWfc7et0Ab8nCpoOsuX2');
 
-    // ACA DISPARAR EL SWEET ALERT CON EL DETALLE DE LA CUENTA
+    const allProducts = [
+      ...this.pedido.cocina.productos,
+      ...this.pedido.bar.productos,
+    ]
+      .map(
+        p => `
+        <tr>
+          <td style="border: 1px solid #ddd; padding: 8px;">${p.nombre}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">${p.cantidad}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">$${p.precioTotal}</td>
+        </tr>`
+      )
+      .join('');
 
+    const htmlContent = `
+      <div style="text-align: left; font-size: 16px;">
+        <p><strong style="font-size: 21px; margin-top: 20px;">Mesa ${this.pedido.mesa}</strong></p>
+
+        <p><strong style="font-size: 21px; margin-top: 20px;">Productos</strong></p>
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="background-color: #f2f2f2;">
+              <th style="border: 1px solid #ddd; padding: 8px;">Producto</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">Cantidad</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allProducts}
+          </tbody>
+        </table>
+
+        
+        <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 16px;">Subtotal</div>
+          <div style="font-size: 16px; font-weight: bold;">$${this.pedido.precio}</div>
+        </div>
+        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 16px;">Propina</div>
+          <div style="font-size: 16px; font-weight: bold;">$${this.pedido.propina}</div>
+        </div>
+        <div style="margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="font-size: 24px; font-weight: bold;">Total</div>
+          <div style="font-size: 24px; font-weight: bold;">$${this.pedido.precio + this.pedido.propina}</div>
+        </div>
+      </div>
+    `;
+
+    Swal.fire({
+      title: 'Detalle de la Cuenta',
+      html: htmlContent,
+      icon: 'info',
+      confirmButtonColor: '#003049',
+      confirmButtonText: 'Pagar',
+      showCancelButton: true,
+      cancelButtonColor: '#D62828',
+      cancelButtonText: 'Cancelar',
+      width: '600px',
+      customClass: {
+        popup: 'swal-wide',
+      },
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.mostrarOpcionesPago();
+      }
+    });
   }
 
+
+  mostrarOpcionesPago() {
+    Swal.fire({
+      title: 'Elige un método de pago',
+      html: `
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+          <button id="cash" style="padding: 15px; width: 100%; height: 130px; font-size: 20px; background-color: #545454; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center;">
+            En efectivo
+            <br />
+            <img src="assets/icon/cash.png" alt="Efectivo" style="margin-top: 5px; width: 45px; height: 40px;">
+          </button>
+          <button id="card" style="padding: 15px; width: 100%; height: 130px; font-size: 20px; background-color: #545454; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center;">
+            Con tarjeta
+            <br />
+            <img src="assets/icon/card.png" alt="Tarjeta" style="margin-top: 5px; width: 45px; height: 40px;">
+          </button>
+          <button id="mp" style="padding: 15px; width: 100%; height: 130px; font-size: 20px; background-color: #545454; color: white; border: none; border-radius: 5px; cursor: pointer; text-align: center;">
+            Con Mercado Pago
+            <br />
+            <img src="assets/icon/mp.png" alt="Mercado Pago" style="margin-top: 5px; width: 120px; height: 40px;">
+          </button>
+        </div>
+      `,
+      showConfirmButton: false,
+      width: '90%',
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      },
+      didRender: () => {
+        document.getElementById('cash')?.addEventListener('click', () => {
+          this.mostrarPagoExitoso();
+        });
+        document.getElementById('card')?.addEventListener('click', () => {
+          this.mostrarPagoExitoso();
+        });
+        document.getElementById('mp')?.addEventListener('click', () => {
+          this.mostrarPagoExitoso();
+        });
+      },
+    });
+  }
+
+  mostrarPagoExitoso() {
+    Swal.fire({
+      title: '¡Pago realizado con éxito!',
+      text: 'Gracias por elegirnos. ¡Esperamos verte pronto!',
+      icon: 'success',
+      confirmButtonText: '¡Nos vemos!',
+      confirmButtonColor: '#4caf50',
+      backdrop: true,
+      width: '90%',
+      padding: '10px',
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      },
+      didClose: () => {
+        this.firestoreService.updateDocument(`listaPedidos/${this.pedido.id}`, { estado: 'pagado' })
+          .then(() => {
+            this.router.navigate(['/ingreso-mesa']);
+          });
+      }
+    });
+  }
 
   async actualizarEstadoPedido(tableNumber: string) {
 
