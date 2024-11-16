@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { FcmService } from 'src/app/services/fcm.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -48,7 +49,7 @@ export class RegisterAnonymousComponent implements OnInit {
     }
   }
   alertaError(){
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Error al crear cliente',
       text: '¡Revise datos ingresados!',
       icon: 'error',
@@ -88,7 +89,7 @@ export class RegisterAnonymousComponent implements OnInit {
       // Inicializamos push notifications
       this.fcm.init(uid);
 
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: 'Cliente creado',
         text: '¡Ya puede disfrutar de nuestros servicios anónimamente!',
         icon: 'success',

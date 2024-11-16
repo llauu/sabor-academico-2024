@@ -85,6 +85,19 @@
     --arena: #EAE2B7;
 }
 
+
+
+  /* Variables globales para facilitar ajustes */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --danger-color: #dc3545;
+    --success-color: #28a745;
+    --text-color: #000000; /* Texto negro */
+    --background-light: #f9f9f9;
+    --border-color: #ddd;
+  }
+
 :root {
     --ion-font-family: 'Farro', sans-serif;
 }
@@ -117,3 +130,72 @@
 
 @import '~@ionic/angular/css/core.css';
 @import '~@ionic/angular/css/ionic.bundle.css';
+
+
+// SWEET ALERT
+
+/* Fondo del cuadro */
+.sweet-popup {
+    background-color: #3b3b3b !important; /* Fondo oscuro */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  }
+  
+  /* Icono */
+  .sweet-icon {
+    color: #FFC107; /* Amarillo para advertencias */
+  }
+  
+  /* Título */
+  .sweet-title {
+    color: #FFFFFF; /* Blanco */
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Texto */
+  .sweet-text {
+    color: #B0B0B0; /* Gris claro */
+    font-size: 1rem;
+  }
+  
+
+  /* Botones principales */
+.sweet-confirm-button,
+.sweet-cancel-button {
+  flex: 1; /* Permite que ambos botones ocupen el mismo ancho */
+  margin: 0 10px; /* Espacio horizontal entre los botones */
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.sweet-confirm-button {
+  background-color: #4CAF50; /* Verde */
+}
+
+.sweet-confirm-button:hover {
+  background-color: #388E3C; /* Verde más oscuro */
+}
+
+.sweet-cancel-button {
+  background-color: #F44336; /* Rojo */
+}
+
+.sweet-cancel-button:hover {
+  background-color: #D32F2F; /* Rojo más oscuro */
+}
+
+/* Contenedor de los botones */
+.swal2-actions {
+  display: flex; /* Asegura que los botones estén en fila */
+  justify-content: center; /* Centra los botones */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espacio adicional entre los botones y el texto */
+}
+

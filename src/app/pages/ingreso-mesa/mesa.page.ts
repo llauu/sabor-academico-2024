@@ -6,7 +6,8 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonIcon } from 
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
@@ -96,7 +97,7 @@ export class MesaPage implements OnInit {
     console.log(message)
     console.log(`Escaneo NO permitido para acción: ${action}`);
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: title,
       text: message,
       icon: 'info',
@@ -128,7 +129,7 @@ export class MesaPage implements OnInit {
     }
     else {
 
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: "Error",
         text: "El QR que escaneaste no es válido",
         icon: 'error',
@@ -170,7 +171,7 @@ export class MesaPage implements OnInit {
     }
 
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: title,
       text: message,
       icon: 'info',
@@ -234,7 +235,7 @@ export class MesaPage implements OnInit {
       message = "Ocurrió un error. Intentá en unos segundos";
     }
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: title,
       text: message,
       icon: 'info',
@@ -327,7 +328,7 @@ export class MesaPage implements OnInit {
       recomendacion.push(encuesta.recomendacion);
     });
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Resultados de las Encuestas',
       width: '90%',
       html: `
@@ -435,7 +436,7 @@ export class MesaPage implements OnInit {
   }
 
   confirmLogout() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¿Estás seguro?',
       text: '¿Deseas cerrar sesión?',
       icon: 'warning',

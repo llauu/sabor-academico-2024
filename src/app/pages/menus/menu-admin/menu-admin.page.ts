@@ -5,7 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon } from '@ionic/ang
 import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { IonButton } from '@ionic/angular/standalone';
@@ -36,7 +37,7 @@ export class MenuAdminPage implements OnInit {
     audio.play().catch(err => console.error('Error al reproducir el audio:', err));
   }
   confirmLogout() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¿Estás seguro?',
       text: '¿Deseas cerrar sesión?',
       icon: 'warning',

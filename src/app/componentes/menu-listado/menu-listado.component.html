@@ -1,39 +1,82 @@
 <ion-content [fullscreen]="true">
+  <!-- Botón de resumen -->
+  <button class="summary-button" aria-label="Ver resumen del pedido" (click)="showOrderSummary()">
+    <span class="material-icons">receipt</span>
+  </button>
 
-    <!-- Total y Tiempo Estimado -->
-    <button class="summary-button" (click)="showOrderSummary()">
-        <span class="material-icons">receipt</span>
+  <!-- Resumen del Total -->
+  <section class="summary">
+    <p class="total">Total: {{ getTotalPrice() | currency }}</p>
+    <p class="total-time">Tiempo estimado: {{ getTotalTime() }} minutos</p>
+  </section>
+
+  <!-- Selector de Sección -->
+   <!-- Botones tipo pestaña -->
+   <div class="tab-buttons">
+    <button 
+      [class.active]="selectedSection === 'cocina'" 
+      (click)="selectedSection = 'cocina'">
+      Comidas
     </button>
-    <div class="total">
-      Total: {{ getTotalPrice() | currency }}
-    </div>
-    <div class="total-time">
-      Tiempo estimado: {{ getTotalTime() }} minutos
-    </div>
-  
-    <!-- Lista de Productos -->
-    <div *ngFor="let producto of productos" class="product-item">
+    <button 
+      [class.active]="selectedSection === 'bar'" 
+      (click)="selectedSection = 'bar'">
+      Bebidas
+    </button>
+  </div>
 
-        <div class="product-header" (click)="toggleProduct(producto)">
-            <span>{{ producto.nombre }}</span>
-            <span>{{ producto.precioTotalProducto | currency }}</span>
-            <span *ngIf="producto.cantidad > 0">({{ producto.cantidad }})</span>
-            <button (click)="decreaseQuantity(producto, $event)">➖</button>
-            <button (click)="increaseQuantity(producto, $event)">➕</button>
+  <!-- Sección de Cocina -->
+  <section 
+    *ngIf="selectedSection === 'cocina'" 
+    class="section cocina-products">
+    <div *ngFor="let producto of productosCocina" class="product-item">
+      <div class="product-header" (click)="toggleProduct(producto)">
+        <span>{{ producto.nombre }}</span>
+        <span *ngIf="producto.cantidad > 0">x{{ producto.cantidad }}</span>
+        <div class="product-controls">
+          <button aria-label="Disminuir cantidad" (click)="decreaseQuantity(producto, $event)">➖</button>
+          <button aria-label="Aumentar cantidad" (click)="increaseQuantity(producto, $event)">➕</button>
         </div>
-        <div class="product-details" *ngIf="producto.expanded">
-            <app-menu-item [imagenes]="producto.imagenes"></app-menu-item>
-            <p>{{ producto.descripcion }}</p>
-            <p>Precio unitario: {{ producto.precio | currency }}</p>
-            <p>Tiempo estimado: {{ producto.tiempo }} minutos</p>
+      </div>
+      <div class="product-details" *ngIf="producto.expanded">
+        <app-menu-item [imagenes]="producto.imagenes"></app-menu-item>
+        <p>{{ producto.descripcion }}</p>
+        <p>Precio unitario: {{ producto.precio | currency }}</p>
+        <p>Tiempo estimado: {{ producto.tiempo }} minutos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Bar -->
+  <section 
+    *ngIf="selectedSection === 'bar'" 
+    class="section bar-products">
+    <div *ngFor="let producto of productosBar" class="product-item">
+      <div class="product-header" (click)="toggleProduct(producto)">
+        <span>{{ producto.nombre }}</span>
+        <span *ngIf="producto.cantidad > 0">x{{ producto.cantidad }}</span>
+        <div class="product-controls">
+          <button aria-label="Disminuir cantidad" (click)="decreaseQuantity(producto, $event)">➖</button>
+          <button aria-label="Aumentar cantidad" (click)="increaseQuantity(producto, $event)">➕</button>
         </div>
-        </div>
+      </div>
+      <div class="product-details" *ngIf="producto.expanded">
+        <app-menu-item [imagenes]="producto.imagenes"></app-menu-item>
+        <p>{{ producto.descripcion }}</p>
+        <p>Precio unitario: {{ producto.precio | currency }}</p>
+        <p>Tiempo estimado: {{ producto.tiempo }} minutos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botones de Confirmar y Cancelar Pedido -->
+  <div class="button-group">
+    <button [disabled]="getTotalPrice() == 0" (click)="showOrderSummary()">Confirmar Pedido</button>
+    <button (click)="cancelOrder()">Cancelar Pedido</button>
+  </div>
+
+  <div class="btn-logout" (click)="confirmLogout()">
+    <ion-icon name="log-out-outline"></ion-icon>
+  </div>
   
-        <!-- Botones de Confirmar y Cancelar Pedido -->
-        <div class="button-group">
-            <button [disabled]="getTotalPrice() == 0" (click)="showOrderSummary()">Confirmar Pedido</button>
-            <button (click)="cancelOrder()">Cancelar Pedido</button>
-        </div>
-  
-  </ion-content>
-  
+</ion-content>

@@ -5,7 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from 
 import { SpinnerComponent } from 'src/app/componentes/spinner/spinner.component';
 import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -75,7 +76,7 @@ export class MenuClienteEsperandoPage implements OnInit {
     }
     else {
 
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: "Error",
         text: "El QR que escaneaste no es válido",
         icon: 'error',
@@ -119,7 +120,7 @@ export class MenuClienteEsperandoPage implements OnInit {
       this.firestoreService.updateDocument(`listaPedidos/${this.pedido.id}`, 
         { propina: this.pedido.propina});
 
-        Swal.fire({
+        sweetAlertConfig.fire({
           title: "Gracias",
           text: "Sabor académico te agradece por la valoración",
           icon: 'success',
@@ -140,7 +141,7 @@ export class MenuClienteEsperandoPage implements OnInit {
 
     catch {
 
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: "Ocurrió un probema",
         text: "No se pudo guardar tu propina",
         icon: 'error',
@@ -197,7 +198,7 @@ export class MenuClienteEsperandoPage implements OnInit {
 
 
     if(tableNumber !== this.pedido.mesa){
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: "No permitido",
         text: "Este no es el QR de tu mesa. Tu mesa es la numero: " + this.pedido.mesa,
         icon: 'error',
@@ -258,7 +259,7 @@ export class MenuClienteEsperandoPage implements OnInit {
 
         console.log("aca en este sweet alertsssss")
   
-       Swal.fire({
+       sweetAlertConfig.fire({
             title: titulo,
             text: mensaje,
             icon: 'info',
@@ -276,7 +277,7 @@ export class MenuClienteEsperandoPage implements OnInit {
           }})
       }
       else { 
-        Swal.fire({
+        sweetAlertConfig.fire({
           title: titulo,
           text: mensaje,
           icon: 'info',
@@ -328,7 +329,7 @@ export class MenuClienteEsperandoPage implements OnInit {
     const encuesta = await this.firestoreService.getEncuestaPorUser(userId!);
 
     if(encuesta) {
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: 'Encuesta ya realizada',
         text: 'Ya has realizado la encuesta de satisfacción.',
         icon: 'info',
@@ -342,7 +343,7 @@ export class MenuClienteEsperandoPage implements OnInit {
     }
 
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '<strong>Encuesta de Satisfacción</strong>',
       width: '90%',
       padding: '1em',
@@ -419,7 +420,7 @@ export class MenuClienteEsperandoPage implements OnInit {
         console.log(encuestaData);
         this.firestoreService.createDocument('encuestas', {...encuestaData, userID: userId});
 
-        Swal.fire({
+        sweetAlertConfig.fire({
           title: '¡Gracias por tu tiempo!',
           text: 'La encuesta fue enviada con éxito.',
           icon: 'success',
@@ -459,7 +460,7 @@ export class MenuClienteEsperandoPage implements OnInit {
       recomendacion.push(encuesta.recomendacion);
     });
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Resultados de las Encuestas',
       width: '90%',
       html: `
@@ -567,7 +568,7 @@ export class MenuClienteEsperandoPage implements OnInit {
   }
 
   confirmLogout() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¿Estás seguro?',
       text: '¿Deseas cerrar sesión?',
       icon: 'warning',

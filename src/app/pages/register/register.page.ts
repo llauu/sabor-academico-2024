@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import {PushNotificationsService} from '../../services/push-notifications.service'
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { SpinnerComponent } from '../../componentes/spinner/spinner.component';
 import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -118,7 +119,7 @@ export class RegisterPage implements OnInit {
       this.pushNotificationsService.sendNotificationToRole('Nuevo cliente registrado!', 'Un nuevo cliente se ha registrado y está pendiente de aprobación.', 'dueno');
 
 
-      Swal.fire({
+      sweetAlertConfig.fire({
         title: 'Cliente creado',
         text: '¡Revise su casilla de correo!',
         icon: 'success',
@@ -138,7 +139,7 @@ export class RegisterPage implements OnInit {
 
   // Alerta de error en caso de datos incorrectos
   alertaError() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Error al crear cliente',
       text: '¡Revise datos ingresados!',
       icon: 'error',

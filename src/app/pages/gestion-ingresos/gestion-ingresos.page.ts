@@ -6,7 +6,8 @@ import { IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ActionPerformed } from '@capacitor/push-notifications';
 import {PushNotificationsService} from '../../services/push-notifications.service'
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 
 
 interface Ingreso {
@@ -60,7 +61,7 @@ export class GestionIngresosPage implements OnInit {
       }, {} as Record<string, string>);
 
       // Abre el modal con SweetAlert2 para seleccionar la mesa
-      const { value: selectedNumber } = await Swal.fire({
+      const { value: selectedNumber } = await sweetAlertConfig.fire({
         title: 'Selecciona una mesa',
         input: 'select',
         inputOptions: mesasOptions,

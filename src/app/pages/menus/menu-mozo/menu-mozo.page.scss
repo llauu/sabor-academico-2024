@@ -3,7 +3,7 @@
 }
 
 ion-toolbar {
-  --background: #003049;
+  --background: #812020;
 }
 
 ion-title strong {
@@ -28,7 +28,8 @@ ion-title strong {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #900f0f;
+  background: linear-gradient(to bottom, #b22e0f, #d97a2e, #fbc02d); /* De rojo a amarillo */
+;
   height: 100%;
 }
 
@@ -45,7 +46,7 @@ ion-title strong {
 }
 
 ion-button.admin-button {
-  --background: purple;
+  --background: #3b3b3b;
   width: 100%;
   height: 100px;
   flex: 1;

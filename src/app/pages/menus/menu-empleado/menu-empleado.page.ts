@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from '../../../services/firestore.service';
@@ -105,7 +106,7 @@ export class MenuEmpleadoPage implements OnInit {
     }}
 
   confirmLogout() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¿Estás seguro?',
       text: '¿Deseas cerrar sesión?',
       icon: 'warning',

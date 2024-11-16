@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { IonicModule } from '@ionic/angular';
-import Swal from 'sweetalert2';
+//import Swal from 'sweetalert2';
+import { sweetAlertConfig } from 'sweet-alert-config';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 
@@ -19,20 +20,25 @@ import { Router } from '@angular/router';
 export class MenuListadoComponent implements OnInit {
   
   productos : any[] = []
+  productosCocina: any[] = []
+  productosBar: any[] = []
   userID: any;
   userFullName: string | null = '';
   precioTotal: number = 0;
   tiempoTotal: number = 0;
   mesa: any
+  selectedSection: string = 'cocina'; // Sección activa por defecto
+
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    this.userID = await this.userService.getId();
-    this.userFullName = await this.userService.getName();
-    this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
+    //this.userID = await this.userService.getId();
+   // this.userFullName = await this.userService.getName();
+    //this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
     this.productos = await this.firestoreService.getProductos();
-    this.productos = await this.firestoreService.getProductos();
+    this.productosBar = this.productos.filter(producto => producto.sector === 'bar');
+    this.productosCocina = this.productos.filter(producto => producto.sector === 'cocina');
 
     for(let p of this.productos){
       p.cantidad = 0;
@@ -86,7 +92,7 @@ export class MenuListadoComponent implements OnInit {
       .join('<br>');
   
     // Muestra el resumen del pedido en un SweetAlert
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Resumen del Pedido',
       html: `
         <p>${orderSummary}</p>
@@ -107,7 +113,7 @@ export class MenuListadoComponent implements OnInit {
         try {
           this.submitOrder();
 
-          Swal.fire(
+          sweetAlertConfig.fire(
             {
             title: 'Pedido confirmado', 
             html: 'Tu pedido ha sido confirmado.', 
@@ -120,7 +126,7 @@ export class MenuListadoComponent implements OnInit {
         }
 
         catch {
-          Swal.fire(
+          sweetAlertConfig.fire(
             {
             title: 'Error al hacer el pedido', 
             html: 'Intenta nuevamente', 
@@ -139,7 +145,7 @@ export class MenuListadoComponent implements OnInit {
   
   cancelOrder() {
     // Restablece la cantidad y el precio total de cada producto
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¿Estas seguro que querés cancelar el pedido?',
       icon: 'info',
       showCancelButton: true,
@@ -200,6 +206,34 @@ export class MenuListadoComponent implements OnInit {
     } catch (error) {
       console.error("Error al crear el pedido:", error);
     }
+  }
+
+  confirmLogout() {
+    sweetAlertConfig.fire({
+      title: '¿Estás seguro?',
+      text: '¿Deseas cerrar sesión?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#003049',
+      cancelButtonColor: '#D62828',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Cerrar sesión',
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.logOut();
+      }
+    });
+  }
+
+  logOut() {
+    this.userService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      });
   }
   
 }
