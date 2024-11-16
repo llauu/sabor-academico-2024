@@ -209,7 +209,7 @@ export class MenuClienteEsperandoPage implements OnInit {
       </div>
     `;
 
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Detalle de la Cuenta',
       html: htmlContent,
       icon: 'info',
@@ -235,7 +235,7 @@ export class MenuClienteEsperandoPage implements OnInit {
 
 
   mostrarOpcionesPago() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: 'Elige un método de pago',
       html: `
         <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
@@ -277,7 +277,7 @@ export class MenuClienteEsperandoPage implements OnInit {
   }
 
   mostrarPagoExitoso() {
-    Swal.fire({
+    sweetAlertConfig.fire({
       title: '¡Pago realizado con éxito!',
       text: 'Gracias por elegirnos. ¡Esperamos verte pronto!',
       icon: 'success',

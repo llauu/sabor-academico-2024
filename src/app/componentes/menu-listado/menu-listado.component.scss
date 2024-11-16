@@ -114,6 +114,10 @@ ion-content {
   align-items: center;
 }
 
+.product-header span:nth-child(1) {
+  width: 40%
+}
+
 .product-header span:nth-child(2) {
   text-align: right;
   margin-right: 10px;
@@ -123,7 +127,7 @@ ion-content {
   font-size: 1rem;
   color: #fff;
   padding: 0px;
-  width: 30%;
+  width: 20%;
 }
 
 .product-controls {
