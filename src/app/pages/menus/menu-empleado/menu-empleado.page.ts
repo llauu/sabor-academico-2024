@@ -10,6 +10,7 @@ import { FirestoreService } from '../../../services/firestore.service';
 import { IonicModule } from '@ionic/angular';
 import { Firestore } from '@angular/fire/firestore';
 import { Subscription } from 'rxjs';
+import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 @Component({
   selector: 'app-menu-empleado',
   templateUrl: './menu-empleado.page.html',
@@ -31,7 +32,8 @@ export class MenuEmpleadoPage implements OnInit {
     private firestore: Firestore,
     private firestoreService: FirestoreService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private pushN: PushNotificationsService
   ) {
     addIcons({ logOutOutline });
   }
@@ -75,23 +77,28 @@ export class MenuEmpleadoPage implements OnInit {
     pedido.mostrarDetalles = !pedido.mostrarDetalles;
   }
 
-  async marcarRealizado(pedidoId: string) {
+  async marcarRealizado(pedido: any) {
       if(this.userProfile.rol === "bartender")
       {
-        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedido.id}`, {
           'bar.estado': 'listo para servir'
         });
+
+        this.pushN.sendNotificationToRole("Pedido listo para servir!", `Los productos del sector bar de la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
       }
       else
       {
-        await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+        await this.firestoreService.updateDocument(`listaPedidos/${pedido.id}`, {
           'cocina.estado': 'listo para servir'
         });
+        
+        this.pushN.sendNotificationToRole("Pedido listo para servir!", `Los productos del sector cocina de la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
       }
-      await this.validarEstado(pedidoId);
+      await this.validarEstado(pedido.id);
 
-    this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
+    this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedido.id);
   }
+
   async validarEstado(pedidoId: string) {
     const pedido = await this.firestoreService.getDocument(`listaPedidos/${pedidoId}`);
     if (pedido.exists()) {

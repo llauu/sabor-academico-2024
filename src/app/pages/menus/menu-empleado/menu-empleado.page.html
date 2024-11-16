@@ -13,7 +13,7 @@
               <div class="pedido-encabezado">
                 <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
                 <div class="pedido-acciones">
-                  <button (click)="marcarRealizado(pedido.id)" class="accion-boton realizar">✓</button>
+                  <button (click)="marcarRealizado(pedido)" class="accion-boton realizar">✓</button>
                   <button (click)="toggleDetalles(pedido)" class="accion-boton">
                     {{ pedido.mostrarDetalles ? '▲' : '▼' }}
                   </button>

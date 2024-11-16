@@ -16,36 +16,37 @@
 | 4  | Inicio                                                  | Alfa        | Terminado |
 | 5  | Spinner personalizado                                   | Gamma       | Terminado |
 | 6  | Alta cliente                                            | Gamma       | Terminado |
-| 7  | Habilitacion de cliente                                 | Gamma       | Terminado |  
+| 7  | Habilitacion de cliente                                 | Gamma       | Terminado |
 | 8  | Menu supervisor/dueño                                   | Gamma       | Terminado |
 | 9  | Menu empleados                                          | Gamma       | Terminado |
 | 10 | Menu maitre                                             | Alfa        | Terminado |
-| 11 | Menu mozo                                               | Gamma       | Pendiente |
+| 11 | Menu mozo                                               | Gamma       | Terminado |
 | 12 | Menu clientes                                           | Alfa        | Terminado |
 | 13 | QR del DNI                                              | Beta        | Terminado |
 | 14 | QR de ingreso al local                                  | Beta        | Terminado |
 | 15 | QR de la mesa                                           | Beta        | Terminado |
-| 16 | QR de propina                                           | Beta        | Pendiente |
+| 16 | QR de propina                                           | Beta        | Terminado |
 | 17 | Ingresar al local                                       | Beta        | Terminado |
 | 18 | Listado de espera                                       | Beta        | Terminado |
 | 19 | Encuesta de satisfaccion al cliente                     | Alfa        | Terminado |
 | 20 | Graficos de encuestas de clientes                       | Alfa        | Terminado |
 | 21 | Pedir platos y bebidas (menu)                           | Beta        | Terminado |
 | 22 | Manejo del estado del pedido                            | Beta        | Terminado |
-| 23 | Confirmar pedido                                        | Gamma       | Pendiente |
+| 23 | Confirmar pedido                                        | Gamma       | Terminado |
 | 24 | Pedir la cuenta                                         | Alfa        | Terminado |
-| 25 | Mozo confirma pago                                      | Gamma       | Pendiente |
-| 26 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
-| 27 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
-| 28 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
-| 29 | Push N. / Manejo de tokens                              | Alfa        | Terminado |
-| 30 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
-| 31 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
-| 32 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
-| 33 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
-| 34 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Pendiente |
-| 35 | Push N. / Producto listo (al mozo)                      | Alfa        | Pendiente |
-| 36 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Terminado |
+| 25 | Metodos y simulacion de pago                            | Alfa        | Terminado |
+| 26 | Mozo confirma pago                                      | Gamma       | Terminado |
+| 27 | Consulta al mozo (chat)                                 | Alfa        | Terminado |
+| 28 | Correo Auto. para Pendiente/Rechazado/Aceptado          | Gamma       | Terminado |
+| 29 | Correo Perso. para Pendiente/Rechazado/Aceptado         | Gamma       | Terminado |
+| 30 | Push N. / Manejo de tokens                              | Alfa        | Terminado |
+| 31 | Push N. / Cliente nuevo (al dueño y supervisor)         | Alfa        | Terminado |
+| 32 | Push N. / Ingreso al local (al maitre)                  | Alfa        | Terminado |
+| 33 | Push N. / Asignacion de mesa (al cliente)               | Alfa        | Terminado |
+| 34 | Push N. / Consulta al mozo (chat, al mozo)              | Alfa        | Terminado |
+| 35 | Push N. / Aviso de pedido nuevo (a los sectores)        | Alfa        | Terminado |
+| 36 | Push N. / Producto listo (al mozo)                      | Alfa        | Terminado |
+| 37 | Push N. / Cliente solicita cuenta (al mozo)             | Alfa        | Terminado |
 
 
 ## Fecha de inicio 📆
