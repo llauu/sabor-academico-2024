@@ -39,12 +39,15 @@ export class ChatMozoPage implements OnInit {
   async ngOnInit() {
     if(this.userService.getTipoCliente() == 'anonimo') {
       this.user = this.userService.getUserAnonimo();
-      this.user.uid = await this.userService.getId();
       this.userProfile = this.userService.getUserAnonimo();
+      this.user.uid = await this.userService.getId();
+      this.user.nombre = await this.userService.getName();
 
-      console.log(this.user);
-
-      this.getMessages();
+      this.obtenerMesaPorUser(this.user.uid)
+        .then((mesa) => {
+          this.nombreUsuario = `${this.user.nombre} | Mesa ${mesa!['number']}`;
+          this.getMessages();
+        })
     }
     else {
       this.userService.getState()
