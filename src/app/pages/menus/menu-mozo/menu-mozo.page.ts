@@ -22,6 +22,10 @@ import { Chart } from 'chart.js';
 })
 export class MenuMozoPage implements OnInit {
 
+  private currentAudio: HTMLAudioElement | null = null;
+  loading!: HTMLIonLoadingElement;
+  public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
+
   constructor(private userService: UserService, public router: Router) { 
     addIcons({ logOutOutline });
   }
@@ -30,6 +34,11 @@ export class MenuMozoPage implements OnInit {
     addIcons({ logOutOutline });
   }
 
+  playAudio(audio: HTMLAudioElement) {
+    audio.load();
+    audio.play().catch(err => console.error('Error al reproducir el audio:', err));
+  }
+  
   confirmarPedidos() {
     this.router.navigate(['/confirmar-pedidos']);
   }
@@ -66,6 +75,8 @@ export class MenuMozoPage implements OnInit {
   logOut() {
     this.userService.logout()
       .then(() => {
+        this.currentAudio = this.audioInicioSesion;
+        this.playAudio(this.audioInicioSesion);
         this.router.navigate(['/login']);
       });
   }

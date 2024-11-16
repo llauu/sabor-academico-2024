@@ -30,7 +30,10 @@ export class MesaPage implements OnInit {
   mesa:boolean = false;
   userFullName: any;
   pedidoExistente : any = null;
-
+  private currentAudio: HTMLAudioElement | null = null;
+  loading!: HTMLIonLoadingElement;
+  public audioInicioSesion = new Audio('../../../../assets/logOut.mp3');
+  
 
   constructor(private firestoreService: FirestoreService, private userService: UserService, public router: Router, private pushNotification: PushNotificationsService) {
     addIcons({ logOutOutline });
@@ -451,10 +454,15 @@ export class MesaPage implements OnInit {
       }
     });
   }
-
+  playAudio(audio: HTMLAudioElement) {
+    audio.load();
+    audio.play().catch(err => console.error('Error al reproducir el audio:', err));
+  }
   logOut() {
     this.userService.logout()
       .then(() => {
+        this.currentAudio = this.audioInicioSesion;
+        this.playAudio(this.audioInicioSesion);
         this.router.navigate(['/login']);
       });
   }
