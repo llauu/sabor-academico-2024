@@ -67,3 +67,11 @@ Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del pr
 - **Gamma**<br> Las ramas comenzadas con "_JR__" seran pertenecientes a los avances desarrollados por el integrante _Gamma_.
 - **Alfa**<br> Las ramas comenzadas con "_LM__" seran pertenecientes a los avances desarrollados por el integrante _Alfa_.
 - **Beta**<br> Trabajará en la rama "_menu_" para desarrollar y probar nuevas funcionalidades de forma independiente. Una vez comprobado su correcto funcionamiento, integrará los cambios directamente en la rama "_main_".
+
+
+## QRs 🌐
+### - **Ingreso al local**
+![Alt text](./src/assets/qrs/ingreso.png)
+
+### - **Mesa uno**
+![Alt text](./src/assets/qrs/mesauno.png)
