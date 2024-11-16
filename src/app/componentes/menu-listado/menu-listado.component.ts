@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { sweetAlertConfig } from 'sweet-alert-config';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { PushNotificationsService } from 'src/app/services/push-notifications.service';
 
 @Component({
   selector: 'app-menu-listado',
@@ -30,7 +31,7 @@ export class MenuListadoComponent implements OnInit {
   selectedSection: string = 'cocina'; // Sección activa por defecto
 
 
-  constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
+  constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router, private pushN: PushNotificationsService) {}
 
   async ngOnInit() {
     this.userID = await this.userService.getId();
@@ -201,6 +202,7 @@ export class MenuListadoComponent implements OnInit {
 
     try {
       const idPedido = await this.firestoreService.createDocument("listaPedidos", pedido);
+      this.pushN.sendNotificationToRole("Nuevo pedido!", "Hay un nuevo pedido esperando tu confirmación.", "mozo");
   
       this.router.navigate(['/menu-cliente-esperando', { idPedido }]);
     } catch (error) {

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Sabor académico</string>
-    <string name="title_activity_main">Sabor académico</string>
+    <string name="app_name">sabor-academico</string>
+    <string name="title_activity_main">sabor-academico</string>
     <string name="package_name">com.saboracademico.ljt</string>
     <string name="custom_url_scheme">com.saboracademico.ljt</string>
 </resources>
