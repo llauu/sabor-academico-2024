@@ -157,7 +157,8 @@ export class MenuClienteEsperandoPage implements OnInit {
 
 
   async simulacionPago() {
-    this.pedido = await this.firestoreService.getPedidoPorUserID('1jqyeXYCmWfc7et0Ab8nCpoOsuX2');
+    // Pedido para debugear
+    // this.pedido = await this.firestoreService.getPedidoPorUserID('1jqyeXYCmWfc7et0Ab8nCpoOsuX2');
 
     const allProducts = [
       ...this.pedido.cocina.productos,
