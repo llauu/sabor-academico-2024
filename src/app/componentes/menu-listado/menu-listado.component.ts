@@ -33,9 +33,9 @@ export class MenuListadoComponent implements OnInit {
   constructor(private firestoreService: FirestoreService, private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    //this.userID = await this.userService.getId();
-   // this.userFullName = await this.userService.getName();
-    //this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
+    this.userID = await this.userService.getId();
+   this.userFullName = await this.userService.getName();
+    this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
     this.productos = await this.firestoreService.getProductos();
     this.productosBar = this.productos.filter(producto => producto.sector === 'bar');
     this.productosCocina = this.productos.filter(producto => producto.sector === 'cocina');
