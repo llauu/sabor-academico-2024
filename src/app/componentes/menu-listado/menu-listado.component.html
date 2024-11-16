@@ -7,7 +7,7 @@
   <!-- Resumen del Total -->
   <section class="summary">
     <p class="total">Total: {{ getTotalPrice() | currency }}</p>
-    <p class="total-time">Tiempo estimado: {{ getTotalTime() }} minutos</p>
+    <p class="total-time" *ngIf="getTotalTime()>0">Tiempo estimado: {{ getTotalTime() }} minutos</p>
   </section>
 
   <!-- Selector de Sección -->
@@ -78,5 +78,5 @@
   <div class="btn-logout" (click)="confirmLogout()">
     <ion-icon name="log-out-outline"></ion-icon>
   </div>
-  
+
 </ion-content>
