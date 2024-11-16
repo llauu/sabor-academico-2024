@@ -46,7 +46,7 @@ export class MesaPage implements OnInit {
       this.currentAudio = this.audio;
       this.playAudio(this.audio);
       this.userID = await this.userService.getId();
-      this.userFullName= await this.userService.getName();
+      this.userFullName = await this.userService.getName();
       console.log(this.userID);
       console.log(this.userFullName);
 

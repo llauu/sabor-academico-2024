@@ -18,6 +18,12 @@ export class UserService {
     this.getState();
   }
   
+  setUserData(user: any) {
+    this.user = user;
+    this.userProfile = user;
+    this.logged = true;
+  }
+  
   getState() {
     return new Promise((resolve, reject) => {
       if(this.logged) {
@@ -69,6 +75,10 @@ export class UserService {
   }
 
   async getId(): Promise<string | null> {
+    if(this.user.tipoCliente == 'anonimo'){
+      return this.user.id;
+    }
+
     await this.getState(); // Espera a que `getState` se complete
 
     console.log(this.userProfile ? this.userProfile.id : null)
@@ -88,6 +98,10 @@ export class UserService {
   }
 
   async getName() {
+    if(this.user.tipoCliente == 'anonimo'){
+      return this.user.nombre;
+    }
+
     await this.getState(); // Espera a que `getState` se complete
     return this.user ? this.userProfile.nombre + ' ' + this.userProfile.apellido : null; 
   }

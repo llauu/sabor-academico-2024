@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { sweetAlertConfig } from 'sweet-alert-config';
 import { FcmService } from 'src/app/services/fcm.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class RegisterAnonymousComponent implements OnInit {
   
   miformulario: FormGroup;
 
-  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router, private firestoreService: FirestoreService, private fcm: FcmService) {
+  constructor(private fb: FormBuilder,protected authService: AuthService, private router: Router, private firestoreService: FirestoreService, private fcm: FcmService, private userService: UserService) {
     this.miformulario = this.fb.group({
       nombre: ['', Validators.required],
     }, );
@@ -85,6 +86,8 @@ export class RegisterAnonymousComponent implements OnInit {
   };
     try {
       const uid = await this.firestoreService.createDocument(`usuarios`, cliente );
+      
+      this.userService.setUserData(cliente);
 
       // Inicializamos push notifications
       this.fcm.init(uid);
