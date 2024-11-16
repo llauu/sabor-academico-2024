@@ -60,6 +60,7 @@ export class MenuClienteEsperandoPage implements OnInit {
 
   // Manejo del resultado del escaneo
   async onScanResult(result: string) {
+    
     console.log("aca en onScanResult")
 
     this.pedido = await this.firestoreService.getPedidoPorUserID(this.userID);
