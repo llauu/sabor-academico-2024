@@ -93,9 +93,6 @@ export class MenuClienteEsperandoPage implements OnInit {
 
 
   async registrarPropina(propina: string){
-
-    console.log("aca en registrarPropina")
-
     switch (propina) {
       case 'propina_malo':
         this.pedido.porcentajePropina = 0;

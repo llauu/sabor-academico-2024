@@ -13,8 +13,8 @@
           <ul class="pedido-lista">
             <li *ngFor="let pedido of pedidos" class="pedido-item">
               <div class="pedido-encabezado">
-                <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
-                <p><strong>Monto:</strong> ${{ pedido.precio }}</p>
+                <p><strong>Mesa </strong>{{ pedido.mesa }}</p>
+                <p><strong>${{ pedido.precio + pedido.propina }}</strong></p>
                 <div class="pedido-acciones">
                   <button (click)="confirmarPago(pedido.id)" class="accion-boton confirmar">✓</button>
                 </div>
