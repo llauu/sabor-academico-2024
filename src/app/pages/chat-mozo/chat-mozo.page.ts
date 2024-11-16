@@ -79,7 +79,7 @@ export class ChatMozoPage implements OnInit {
   sendMessage() {
     if (this.messageText !== '') {
       let col = collection(this.firestore, 'consultasMozos/chat/mensajes');
-      addDoc(col, { 'fecha': new Date(), 'email': this.user.email, 'usuario': this.nombreUsuario, 'mensaje': this.messageText })
+      addDoc(col, { 'fecha': new Date(), 'email': this.user.email, 'userID': this.user.uid, 'usuario': this.nombreUsuario, 'mensaje': this.messageText })
         .then(() => {
           this.pushNotifications.sendNotificationToRole('Has recibido una nueva consulta!', this.messageText, 'mozo');
         })
