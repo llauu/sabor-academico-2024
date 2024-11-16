@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { FirestoreService } from '../../services/firestore.service';
 import {SpinnerComponent} from '../../componentes/spinner/spinner.component'
+import { sweetAlertConfig } from 'sweet-alert-config';
 
 @Component({
   
@@ -20,10 +21,9 @@ export class LoginPage implements OnInit {
   loginForm: any;
   errorMsg: string = '';
   isLoading : boolean = false;
-  loading!: HTMLIonLoadingElement;
 
   private currentAudio: HTMLAudioElement | null = null;
-  constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router, private loadingCtrl: LoadingController) { 
+  constructor(private firestoreService: FirestoreService, public authService: AuthService, private userService: UserService, private router: Router) { 
     if(this.userService.getLogged()) {
       this.cargarMenuPorRol(this.userService.getRol());
     }
@@ -34,11 +34,6 @@ export class LoginPage implements OnInit {
       email: new FormControl('', [Validators.email, Validators.required]),
       pass: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
-
-    this.loadingCtrl.create()
-      .then(loading => {
-        this.loading = loading;
-      });
   }
 
   navigateRegister() {
@@ -62,11 +57,29 @@ async validarRegistroUsuario()
     }
     catch
     {
-      if(estadoCliente == "pendiente") this.errorMsg = `La cuenta aún no fue habilitada, se encuentra en estado ${estadoCliente}.` ;
-      else if(estadoCliente == "rechazado") this.errorMsg = `La habilitación de su cuenta fue rechazada.` ;
+      if(estadoCliente == "pendiente") {
+        this.alertaError('Cuenta pendiente', `Tu cuenta aún no fue habilitada, se encuentra en estado ${estadoCliente}.`);
+      } 
+      else if(estadoCliente == "rechazado") {
+        this.alertaError('Cuenta rechazada', `La habilitación de tu cuenta fue rechazada. Lo sentimos.`);
+      }
       throw new Error;
     }
 }
+
+  alertaError(title: string, text: string) {
+    sweetAlertConfig.fire({
+      title: title,
+      text: text,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      backdrop: `rgba(0,0,0,0.8)`,
+      didOpen: () => {
+        document.documentElement.classList.remove('swal2-height-auto');
+        document.body.classList.remove('swal2-height-auto');   
+      }
+    });   
+  }
 
  async onSubmit() {
   console.log("Antes de entrar");
@@ -95,24 +108,21 @@ async validarRegistroUsuario()
         .catch(err => {
           switch(err.code) {
             case 'auth/invalid-email': 
-              this.errorMsg = 'El correo electrónico no es válido.';
+              this.alertaError('Error', `El correo electrónico no es válido.`);
               break;
   
             case 'auth/missing-password': 
-              this.errorMsg = 'La contraseña no es válida.';
+              this.alertaError('Error', `La contraseña no es válida.`);
               break;
               
             case 'auth/invalid-credential': 
-              this.errorMsg = 'El correo electrónico o contraseña son incorrectos.';
+              this.alertaError('Error', `El correo electrónico o contraseña son incorrectos.`);
               break;
 
             default: 
-              this.errorMsg = 'Ocurrio un error en el inicio de sesión.';
+              this.alertaError('Error', `Ocurrio un error en el inicio de sesión.`);
               break;
           }
-        })
-        .finally(() => {
-          this.loading.dismiss();
         });
     }
   }
