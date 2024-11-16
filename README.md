@@ -69,9 +69,27 @@ Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del pr
 - **Beta**<br> Trabajará en la rama "_menu_" para desarrollar y probar nuevas funcionalidades de forma independiente. Una vez comprobado su correcto funcionamiento, integrará los cambios directamente en la rama "_main_".
 
 
-## QRs 🌐
+## QR's 🌐
 ### - **Ingreso al local**
 ![Alt text](./src/assets/qrs/ingreso.png)
 
 ### - **Mesa uno**
 ![Alt text](./src/assets/qrs/mesauno.png)
+
+### - **Mesa dos**
+![Alt text](./src/assets/qrs/mesados.png)
+
+### - **Mesa tres**
+![Alt text](./src/assets/qrs/mesatres.png)
+
+### - **Propina servicio excelente**
+![Alt text](./src/assets/qrs/propina_excelente.png)
+
+### - **Propina servicio muy bueno**
+![Alt text](./src/assets/qrs/propina_bueno.png)
+
+### - **Propina servicio bueno**
+![Alt text](./src/assets/qrs/propina_bueno.png)
+
+### - **Propina servicio malo**
+![Alt text](./src/assets/qrs/propina_malo.png)
