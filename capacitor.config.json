@@ -1,6 +1,6 @@
 {
     "appId": "com.saboracademico.ljt",
-    "appName": "sabor-academico",
+    "appName": "Sabor Académico",
     "webDir": "www",
     "bundledWebRuntime": false,
     "plugins": {
