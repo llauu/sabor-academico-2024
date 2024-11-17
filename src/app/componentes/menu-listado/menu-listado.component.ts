@@ -35,7 +35,7 @@ export class MenuListadoComponent implements OnInit {
 
   async ngOnInit() {
     this.userID = await this.userService.getId();
-   this.userFullName = await this.userService.getName();
+    this.userFullName = await this.userService.getName();
     this.mesa = await this.firestoreService.getMesaPorUserID(this.userID);
     this.productos = await this.firestoreService.getProductos();
     this.productosBar = this.productos.filter(producto => producto.sector === 'bar');
@@ -191,11 +191,11 @@ export class MenuListadoComponent implements OnInit {
       estado: "pendiente",
       cocina : {
         estado: "pendiente",
-        productos: productosFiltrados.filter(p => p.sector === "cocina")
+        productos: productosFiltrados.filter(p => p.sector === "cocina" && p.cantidad > 0)
       },
       bar: {
         estado: "pendiente",
-        productos: productosFiltrados.filter(p => p.sector === "bar")
+        productos: productosFiltrados.filter(p => p.sector === "bar" && p.cantidad > 0)
       },
       mesa: this.mesa.number
     }
