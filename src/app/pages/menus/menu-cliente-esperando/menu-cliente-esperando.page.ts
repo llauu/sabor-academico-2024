@@ -28,7 +28,6 @@ export class MenuClienteEsperandoPage implements OnInit {
   pedido: any;
   userID: any;
   cuenta: boolean = false;
-  recibido: boolean = false;
 
   estaViendoEncuesta: boolean = false;
   estaHaciendoEncuesta: boolean = false;
@@ -372,34 +371,29 @@ export class MenuClienteEsperandoPage implements OnInit {
         case 'listo para servir':
           titulo = 'Listo para servir';
           mensaje = 'Tu pedido está listo para ser servido.';
+          this.estadoPedido = 'servido';
+          break;
+  
+        case 'servido':
+          titulo = 'Pedido recibido';
+          mensaje = '¡Esperamos que disfrutes tu pedido!';
           this.estadoPedido = 'recibido';
           this.firestoreService.updateDocument(`listaPedidos/${this.pedido.id}`, { estado: 'recibido' });
           break;
-  
+          
         case 'recibido':
-          {
-            
-            if(!this.recibido){
-              titulo = 'Pedido recibido';
-              mensaje = '¡Esperamos que disfrutes tu pedido!';
-              this.recibido = true;
-              break;
-            }
-  
-            else {
-              this.cuenta = true;
-              titulo = 'Ingrese la propina';
-              mensaje = 'Se abrirá la cámara para escanear el código QR de la propina.';
-              this.scanner.stopScan();
-              this.pushN.sendNotificationToRole('Han pedido la cuenta!', `La mesa ${this.pedido.mesa} ha solicitado la cuenta.`, 'mozo');
-              break;
-            }
-          }
+
+          this.cuenta = true;
+          titulo = 'Cuenta solicitada. Ingrese la propina';
+          mensaje = 'Se abrirá la cámara para escanear el código QR de la propina.';
+          this.scanner.stopScan();
+          this.pushN.sendNotificationToRole('Han pedido la cuenta!', `La mesa ${this.pedido.mesa} ha solicitado la cuenta.`, 'mozo');
+          break;
+          
       }
+      
   
       if(this.estadoPedido == "recibido" && this.cuenta){
-
-        console.log("aca en este sweet alertsssss")
   
        sweetAlertConfig.fire({
             title: titulo,

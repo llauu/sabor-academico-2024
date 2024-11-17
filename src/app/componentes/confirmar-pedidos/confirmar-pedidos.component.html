@@ -8,37 +8,72 @@
       <div class="card">
         
         <div class="card-body">
-          <h2 class="title">Confirmación de Pedidos</h2>
-          <p class="subtitle">Pedidos en estado pendiente</p>
+          <h2 class="title">Manejo de Pedidos</h2>
 
-          <ul class="pedido-lista">
-            <li *ngFor="let pedido of pedidos" class="pedido-item">
-              <div class="pedido-encabezado">
-                <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
-                <div class="pedido-acciones">
-                  <button (click)="confirmarPedido(pedido.id)" class="accion-boton confirmar">✓</button>
-                  <button (click)="toggleDetalles(pedido)" class="accion-boton">
-                    {{ pedido.mostrarDetalles ? '▲' : '▼' }}
-                  </button>
+          <div>
+            <p class="subtitle">{{ pedidosPendientes.length > 0 ? "Pedidos pendientes" : "No hay pedidos pendientes"  }}</p>
+            <ul class="pedido-lista">
+              <li *ngFor="let pedido of pedidosPendientes" class="pedido-item">
+                <div class="pedido-encabezado">
+                  <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
+                  <div class="pedido-acciones">
+                    <button (click)="confirmarPedidoPendiente(pedido.id)" class="accion-boton confirmar">✓</button>
+                    <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                      {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                    </button>
+                  </div>
                 </div>
-              </div>
+  
+                <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
+                  <div *ngIf="pedido.cocina">
+                    <strong>Cocina</strong>
+                    <p *ngFor="let producto of pedido.cocina.productos">
+                      {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                    </p>
+                  </div>
+                  <div *ngIf="pedido.bar">
+                    <strong>Bar</strong>
+                    <p *ngFor="let producto of pedido.bar.productos">
+                      {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
 
-              <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
-                <div *ngIf="pedido.cocina">
-                  <strong>Cocina</strong>
-                  <p *ngFor="let producto of pedido.cocina.productos">
-                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
-                  </p>
+          <div>
+            <p class="subtitle">{{ pedidosParaServir.length > 0 ? "Pedidos listos para servir" : "No hay pedidos listos para servir"  }}</p>
+            <ul class="pedido-lista">
+              <li *ngFor="let pedido of pedidosParaServir" class="pedido-item">
+                <div class="pedido-encabezado">
+                  <p><strong>Mesa:</strong> {{ pedido.mesa }}</p>
+                  <div class="pedido-acciones">
+                    <button (click)="confirmarPedidoListoParaServir(pedido.id)" class="accion-boton confirmar">✓</button>
+                    <button (click)="toggleDetalles(pedido)" class="accion-boton">
+                      {{ pedido.mostrarDetalles ? '▲' : '▼' }}
+                    </button>
+                  </div>
                 </div>
-                <div *ngIf="pedido.bar">
-                  <strong>Bar</strong>
-                  <p *ngFor="let producto of pedido.bar.productos">
-                    {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
-                  </p>
+  
+                <div class="pedido-detalle" *ngIf="pedido.mostrarDetalles">
+                  <div *ngIf="pedido.cocina">
+                    <strong>Cocina</strong>
+                    <p *ngFor="let producto of pedido.cocina.productos">
+                      {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                    </p>
+                  </div>
+                  <div *ngIf="pedido.bar">
+                    <strong>Bar</strong>
+                    <p *ngFor="let producto of pedido.bar.productos">
+                      {{ producto.nombre }} <strong>x {{ producto.cantidad }}</strong>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>

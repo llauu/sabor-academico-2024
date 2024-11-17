@@ -12,21 +12,39 @@ import { PushNotificationsService } from 'src/app/services/push-notifications.se
   standalone: true,
 })
 export class ConfirmarPedidosComponent implements OnInit {
-  pedidos: any[] = [];
+  pedidosPendientes: any[] = [];
+  pedidosParaServir: any[] = [];
 
   constructor(private firestoreService: FirestoreService,   private router: Router, private pushN: PushNotificationsService) {}
 
   ngOnInit() {
+    console.log("acaaa 1");
+
     this.cargarPedidosPendientes();
+    this.cargarPedidosListosParaServir()
   }
   menuMozo(){
       this.router.navigate(['/menu-mozo'])
   }
 
   cargarPedidosPendientes() {
+    console.log("acaaa 2");
+    
     this.firestoreService.getPedidos().subscribe((pedidosData) => {
-      this.pedidos = pedidosData
+      console.log(pedidosData);
+      
+      this.pedidosPendientes = pedidosData
         .filter((pedido: any) => pedido.estado === 'pendiente')
+        .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
+    });
+  }
+
+  cargarPedidosListosParaServir() {
+    console.log("acaaa 3");
+
+    this.firestoreService.getPedidos().subscribe((pedidosData) => {
+      this.pedidosParaServir = pedidosData
+        .filter((pedido: any) => pedido.estado === 'listo para servir')
         .map((pedido) => ({ ...pedido, mostrarDetalles: false }));
     });
   }
@@ -35,7 +53,7 @@ export class ConfirmarPedidosComponent implements OnInit {
     pedido.mostrarDetalles = !pedido.mostrarDetalles;
   }
 
-  async confirmarPedido(pedidoId: string) {
+  async confirmarPedidoPendiente(pedidoId: string) {
     await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
       estado: 'derivado'
     });
@@ -45,9 +63,25 @@ export class ConfirmarPedidosComponent implements OnInit {
     await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
       'cocina.estado': 'derivado'
     });
-    this.pedidos = this.pedidos.filter(pedido => pedido.id !== pedidoId);
+    this.pedidosPendientes = this.pedidosPendientes.filter(pedido => pedido.id !== pedidoId);
 
     this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector de la cocina.', 'cocinero');
     this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector del bar.', 'bartender');
+  }
+
+  async confirmarPedidoListoParaServir(pedidoId: string) {
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      estado: 'servido'
+    });
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      'bar.estado': 'servido'
+    });
+    await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
+      'cocina.estado': 'servido'
+    });
+    this.pedidosPendientes = this.pedidosPendientes.filter(pedido => pedido.id !== pedidoId);
+
+    // this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector de la cocina.', 'cocinero');
+    // this.pushN.sendNotificationToRole('Nuevo pedido!', 'Hay un nuevo pedido para preparar en el sector del bar.', 'bartender');
   }
 }

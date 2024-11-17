@@ -87,7 +87,7 @@ export class MenuEmpleadoPage implements OnInit {
           'bar.estado': 'listo para servir'
         });
 
-        this.pushN.sendNotificationToRole("Pedido listo para servir!", `Los productos del sector bar de la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
+        this.pushN.sendNotificationToRole("El sector bar ha finalizado!", `Los productos del sector para la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
       }
       else
       {
@@ -95,7 +95,7 @@ export class MenuEmpleadoPage implements OnInit {
           'cocina.estado': 'listo para servir'
         });
         
-        this.pushN.sendNotificationToRole("Pedido listo para servir!", `Los productos del sector cocina de la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
+        this.pushN.sendNotificationToRole("El sector cocina ha finalizado!", `Los productos del sector para la mesa ${pedido.mesa} están listos para ser servidos.`, "mozo");
       }
       await this.validarEstado(pedido.id);
 
@@ -111,6 +111,8 @@ export class MenuEmpleadoPage implements OnInit {
         await this.firestoreService.updateDocument(`listaPedidos/${pedidoId}`, {
           estado: 'listo para servir'
         });
+        this.pushN.sendNotificationToRole("Pedido listo para servir!", `Los productos de la mesa ${pedidoData.mesa} están listos para ser servidos.`, "mozo");
+
       }
     }}
 
