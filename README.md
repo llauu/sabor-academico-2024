@@ -88,9 +88,9 @@ Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del pr
 | ![inicio.-sesion](./src/assets/readme/menu-cocinero-bar.png) | ![registro](./src/assets/readme/menu-maitre.png) | ![registro-anonimo](./src/assets/readme/menu-admin.png) |
 
 ### Menu mozo
-| Menu mozo                                           | Menu maitre                                      | Menu supervisor/dueño                                   |
-| --------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------- |
-| ![inicio-sesion](./src/assets/readme/menu-mozo.png) | ![registro](./src/assets/readme/menu-maitre.png) | ![registro-anonimo](./src/assets/readme/menu-admin.png) |
+| Menu mozo                                           | Manejo pedidos                                           | Consultas al mozo                                      |
+| --------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------ |
+| ![inicio-sesion](./src/assets/readme/menu-mozo.png) | ![registro](./src/assets/readme/manejo-pedidos-mozo.png) | ![registro-anonimo](./src/assets/readme/chat-mozo.png) |
 
 ### Menu cliente
 | Menu cliente                                           | Menu                                      | Ver encuestas                                              |
