@@ -1,5 +1,12 @@
 # Sabor Académico 2024 🍽
 
+![sabor-academico-logo](./src/assets/bg_sabor.png)
+
+
+## ¿Qué es? 📲
+Sabor Académico es una aplicación móvil diseñada para la gestión y administración de pedidos en un restaurante. Ofrece a los clientes la posibilidad de registrarse y realizar sus pedidos al llegar al local, agilizando todo el proceso. Desde el momento en que el cliente realiza su pedido, la aplicación gestiona la asignación de mesas, la derivación de los pedidos a los sectores correspondientes, como cocina y bar, y el seguimiento de la preparación por parte del equipo de cocineros. Además, permite que los clientes realicen el pago de manera rápida y sencilla, ofreciendo una excelente experiencia gastronómica.
+
+
 ## Grupo 🧠
 - **[Alfa]** [Monserrat, Lautaro](https://github.com/llauu)
 - **[Beta]** [Faccini, Trinidad](https://github.com/trinifaccini)
@@ -53,8 +60,8 @@
 El proyecto fue **iniciado** el día 29 de octubre de 2024.
 
 
-## Fecha de finalizacion (estimada) 📆
-Estimamos **finalizar** el proyecto para el día 16 de noviembre de 2024.
+## Fecha de finalizacion 📆
+El proyecto fue **finalizado** el día 18 de noviembre de 2024.
 
 
 ## Ramas 🌿
@@ -67,6 +74,28 @@ Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del pr
 - **Gamma**<br> Las ramas comenzadas con "_JR__" seran pertenecientes a los avances desarrollados por el integrante _Gamma_.
 - **Alfa**<br> Las ramas comenzadas con "_LM__" seran pertenecientes a los avances desarrollados por el integrante _Alfa_.
 - **Beta**<br> Trabajará en la rama "_menu_" para desarrollar y probar nuevas funcionalidades de forma independiente. Una vez comprobado su correcto funcionamiento, integrará los cambios directamente en la rama "_main_".
+
+
+## Secciones 📃
+### Inicio de sesión y Registros
+| Inicio de sesión                                | Registro                                      | Registro de anónimo                                     |
+| ----------------------------------------------- | --------------------------------------------- | ------------------------------------------------------- |
+| ![inicio-sesion](./src/assets/readme/login.png) | ![registro](./src/assets/readme/register.png) | ![registro-anonimo](./src/assets/readme/register-a.png) |
+
+### Menu empleados
+| Menu cocineros                                               | Menu maitre                                      | Menu supervisor/dueño                                   |
+| ------------------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------------- |
+| ![inicio.-sesion](./src/assets/readme/menu-cocinero-bar.png) | ![registro](./src/assets/readme/menu-maitre.png) | ![registro-anonimo](./src/assets/readme/menu-admin.png) |
+
+### Menu mozo
+| Menu mozo                                           | Menu maitre                                      | Menu supervisor/dueño                                   |
+| --------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------- |
+| ![inicio-sesion](./src/assets/readme/menu-mozo.png) | ![registro](./src/assets/readme/menu-maitre.png) | ![registro-anonimo](./src/assets/readme/menu-admin.png) |
+
+### Menu cliente
+| Menu cliente                                           | Menu                                      | Ver encuestas                                              |
+| ------------------------------------------------------ | ----------------------------------------- | ---------------------------------------------------------- |
+| ![inicio-sesion](./src/assets/readme/menu-cliente.png) | ![registro](./src/assets/readme/menu.png) | ![registro-anonimo](./src/assets/readme/ver-encuestas.png) |
 
 
 ## QR's 🌐
