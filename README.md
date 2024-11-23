@@ -115,7 +115,7 @@ Utilizaremos ramas secundarias para desarrollar distintas funcionalidades del pr
 ![Alt text](./src/assets/qrs/propina_excelente.png)
 
 ### - **Propina servicio muy bueno**
-![Alt text](./src/assets/qrs/propina_bueno.png)
+![Alt text](./src/assets/qrs/propina_muy_bueno.png)
 
 ### - **Propina servicio bueno**
 ![Alt text](./src/assets/qrs/propina_bueno.png)
